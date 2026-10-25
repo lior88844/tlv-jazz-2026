@@ -1,4 +1,5 @@
 (function () {
+  document.documentElement.classList.add("js");
   // Published copy of the schedule tab ("ג'אז 2026 – לו\"ז לאתר (ציבורי)" in Drive).
   const SHEET_CSV = "https://docs.google.com/spreadsheets/d/1Cxua6aZYxJ8CCthvtaJc7cUPqcfAgxoieajsiCifOXE/pub?gid=1205429231&single=true&output=csv";
   const CACHE_KEY = "jazz26-live";
@@ -36,18 +37,26 @@
   const pxPerMin = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--px-min")) || 3.2;
   const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+  /* ---------- reveal on scroll ---------- */
+  const revealObs = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    for (const en of entries) if (en.isIntersecting) { en.target.classList.add("in"); revealObs.unobserve(en.target); }
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.15 }) : null;
+  const reveal = (el) => { el.classList.add("reveal"); revealObs ? revealObs.observe(el) : el.classList.add("in"); };
+
   /* ---------- headliners ---------- */
   function renderHeadliners() {
+    const keepIn = document.querySelectorAll("#hl-list li.in").length > 0;
     const HL = window.HEADLINERS || {};
     const order = Object.keys(HL);
     const COLORS = ["c-yellow", "c-cream", "c-blue", "c-pink", "c-yellow"];
     const heads = DATA.filter((s) => s.kind === "head").sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
     $("#hl-list").innerHTML = heads.map((s, i) => {
       const [main, sub] = String(s.en || s.name).split(" · ");
-      return `<li class="${COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
+      return `<li class="${COLORS[i % 5]} reveal" style="--i:${i}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
         `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></li>`;
     }).join("");
+    document.querySelectorAll("#hl-list li").forEach((li) => keepIn ? li.classList.add("in") : revealObs && revealObs.observe(li));
   }
 
   /* ---------- live schedule from the Google Sheet ---------- */
@@ -124,7 +133,7 @@
   const starBtn = (s) => `<button class="star" data-id="${s.id}" aria-pressed="${favs.has(s.id)}" aria-label="${favs.has(s.id) ? "הסרה מהליינאפ שלי" : "הוספה לליינאפ שלי"}">${STAR_SVG}</button>`;
 
   /* ---------- grid ---------- */
-  function renderGrid() {
+  function renderGrid(animate) {
     const px = pxPerMin();
     const d = DAYS[day];
     const width = (DAY_END - d.start) * px;
@@ -140,8 +149,9 @@
       html += `<div class="row"><div class="stage">${esc(st)}</div><div class="lane" style="width:${width + 16}px">`;
       for (const s of shows.filter((x) => x.stage === st)) {
         const w = (s.end - s.start) * px - 4;
-        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : ""].join(" ");
-        html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px" ` +
+        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
+        const delay = Math.round(((s.start - d.start) / (DAY_END - d.start)) * 260 + stages.indexOf(st) * 45);
+        html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px;--d:${delay}ms" ` +
           `role="button" tabindex="0" aria-label="פרטים: ${esc(s.name)}, ${hhmm(s.start)} עד ${hhmm(s.end)}, ${esc(s.stage)}">` +
           `<span class="top">${starBtn(s)}<span class="nm">${esc(s.name)}</span></span>` +
           `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></div>`;
@@ -154,20 +164,21 @@
   }
 
   /* ---------- my lineup ---------- */
-  function renderMine() {
+  function renderMine(animate) {
+    let n = 0;
     const list = DATA.filter((s) => favs.has(s.id));
     if (!list.length) {
-      $("#mine-view").innerHTML = `<div class="empty"><span class="big">★</span>עוד לא סימנתם הופעות.<br>הקישו על ☆ ליד הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.</div>`;
+      $("#mine-view").innerHTML = `<div class="empty ${animate ? "enter" : ""}"><span class="big">★</span>עוד לא סימנתם הופעות.<br>הקישו על ☆ ליד הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.</div>`;
       return;
     }
     let html = "";
     for (const k of Object.keys(DAYS)) {
       const items = list.filter((s) => s.day === k).sort((a, b) => a.start - b.start);
       if (!items.length) continue;
-      html += `<h3 class="mv-day">${DAYS[k].name} ${DAYS[k].date}</h3>`;
+      html += `<h3 class="mv-day ${animate ? "enter" : ""}" style="--i:${n++}">${DAYS[k].name} ${DAYS[k].date}</h3>`;
       for (const s of items) {
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
-        html += `<div class="mv-item s-${stageIdx(s.stage)}" data-id="${s.id}" role="button" tabindex="0"><div class="mv-time">${hhmm(s.start)}</div>` +
+        html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}" role="button" tabindex="0"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
           `<div class="mv-meta">${esc(s.stage)} · עד ${hhmm(s.end)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
           `${starBtn(s)}</div>`;
@@ -185,7 +196,7 @@
     day = k; store.set(DAY_KEY, k);
     document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.day === k)));
     if (mineOn) setMine(false);
-    renderGrid();
+    renderGrid(true);
     $("#scroller").scrollLeft = 0;
   }
   function setMine(on) {
@@ -194,7 +205,7 @@
     $("#grid-view").hidden = on;
     $("#mine-view").hidden = !on;
     document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(!on && b.dataset.day === day)));
-    if (on) renderMine();
+    if (on) renderMine(true); else renderGrid(true);
   }
   let toastT, favPop = null;
   function toast(msg) {
@@ -270,6 +281,7 @@
   function openArtist(id) {
     const first = !dlg.open;
     openId = id; renderArtist();
+    const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
     if (first) {
       dlg.showModal();
       try { history.pushState({ artist: id }, ""); } catch (e) {}
@@ -284,7 +296,7 @@
   dlg.addEventListener("click", (e) => {
     if (e.target === dlg || e.target.closest(".a-close")) return closeArtist();
     const fav = e.target.closest(".a-fav");
-    if (fav) { toggle(fav.dataset.id); refresh(); renderArtist(); return; }
+    if (fav) { toggle(fav.dataset.id); refresh(); $("#artist-body").classList.remove("fresh"); renderArtist(); return; }
     const other = e.target.closest(".a-same-item");
     if (other) openArtist(other.dataset.id);
   });
@@ -300,6 +312,7 @@
   $("#controls").before(sentinel);
   new IntersectionObserver(([en]) => $("#controls").classList.toggle("stuck", !en.isIntersecting)).observe(sentinel);
 
+  document.querySelectorAll(".section-title, .about p, .hint").forEach(reveal);
   renderHeadliners();
   setDay(day);
   updateCount(false);

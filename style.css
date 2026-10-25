@@ -198,10 +198,9 @@ button { font: inherit; color: inherit; }
 .star svg, .a-star svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
 .star[aria-pressed="true"] svg { fill: currentColor; }
 .s-3 .star[aria-pressed="true"], .s-4 .star[aria-pressed="true"], .s-5 .star[aria-pressed="true"] { color: var(--yellow); }
-.pop .star svg, .a-fav.on .a-star svg { animation: pop .35s ease; }
+.a-fav.on .a-star svg { animation: pop .45s cubic-bezier(.34, 1.56, .64, 1); }
 .show.fav { box-shadow: 0 0 0 3.5px var(--brown) inset; }
 .s-3.fav, .s-4.fav, .s-5.fav { box-shadow: 0 0 0 3.5px var(--yellow) inset; }
-@keyframes pop { 50% { transform: scale(1.6) rotate(20deg); } }
 .show.head .nm { font-weight: 900; font-size: 14px; }
 .show.dj { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.18) 0 6px, transparent 6px 12px); }
 .show.dj .tm::after { content: " · תקלוט"; }
@@ -341,3 +340,72 @@ button { font: inherit; color: inherit; }
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 .nw { white-space: nowrap; }
+
+/* ---------- Micro animations ---------- */
+:root { --ease-out: cubic-bezier(.22, 1, .36, 1); --ease-spring: cubic-bezier(.34, 1.56, .64, 1); }
+
+/* hero entrance */
+.poster img { animation: posterIn .9s var(--ease-out) both; }
+@keyframes posterIn { from { opacity: 0; transform: translateY(18px) scale(.97) rotate(-.6deg); } }
+.teder { animation: spinIn .8s .15s var(--ease-spring) both; transform-origin: 50% 50%; }
+@keyframes spinIn { from { opacity: 0; transform: rotate(-120deg) scale(.5); } }
+.pill-link { animation: popIn .55s .4s var(--ease-spring) both; transition: transform .2s var(--ease-out); display: inline-block; }
+@keyframes popIn { from { opacity: 0; transform: scale(.5); } }
+.pill-link:active { transform: scale(.94); }
+@media (hover: hover) { .pill-link:hover { transform: translateX(-3px) rotate(-2deg); } }
+
+/* scroll reveal */
+.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+.js .reveal.in { opacity: 1; transform: none; }
+.js .hl-list li.reveal { transform: translateX(-36px) rotate(-2.5deg); transition-delay: calc(var(--i) * 70ms); }
+.js .hl-list li.reveal:nth-child(even) { transform: translateX(36px) rotate(2.5deg); }
+.js .hl-list li.reveal.in { transform: none; }
+.hl-trumpet { animation: toot 3.2s ease-in-out infinite; transform-origin: 30% 80%; }
+@keyframes toot { 0%, 100% { transform: rotate(18deg); } 8% { transform: rotate(10deg) scale(1.04); } 16% { transform: rotate(20deg); } 24% { transform: rotate(14deg) scale(1.03); } 32% { transform: rotate(18deg); } }
+
+/* tabs + buttons */
+.tabs button, .mine, .a-fav, .a-cal, .a-close { transition: background-color .22s var(--ease-out), color .22s var(--ease-out), transform .15s var(--ease-out); }
+.tabs button:active, .mine:active, .a-fav:active, .a-cal:active, .a-close:active { transform: scale(.95); }
+.mine .count { transition: transform .3s var(--ease-spring); }
+.mine.bump .count { animation: countBump .45s var(--ease-spring); }
+@keyframes countBump { 40% { transform: scale(1.45); } }
+
+/* schedule blocks */
+.show.enter { animation: blockIn .45s var(--d, 0ms) var(--ease-out) both; }
+@keyframes blockIn { from { opacity: 0; transform: translateY(10px) scale(.96); } }
+@media (hover: hover) {
+  .show { transition: transform .18s var(--ease-out), box-shadow .18s var(--ease-out); }
+  .show:hover { transform: translateY(-2px); }
+}
+.star { transition: transform .15s var(--ease-out); }
+.star:active { transform: scale(.8); }
+.pop .star::after {
+  content: ""; position: absolute; inset: -2px; border-radius: 50%;
+  border: 2px solid currentColor; animation: ring .5s var(--ease-out) both; pointer-events: none;
+}
+@keyframes ring { from { transform: scale(.4); opacity: .9; } to { transform: scale(2.1); opacity: 0; } }
+.pop .star svg { animation: pop .45s var(--ease-spring); }
+@keyframes pop { 0% { transform: scale(.6); } 50% { transform: scale(1.45) rotate(18deg); } 100% { transform: none; } }
+
+/* my lineup list */
+.mv-item.enter, .mv-day.enter, .empty.enter { animation: rise .45s calc(var(--i, 0) * 45ms) var(--ease-out) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+.mv-item { transition: transform .15s var(--ease-out); }
+.mv-item:active { transform: scale(.98); }
+.empty.enter .big { display: inline-block; animation: popIn .6s .15s var(--ease-spring) both; }
+
+/* artist window */
+.artist[open]::backdrop { animation: fadeIn .25s ease both; }
+@keyframes fadeIn { from { opacity: 0; } }
+.a-sheet { animation: up .38s var(--ease-out); }
+.fresh .a-head > *, .fresh .a-facts > div, .fresh .a-actions > *, .fresh .a-same { animation: rise .4s var(--ease-out) both; }
+.a-kind { animation-delay: .06s !important; } .a-name { animation-delay: .1s !important; } .a-en { animation-delay: .14s !important; }
+.a-facts > div:nth-child(1) { animation-delay: .16s; } .a-facts > div:nth-child(2) { animation-delay: .2s; } .a-facts > div:nth-child(3) { animation-delay: .24s; }
+.a-actions > :nth-child(1) { animation-delay: .26s; } .a-actions > :nth-child(2) { animation-delay: .3s; } .a-same { animation-delay: .34s; }
+
+/* toast */
+.toast { transition: transform .35s var(--ease-spring); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal, .js .hl-list li.reveal { opacity: 1 !important; transform: none !important; }
+}
