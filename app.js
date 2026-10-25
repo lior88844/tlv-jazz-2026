@@ -120,6 +120,9 @@
     } catch (e) { /* keep the built-in schedule */ }
   }
 
+  const STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.3l-5.8 3.1 1.2-6.5L2.6 9.4l6.5-.8z"/></svg>';
+  const starBtn = (s) => `<button class="star" data-id="${s.id}" aria-pressed="${favs.has(s.id)}" aria-label="${favs.has(s.id) ? "הסרה מהליינאפ שלי" : "הוספה לליינאפ שלי"}">${STAR_SVG}</button>`;
+
   /* ---------- grid ---------- */
   function renderGrid() {
     const px = pxPerMin();
@@ -137,22 +140,24 @@
       html += `<div class="row"><div class="stage">${esc(st)}</div><div class="lane" style="width:${width + 16}px">`;
       for (const s of shows.filter((x) => x.stage === st)) {
         const w = (s.end - s.start) * px - 4;
-        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : ""].join(" ");
-        html += `<button class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px" ` +
-          `aria-pressed="${favs.has(s.id)}" aria-label="${esc(s.name)}, ${hhmm(s.start)} עד ${hhmm(s.end)}, ${esc(s.stage)}">` +
-          `<span class="top"><span class="st" aria-hidden="true">★</span><span class="nm">${esc(s.name)}</span></span>` +
-          `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></button>`;
+        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : ""].join(" ");
+        html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px" ` +
+          `role="button" tabindex="0" aria-label="פרטים: ${esc(s.name)}, ${hhmm(s.start)} עד ${hhmm(s.end)}, ${esc(s.stage)}">` +
+          `<span class="top">${starBtn(s)}<span class="nm">${esc(s.name)}</span></span>` +
+          `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></div>`;
       }
       html += `</div></div>`;
     }
+    const sc = $("#scroller"), keep = sc.scrollLeft;
     $("#grid").innerHTML = html;
+    sc.scrollLeft = keep;
   }
 
   /* ---------- my lineup ---------- */
   function renderMine() {
     const list = DATA.filter((s) => favs.has(s.id));
     if (!list.length) {
-      $("#mine-view").innerHTML = `<div class="empty"><span class="big">★</span>עוד לא סימנתם הופעות.<br>הקישו על הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.</div>`;
+      $("#mine-view").innerHTML = `<div class="empty"><span class="big">★</span>עוד לא סימנתם הופעות.<br>הקישו על ☆ ליד הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.</div>`;
       return;
     }
     let html = "";
@@ -162,10 +167,10 @@
       html += `<h3 class="mv-day">${DAYS[k].name} ${DAYS[k].date}</h3>`;
       for (const s of items) {
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
-        html += `<div class="mv-item s-${stageIdx(s.stage)}"><div class="mv-time">${hhmm(s.start)}</div>` +
+        html += `<div class="mv-item s-${stageIdx(s.stage)}" data-id="${s.id}" role="button" tabindex="0"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
           `<div class="mv-meta">${esc(s.stage)} · עד ${hhmm(s.end)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
-          `<button class="mv-rm" data-id="${s.id}" aria-label="הסרה מהליינאפ שלי">★</button></div>`;
+          `${starBtn(s)}</div>`;
       }
     }
     $("#mine-view").innerHTML = html;
@@ -191,7 +196,7 @@
     document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(!on && b.dataset.day === day)));
     if (on) renderMine();
   }
-  let toastT;
+  let toastT, favPop = null;
   function toast(msg) {
     const t = $("#toast"); t.textContent = msg; t.classList.add("on");
     clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("on"), 1600);
@@ -204,21 +209,89 @@
     updateCount(on);
     if (navigator.vibrate) navigator.vibrate(on ? 12 : 6);
     toast(on ? "★ נוסף לליינאפ שלי" : "הוסר מהליינאפ שלי");
+    favPop = on ? id : null;
     return on;
   }
 
   /* ---------- events ---------- */
   $("#tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) setDay(b.dataset.day); });
   $("#mine").addEventListener("click", () => setMine(!mineOn));
-  $("#grid").addEventListener("click", (e) => {
-    const b = e.target.closest(".show"); if (!b) return;
-    const on = toggle(b.dataset.id);
-    b.classList.toggle("fav", on); b.setAttribute("aria-pressed", String(on));
+  // star = favorite, anywhere else on the block = artist details
+  function onListClick(e) {
+    const star = e.target.closest(".star");
+    if (star) { e.stopPropagation(); toggle(star.dataset.id); refresh(); return; }
+    const item = e.target.closest("[data-id]");
+    if (item) openArtist(item.dataset.id);
+  }
+  function onListKey(e) {
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches("[role=button][data-id]")) { e.preventDefault(); openArtist(e.target.dataset.id); }
+  }
+  for (const el of [$("#grid"), $("#mine-view")]) { el.addEventListener("click", onListClick); el.addEventListener("keydown", onListKey); }
+
+  /* ---------- artist details ---------- */
+  const dlg = $("#artist");
+  let openId = null;
+  function calLink(s) {
+    const t = (m) => {
+      const base = new Date(DAYS[s.day].iso + "T00:00:00Z"); base.setUTCMinutes(m);
+      return base.toISOString().slice(0, 16).replace(/[-:]/g, "") + "00";
+    };
+    const q = new URLSearchParams({
+      action: "TEMPLATE", text: `${s.name} · פסטיבל הג'אז תל אביב-יפו`,
+      dates: `${t(s.start)}/${t(s.end)}`, ctz: "Asia/Jerusalem",
+      location: `בית רומנו, דרך יפו 9, תל אביב-יפו (${s.stage})`,
+    });
+    return "https://calendar.google.com/calendar/render?" + q.toString();
+  }
+  function renderArtist() {
+    const s = DATA.find((x) => x.id === openId); if (!s) return;
+    const fav = favs.has(s.id);
+    const info = (window.ARTIST_INFO || {})[s.name];
+    const same = DATA.filter((o) => o.day === s.day && o.id !== s.id && o.start < s.end && s.start < o.end);
+    $("#artist-body").innerHTML =
+      `<div class="a-head s-${stageIdx(s.stage)} ${s.kind}">` +
+        `<span class="a-kind">${s.kind === "dj" ? "תקלוט" : s.kind === "head" ? "הדליינר" : "הופעה"}</span>` +
+        `<h3 class="a-name" id="artist-title">${esc(s.name)}</h3>` +
+        (s.en ? `<p class="a-en">${esc(s.en)}</p>` : "") +
+      `</div>` +
+      `<dl class="a-facts">` +
+        `<div><dt>יום</dt><dd>${DAYS[s.day].name} ${DAYS[s.day].date}</dd></div>` +
+        `<div><dt>שעה</dt><dd dir="ltr">${hhmm(s.start)}–${hhmm(s.end)}</dd></div>` +
+        `<div><dt>במה</dt><dd>${esc(s.stage)}</dd></div>` +
+      `</dl>` +
+      (info ? `<p class="a-info">${esc(info)}</p>` : "") +
+      `<div class="a-actions">` +
+        `<button class="a-fav ${fav ? "on" : ""}" data-id="${s.id}"><span class="a-star">${STAR_SVG}</span>${fav ? "בליינאפ שלי" : "הוספה לליינאפ שלי"}</button>` +
+        `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">הוספה ליומן</a>` +
+      `</div>` +
+      (same.length ? `<div class="a-same"><h4>באותו זמן</h4>` + same.map((o) =>
+        `<button class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(o.stage)} · <span dir="ltr">${hhmm(o.start)}–${hhmm(o.end)}</span></small></button>`).join("") + `</div>` : "");
+  }
+  function openArtist(id) {
+    const first = !dlg.open;
+    openId = id; renderArtist();
+    if (first) {
+      dlg.showModal();
+      try { history.pushState({ artist: id }, ""); } catch (e) {}
+    }
+    dlg.querySelector(".a-sheet").scrollTop = 0;
+  }
+  function closeArtist(fromHistory) {
+    if (!dlg.open) return;
+    dlg.close();
+    if (!fromHistory && history.state && history.state.artist) history.back();
+  }
+  dlg.addEventListener("click", (e) => {
+    if (e.target === dlg || e.target.closest(".a-close")) return closeArtist();
+    const fav = e.target.closest(".a-fav");
+    if (fav) { toggle(fav.dataset.id); refresh(); renderArtist(); return; }
+    const other = e.target.closest(".a-same-item");
+    if (other) openArtist(other.dataset.id);
   });
-  $("#mine-view").addEventListener("click", (e) => {
-    const b = e.target.closest(".mv-rm"); if (!b) return;
-    toggle(b.dataset.id); renderMine(); renderGrid();
-  });
+  dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeArtist(); });
+  addEventListener("popstate", () => closeArtist(true));
+
+  function refresh() { mineOn ? renderMine() : renderGrid(); favPop = null; }
 
   let lastPx = pxPerMin();
   addEventListener("resize", () => { const p = pxPerMin(); if (p !== lastPx) { lastPx = p; renderGrid(); } });

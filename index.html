@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>פסטיבל הג'אז תל אביב-יפו 2026</title>
 <meta name="description" content="פסטיבל הג'אז תל אביב-יפו · 19–21 בנובמבר 2026 · בית רומנו, דרך יפו 9 · הכניסה חופשית">
-<meta name="theme-color" content="#88181B">
+<meta name="theme-color" content="#2E170C">
 <meta property="og:title" content="פסטיבל הג'אז תל אביב-יפו 2026">
 <meta property="og:description" content="19–21 בנובמבר · בית רומנו, דרך יפו 9 · הכניסה חופשית">
 <meta property="og:image" content="assets/logo-cream.png">
@@ -35,6 +35,7 @@
     <span class="strip strip-blue">הכניסה חופשית</span>
   </div>
 
+  <div class="bands" aria-hidden="true"></div>
   <div class="characters">
     <img class="drummer" src="assets/drummer.png" alt="">
     <img class="trumpeter" src="assets/trumpeter.png" alt="">
@@ -42,7 +43,7 @@
 </header>
 
 <section class="about">
-  <p>שלושה ימים&nbsp;<i>/</i> עשרות הופעות ברחבי בית רומנו ופארק המסילה&nbsp;<i>/</i> אמנים בין־לאומיים&nbsp;<i>/</i> תקלוטים&nbsp;<i>/</i> דוכני אוכל</p>
+  <p>שלושה ימים&nbsp;<i>/</i> עשרות הופעות ברחבי בית רומנו ופארק המסילה&nbsp;<i>/</i> <span class="nw">אמנים בין־לאומיים</span>&nbsp;<i>/</i> תקלוטים&nbsp;<i>/</i> דוכני אוכל</p>
 </section>
 
 <section class="headliners" aria-labelledby="hl-title">
@@ -54,7 +55,7 @@
 <section class="schedule" id="schedule" aria-labelledby="sch-title">
   <div class="sch-head">
     <h2 id="sch-title" class="section-title dark">לו״ז</h2>
-    <p class="hint">הקישו על הופעה כדי לסמן <b>★</b> ולבנות את הליינאפ שלכם</p>
+    <p class="hint">הקישו על <b>☆</b> כדי להוסיף הופעה לליינאפ שלכם, ועל ההופעה עצמה לפרטים</p>
   </div>
 
   <div class="controls" id="controls">
@@ -90,6 +91,13 @@
   </div>
   <p class="credits">מנהל קהילה, תרבות וספורט | אגף התרבות והאמנויות | המחלקה למופעים</p>
 </footer>
+
+<dialog class="artist" id="artist" aria-labelledby="artist-title">
+  <div class="a-sheet">
+    <button class="a-close" aria-label="סגירה">✕</button>
+    <div id="artist-body"></div>
+  </div>
+</dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 

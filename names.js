@@ -74,3 +74,7 @@ window.HEADLINERS = {
  "Blue Break Beats – רון מגריל טריו פיצ'רינג ניל שוגרמן": "Blue Break Beats – Ron Magril Trio feat. Neal Sugarman",
  "אמה סמית' & יונתן ריקליס": "Emma Smith & Yonatan Riklis"
 };
+
+// תיאור קצר לכל אמן (אופציונלי) — יופיע בחלון הפרטים. המפתח = שם התצוגה.
+window.ARTIST_INFO = {
+};
