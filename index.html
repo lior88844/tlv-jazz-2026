@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>פסטיבל הג'אז תל אביב-יפו 2026</title>
+<meta name="description" content="פסטיבל הג'אז תל אביב-יפו · 19–21 בנובמבר 2026 · בית רומנו, דרך יפו 9 · הכניסה חופשית">
+<meta name="theme-color" content="#88181B">
+<meta property="og:title" content="פסטיבל הג'אז תל אביב-יפו 2026">
+<meta property="og:description" content="19–21 בנובמבר · בית רומנו, דרך יפו 9 · הכניסה חופשית">
+<meta property="og:image" content="assets/logo-cream.png">
+<link rel="icon" href="assets/logo-brown.png">
+<link rel="preload" href="fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero" id="top">
+  <img class="deco deco-moon" src="assets/moon.png" alt="">
+  <img class="deco deco-star" src="assets/star-blue.png" alt="">
+  <img class="deco deco-stars" src="assets/stars-cream.png" alt="">
+  <img class="deco deco-stars2" src="assets/stars-cream.png" alt="">
+
+  <div class="hero-top">
+    <img class="teder" src="assets/teder.png" alt="Teder">
+    <a class="pill-link" href="#schedule">ללו״ז ←</a>
+  </div>
+
+  <h1 class="logo"><img src="assets/logo-cream.png" alt="פסטיבל הג'אז תל אביב-יפו" width="615" height="760"></h1>
+  <p class="year">2026</p>
+
+  <div class="strips">
+    <span class="strip strip-yellow"><span dir="ltr">19–21</span> בנובמבר</span>
+    <span class="strip strip-cream">בית רומנו, דרך יפו 9</span>
+    <span class="strip strip-blue">הכניסה חופשית</span>
+  </div>
+
+  <div class="characters">
+    <img class="drummer" src="assets/drummer.png" alt="">
+    <img class="trumpeter" src="assets/trumpeter.png" alt="">
+  </div>
+</header>
+
+<section class="about">
+  <p>שלושה ימים&nbsp;<i>/</i> עשרות הופעות ברחבי בית רומנו ופארק המסילה&nbsp;<i>/</i> אמנים בין־לאומיים&nbsp;<i>/</i> תקלוטים&nbsp;<i>/</i> דוכני אוכל</p>
+</section>
+
+<section class="headliners" aria-labelledby="hl-title">
+  <h2 id="hl-title" class="section-title">ההדליינרים</h2>
+  <ul class="hl-list" id="hl-list"></ul>
+  <img class="hl-trumpet" src="assets/trumpet.png" alt="">
+</section>
+
+<section class="schedule" id="schedule" aria-labelledby="sch-title">
+  <div class="sch-head">
+    <h2 id="sch-title" class="section-title dark">לו״ז</h2>
+    <p class="hint">הקישו על הופעה כדי לסמן <b>★</b> ולבנות את הליינאפ שלכם</p>
+  </div>
+
+  <div class="controls" id="controls">
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" data-day="thu">חמישי <small>19.11</small></button>
+      <button role="tab" data-day="fri">שישי <small>20.11</small></button>
+      <button role="tab" data-day="sat">שבת <small>21.11</small></button>
+    </div>
+    <button class="mine" id="mine" aria-pressed="false"><span class="mine-star">★</span> הליינאפ שלי <span class="count" id="count">0</span></button>
+  </div>
+
+  <div id="grid-view">
+    <div class="scroller" id="scroller">
+      <div class="grid" id="grid"></div>
+    </div>
+    <div class="legend">
+      <span><i class="lg lg-live"></i>הופעה</span>
+      <span><i class="lg lg-dj"></i>תקלוט</span>
+      <span class="swipe">← גללו לצדדים</span>
+    </div>
+  </div>
+
+  <div id="mine-view" hidden></div>
+</section>
+
+<footer class="footer">
+  <img class="logo-small" src="assets/logo-cream.png" alt="" width="615" height="760">
+  <p class="f-dates"><span dir="ltr">19–21</span> בנובמבר 2026<br>בית רומנו, דרך יפו 9<br>הכניסה חופשית</p>
+  <p class="f-note">הלו״ז עשוי להשתנות</p>
+  <div class="partners">
+    <img src="assets/teder.png" alt="Teder" class="p-teder">
+    <img src="assets/jameson.png" alt="Jameson" class="p-jameson">
+  </div>
+  <p class="credits">מנהל קהילה, תרבות וספורט | אגף התרבות והאמנויות | המחלקה למופעים</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
