@@ -1,5 +1,8 @@
 (function () {
-  const DATA = window.SCHEDULE || [];
+  // Published copy of the schedule tab ("ג'אז 2026 – לו\"ז לאתר (ציבורי)" in Drive).
+  const SHEET_CSV = "https://docs.google.com/spreadsheets/d/1Cxua6aZYxJ8CCthvtaJc7cUPqcfAgxoieajsiCifOXE/pub?gid=1205429231&single=true&output=csv";
+  const CACHE_KEY = "jazz26-live";
+  let DATA = window.SCHEDULE || [];
   const STAGES = ["רחבה", "רפי", "חואניטה", "קיסה", "מטמון", "רומנו", "נואיבה", "במה 2"];
   const DAYS = {
     thu: { name: "חמישי", date: "19.11", iso: "2026-11-19", start: 18 * 60 },
@@ -16,7 +19,9 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
   };
 
-  let favs = new Set(store.get(FAV_KEY, []).filter((id) => DATA.some((s) => s.id === id)));
+  const cached = store.get(CACHE_KEY, null);
+  if (cached && Array.isArray(cached) && cached.length) DATA = cached;
+  let favs = new Set(store.get(FAV_KEY, []));
   let day = pickDay();
   let mineOn = false;
 
@@ -32,15 +37,88 @@
   const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   /* ---------- headliners ---------- */
-  const HL_ORDER = ["Margeeah", "Johnny", "Liraz", "Blue Break", "Emma"];
-  const HL_COLORS = ["c-yellow", "c-cream", "c-blue", "c-pink", "c-yellow"];
-  const heads = DATA.filter((s) => s.kind === "head")
-    .sort((a, b) => HL_ORDER.findIndex((k) => a.en.startsWith(k)) - HL_ORDER.findIndex((k) => b.en.startsWith(k)));
-  $("#hl-list").innerHTML = heads.map((s, i) =>
-    `<li class="${HL_COLORS[i % 5]}"><span class="en">${esc(s.en.split(" · ")[0])}</span>` +
-    (s.en.includes(" · ") ? `<span class="en sub">${esc(s.en.split(" · ")[1])}</span>` : "") +
-    `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></li>`
-  ).join("");
+  function renderHeadliners() {
+    const HL = window.HEADLINERS || {};
+    const order = Object.keys(HL);
+    const COLORS = ["c-yellow", "c-cream", "c-blue", "c-pink", "c-yellow"];
+    const heads = DATA.filter((s) => s.kind === "head").sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
+    $("#hl-list").innerHTML = heads.map((s, i) => {
+      const [main, sub] = String(s.en || s.name).split(" · ");
+      return `<li class="${COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
+        (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
+        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></li>`;
+    }).join("");
+  }
+
+  /* ---------- live schedule from the Google Sheet ---------- */
+  function parseCSV(text) {
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+        else f += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(f); f = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        row.push(f); rows.push(row); row = []; f = "";
+      } else f += c;
+    }
+    if (f || row.length) { row.push(f); rows.push(row); }
+    return rows;
+  }
+  const WEEKDAY = { "חמישי": "thu", "שישי": "fri", "שבת": "sat" };
+  const toMin = (t) => { const [h, m] = t.split(":").map(Number); return (h < 6 ? h + 24 : h) * 60 + m; };
+  const norm = (t) => t.replace(/\s+/g, " ").trim().replace(/^[\s\-–]+|[\s\-–]+$/g, "");
+  function sheetToShows(rows) {
+    const ALIAS = window.NAME_ALIASES || {}, DJ = new Set(window.DJ_NAMES || []), HL = window.HEADLINERS || {};
+    const RANGE = /(\d{1,2}:\d\d)\s*[-–]\s*(\d{1,2}:\d\d)/;
+    const out = []; let dayKey = null, stages = [], rowTime = null;
+    for (const r of rows) {
+      const a = (r[0] || "").trim();
+      const wd = Object.keys(WEEKDAY).find((w) => a.startsWith(w + " "));
+      if (wd) { dayKey = WEEKDAY[wd]; stages = []; rowTime = null; continue; }
+      if (a === "שעה") { stages = r.map((x) => x.trim()); continue; }
+      if (/^\d{1,2}:\d\d$/.test(a)) rowTime = toMin(a); else continue;
+      if (!dayKey || !stages.length) continue;
+      for (let c = 1; c < stages.length; c++) {
+        const raw = (r[c] || "").trim(); const stage = stages[c];
+        if (!raw || !stage) continue;
+        const m = raw.match(RANGE);
+        const key = norm(raw.replace(RANGE, ""));
+        if (!key || stages.includes(key)) continue;
+        const name = key in ALIAS ? ALIAS[key] : key.replace(/\?+$/, "");
+        if (!name) continue;
+        const start = m ? toMin(m[1]) : rowTime;
+        const kind = name in HL ? "head" : (DJ.has(name) || /תקלוט|\bDJ\b/i.test(name) ? "dj" : "live");
+        const show = { day: dayKey, stage, name, start, end: m ? toMin(m[2]) : null, kind, id: `${dayKey}-${start}-${stage}` };
+        if (HL[name]) show.en = HL[name];
+        out.push(show);
+      }
+    }
+    // shows without an end time run until the next show on that stage, at most 1 hour
+    for (const s of out) {
+      const next = out.filter((o) => o.day === s.day && o.stage === s.stage && o.start > s.start).reduce((m, o) => Math.min(m, o.start), DAY_END);
+      if (s.end == null || s.end <= s.start) s.end = Math.min(s.start + 60, next);
+      s.end = Math.min(s.end, next);
+      if (s.end <= s.start) s.end = s.start + 30;
+    }
+    return out.sort((a, b) => Object.keys(DAYS).indexOf(a.day) - Object.keys(DAYS).indexOf(b.day) || a.start - b.start);
+  }
+  async function loadLive() {
+    try {
+      const res = await fetch(SHEET_CSV, { cache: "no-store" });
+      if (!res.ok) return;
+      const shows = sheetToShows(parseCSV(await res.text()));
+      if (shows.length < 5) return; // ignore empty or broken sheet
+      DATA = shows;
+      store.set(CACHE_KEY, shows);
+      renderHeadliners();
+      updateCount(false);
+      mineOn ? renderMine() : renderGrid();
+    } catch (e) { /* keep the built-in schedule */ }
+  }
 
   /* ---------- grid ---------- */
   function renderGrid() {
@@ -95,7 +173,7 @@
 
   /* ---------- state ---------- */
   function updateCount(bump) {
-    $("#count").textContent = favs.size;
+    $("#count").textContent = DATA.filter((s) => favs.has(s.id)).length;
     if (bump) { const b = $("#mine"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
   }
   function setDay(k) {
@@ -149,6 +227,8 @@
   $("#controls").before(sentinel);
   new IntersectionObserver(([en]) => $("#controls").classList.toggle("stuck", !en.isIntersecting)).observe(sentinel);
 
+  renderHeadliners();
   setDay(day);
   updateCount(false);
+  loadLive();
 })();
