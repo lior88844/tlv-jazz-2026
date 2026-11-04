@@ -896,3 +896,26 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 @media (max-width: 759px) { .hl-trumpet-r { right: -34px; } }
 @media (min-width: 760px) { .hl-trumpet-r { right: max(24px, calc(50% - 560px)); } }
 @media (prefers-reduced-motion: reduce) { .hl-trumpet-r { transform: scaleX(-1) rotate(18deg); } }
+
+/* desktop: trumpets tight to the screen edges */
+@media (min-width: 760px) {
+  .hl-trumpet { left: -8px; }
+  .hl-trumpet-r { right: -8px; }
+}
+/* wide screens: all five headliners on one line */
+@media (min-width: 1100px) {
+  .hl-list { max-width: 1400px; flex-wrap: nowrap !important; }
+  .hl-list li.hl-card, .hl-list li.hl-card:nth-child(even),
+  .hl-list li.hl-card:nth-child(4), .hl-list li.hl-card:nth-child(5) { width: 21% !important; margin: 0 -.6% !important; }
+  .hl-strip { margin-top: -44px; padding: 8px 12px 9px; }
+  .hl-strip .en { font-size: clamp(15px, 1.35vw, 21px); }
+  .hl-strip .en.sub { font-size: clamp(10px, .85vw, 12px); }
+  .headliners { padding-inline: 70px; }
+}
+@media (min-width: 1100px) {
+  .headliners { padding-inline: 150px; }
+  .hl-trumpet { width: 130px; bottom: 50%; transform-origin: 30% 80%; }
+}
+@media (min-width: 760px) { .hl-trumpet-r { right: -46px; } }
+@media (min-width: 1100px) { .headliners { padding-inline: 175px; } }
+@media (min-width: 760px) and (max-width: 1099px) { .hl-trumpet-r { right: 50px; } }
