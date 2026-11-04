@@ -55,7 +55,7 @@
       const en = String(s.en || "").toLowerCase();
       const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
       return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}" tabindex="0" role="button" aria-label="${esc(String(s.en || s.name).replace(" · ", " – "))}: פרטים">` +
-        (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp" alt="" loading="lazy">` : "") +
+        (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=2" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
         `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></div></li>`;
@@ -586,7 +586,7 @@
       const d = DAYS[k], [dd] = d.date.split(".");
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
       return `<div class="dc-wrap">` +
-        `<div class="dc-pop" aria-hidden="true">${(PICS[k] || []).map((p, j) => `<img src="assets/headliners/${p}.webp" alt="" style="--j:${j}">`).join("")}</div>` +
+        `<div class="dc-pop" aria-hidden="true">${(PICS[k] || []).map((p, j) => `<img src="assets/headliners/${p}.webp?v=2" alt="" style="--j:${j}">`).join("")}</div>` +
         `<button class="day-card reveal" data-day="${k}" style="--i:${n}">` +
         `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
