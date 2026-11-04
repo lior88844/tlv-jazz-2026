@@ -348,8 +348,7 @@
   const ORDER = { head: 0, live: 1, show: 2, dj: 3 };
   const DAY_ORDER = { thu: 0, fri: 1, sat: 2 };
   function renderArtists(animate) {
-    const list = LINEUP.map((e, i) => ({ e, i })).filter(({ e }) =>
-      arFilter === "all" ? true : arFilter === "dj" ? e.group === "dj" : e.day === arFilter);
+    const list = LINEUP.map((e, i) => ({ e, i }));
     list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
     $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
       const sh = showsFor(e)[0];
@@ -357,7 +356,7 @@
       const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
-      return `<li><button class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
+      return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><button class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
         `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></button></li>`;
     }).join("");
     dropObserve();
@@ -378,10 +377,65 @@
   }
   $("#ar-filters").addEventListener("click", (ev) => {
     const b = ev.target.closest("button[data-f]"); if (!b) return;
+    if (arFilter === b.dataset.f) return;
     arFilter = b.dataset.f;
     $("#ar-filters").querySelectorAll("button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    renderArtists(true);
+    applyFilter();
   });
+  function matches(day, group) { return arFilter === "all" ? true : arFilter === "dj" ? group === "dj" : day === arFilter; }
+
+  /* filter without re-dropping everything: leavers fall away, the rest slide into the gaps, newcomers drop in */
+  function applyFilter() {
+    const lis = [...document.querySelectorAll("#ar-list > li")];
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const first = new Map();
+    lis.forEach((li) => { if (!li.hidden) first.set(li, li.getBoundingClientRect()); });
+    const leaving = [], entering = [];
+    lis.forEach((li) => {
+      const want = matches(li.dataset.day, li.dataset.group);
+      if (!li.hidden && !want) leaving.push(li);
+      if (li.hidden && want) entering.push(li);
+    });
+    // leavers: a ghost copy falls off the pile while the real one leaves the layout
+    if (!calm) leaving.forEach((li, n) => {
+      const r = first.get(li), g = li.cloneNode(true);
+      Object.assign(g.style, { position: "fixed", left: r.left + "px", top: r.top + "px", width: r.width + "px", margin: 0, zIndex: 30, pointerEvents: "none", listStyle: "none" });
+      const src = li.firstElementChild, gb = g.firstElementChild, cs = getComputedStyle(src);
+      gb.classList.remove("drop", "wait");
+      Object.assign(gb.style, { background: cs.backgroundColor, color: cs.color, transform: cs.transform, animation: "none" });
+      g.querySelectorAll(".ar-name").forEach((n) => { n.style.setProperty("color", getComputedStyle(src.querySelector(".ar-name")).color, "important"); n.style.setProperty("font-size", getComputedStyle(src.querySelector(".ar-name")).fontSize, "important"); });
+      g.classList.add("ar-ghost"); document.body.appendChild(g);
+      const rot = (n % 2 ? 1 : -1) * (8 + (n % 3) * 4);
+      g.animate([{ transform: "translateY(0) rotate(0)", opacity: 1 },
+                 { transform: `translateY(${innerHeight * .35}px) rotate(${rot}deg)`, opacity: 0 }],
+                { duration: 520, delay: Math.min(n, 12) * 18, easing: "cubic-bezier(.5, 0, .9, .5)", fill: "forwards" }).onfinish = () => g.remove();
+    });
+    leaving.forEach((li) => { li.hidden = true; });
+    entering.forEach((li) => { li.hidden = false; });
+    if (calm) { entering.forEach((li) => li.firstElementChild.classList.remove("wait")); return; }
+    // stayers: slide from where they were to where they are now, landing with a small bounce
+    let k = 0;
+    lis.forEach((li) => {
+      if (li.hidden || !first.has(li)) return;
+      const a = first.get(li), b = li.getBoundingClientRect();
+      const dx = a.left - b.left, dy = a.top - b.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+      li.animate([
+        { transform: `translate(${dx}px, ${dy}px)` },
+        { transform: "translate(0, 0)", offset: .72, easing: "cubic-bezier(.2, .7, .4, 1)" },
+        { transform: "translate(0, -7px)", offset: .86, easing: "cubic-bezier(.6, 0, .8, .4)" },
+        { transform: "translate(0, 0)" },
+      ], { duration: 640, delay: 140 + Math.min(k++, 20) * 14, easing: "cubic-bezier(.55, 0, .85, .45)", fill: "backwards" });
+    });
+    // newcomers: drop in from above
+    entering.forEach((li, n) => {
+      const el = li.firstElementChild;
+      if (dropObs) dropObs.unobserve(el);
+      el.classList.remove("wait", "drop"); void el.offsetWidth;
+      el.style.setProperty("--d", (220 + Math.min(n, 20) * 45) + "ms");
+      el.classList.add("drop");
+    });
+  }
   $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest(".ar-item"); if (b) openLineup(+b.dataset.i); });
 
 

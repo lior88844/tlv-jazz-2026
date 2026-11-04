@@ -727,3 +727,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .ar-item { padding: 8px 14px 7px; clip-path: polygon(0 3%, 99.5% 0, 100% 96%, .5% 100%); }
 .ar-list li:nth-child(even) .ar-item { clip-path: polygon(.5% 0, 100% 3%, 99.5% 100%, 0 97%); }
 .ar-name { line-height: 1.12; }
+
+.ar-list li[hidden] { display: none !important; }
