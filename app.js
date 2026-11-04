@@ -56,7 +56,7 @@
       const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
       return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}">` +
         (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp" alt="" loading="lazy">` : "") +
-        `<div class="hl-strip ${pic === "liraz" ? "c-lpink" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
+        `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
         `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></div></li>`;
     }).join("");
