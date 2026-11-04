@@ -931,3 +931,11 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .hl-list li.hl-card:nth-child(4), .hl-list li.hl-card:nth-child(5) { width: 20.6% !important; margin: 0 -.3% !important; }
   .hl-strip .en { font-size: clamp(15px, 1.5vw, 24px); }
 }
+
+/* headliners sit right on top of the schedule; their name strips overlap onto the cream block */
+.headliners { overflow: visible !important; z-index: 3; padding-bottom: 0 !important; }
+.headliners > .deco { overflow: hidden; }
+.hl-list { margin-bottom: -26px !important; }
+.schedule { position: relative; z-index: 1; padding-top: 52px; }
+@media (min-width: 760px) { .hl-list { margin-bottom: -30px !important; } }
+.headliners { overflow-x: clip !important; overflow-y: visible !important; }
