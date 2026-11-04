@@ -409,3 +409,148 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .js .reveal, .js .hl-list li.reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* =========================================================
+   New sections: top menu, stage ribbon, day cards, artists, info
+   ========================================================= */
+:root { --nav-h: 52px; }
+.c-tan { background: var(--tan); color: var(--paper); }
+
+/* ---------- Sticky top menu (shows after the hero) ---------- */
+.topnav {
+  position: fixed; inset: 0 0 auto 0; z-index: 40; height: calc(var(--nav-h) + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 12px 0;
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(46, 23, 12, .94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transform: translateY(-110%); transition: transform .35s var(--ease-out);
+}
+.nav-on .topnav { transform: none; }
+.tn-home img { width: 30px; height: auto; }
+.tn-links { display: flex; gap: 5px; margin-inline-start: auto; overflow-x: auto; scrollbar-width: none; }
+.tn-links::-webkit-scrollbar { display: none; }
+.tn-links a {
+  flex: none; color: var(--cream); text-decoration: none; font-weight: 800; font-size: 13px;
+  border: 1.5px solid rgba(244, 238, 228, .55); border-radius: 999px; padding: 6px 10px;
+  transition: background-color .2s var(--ease-out), color .2s var(--ease-out), border-color .2s;
+}
+.tn-links a.on { background: var(--yellow); color: var(--brown); border-color: var(--yellow); }
+.nav-on .controls { top: var(--nav-h); }
+section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
+
+/* ---------- Stage ribbon ---------- */
+.ribbon {
+  position: relative; z-index: 2; overflow: hidden;
+  background: var(--pink); color: var(--brown);
+  margin: 14px -10px 0; padding: 11px 0 12px;
+  transform: rotate(-1.6deg);
+  box-shadow: 0 0 0 3px var(--brown);
+}
+.rb-track {
+  display: flex; width: max-content; align-items: center; gap: 18px;
+  font-weight: 900; font-size: clamp(22px, 6vw, 34px); line-height: 1; white-space: nowrap;
+  animation: marquee 32s linear infinite;
+}
+.rb-track i { font-style: normal; font-size: .6em; color: var(--red); }
+@keyframes marquee { to { transform: translateX(50%); } }   /* RTL: content flows right; track is doubled in JS */
+@media (hover: hover) { .ribbon:hover .rb-track { animation-play-state: paused; } }
+
+/* ---------- Day cards ---------- */
+.days { background: var(--brown); padding: 34px 16px 48px; }
+.day-cards { display: grid; gap: 14px; margin-top: 20px; }
+.day-card {
+  position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center;
+  width: 100%; text-align: right; border: 0; cursor: pointer; color: var(--brown);
+  padding: 16px 18px 16px 44px; border-radius: 18px;
+  transition: transform .2s var(--ease-out);
+}
+.day-card:nth-child(1) { background: var(--yellow); transform: rotate(-1deg); }
+.day-card:nth-child(2) { background: var(--pink);   transform: rotate(.8deg); }
+.day-card:nth-child(3) { background: var(--blue);   transform: rotate(-.6deg); }
+.day-card:active { transform: scale(.97); }
+@media (hover: hover) { .day-card:hover { transform: rotate(0) translateY(-3px); } }
+.dc-date {
+  grid-row: span 3; display: grid; place-items: center; width: 82px; height: 82px; border-radius: 50%;
+  background: var(--brown); color: var(--cream); text-align: center; line-height: 1;
+}
+.dc-date b { font-size: 30px; font-weight: 900; direction: ltr; }
+.dc-date small { display: block; font-size: 13px; font-weight: 700; margin-top: 4px; }
+.dc-day { font-weight: 900; font-size: 26px; line-height: 1; }
+.dc-heads { margin-top: 6px; direction: ltr; text-align: right; font-weight: 800; font-size: 14px; line-height: 1.3; text-transform: uppercase; }
+.dc-meta { margin-top: 6px; font-size: 13px; font-weight: 600; opacity: .8; }
+.dc-go { position: absolute; left: 16px; bottom: 12px; font-weight: 900; font-size: 20px; }
+
+/* ---------- Artists ---------- */
+.artists { background: var(--brown); color: var(--cream); padding: 40px 0 36px; }
+.artists .section-title, .artists .ar-hint { padding-inline: 16px; }
+.ar-filters {
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  padding: 18px 16px 6px; position: sticky; top: 0; z-index: 5; background: var(--brown);
+}
+.nav-on .ar-filters { top: var(--nav-h); }
+.ar-filters::-webkit-scrollbar { display: none; }
+.ar-filters button {
+  flex: none; border: 2px solid var(--cream); background: transparent; color: var(--cream);
+  border-radius: 999px; padding: 7px 14px; font-weight: 800; font-size: 15px; cursor: pointer;
+  transition: background-color .2s var(--ease-out), color .2s var(--ease-out), transform .15s var(--ease-out);
+}
+.ar-filters button small { font-weight: 500; font-size: 12px; }
+.ar-filters button[aria-selected="true"] { background: var(--cream); color: var(--brown); }
+.ar-filters button:active { transform: scale(.95); }
+.ar-list { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid rgba(244,238,228,.25); }
+.ar-list li { border-bottom: 1px solid rgba(244,238,228,.25); }
+.ar-item {
+  width: 100%; display: block; background: transparent; border: 0; cursor: pointer; color: inherit;
+  padding: 14px 16px 13px; text-align: center;
+  transition: background-color .2s var(--ease-out);
+}
+.ar-item:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
+.ar-name {
+  display: block; direction: ltr; font-weight: 900; text-transform: uppercase; line-height: 1.02;
+  font-size: clamp(22px, 6.4vw, 46px); letter-spacing: -.01em;
+}
+.ar-item.g-head .ar-name { font-size: clamp(28px, 8.4vw, 64px); }
+.ar-item.g-dj .ar-name { font-size: clamp(18px, 4.8vw, 32px); }
+.ar-sub { display: block; margin-top: 5px; font-size: 13px; font-weight: 700; opacity: .75; }
+.ar-list li:nth-child(5n+1) .ar-name { color: var(--yellow); }
+.ar-list li:nth-child(5n+2) .ar-name { color: var(--pink); }
+.ar-list li:nth-child(5n+3) .ar-name { color: var(--blue); }
+.ar-list li:nth-child(5n+4) .ar-name { color: var(--cream); }
+.ar-list li:nth-child(5n+5) .ar-name { color: #F4B9B2; }
+@media (hover: hover) { .ar-item:hover { background: rgba(244,238,228,.07); } }
+.ar-item.enter { animation: rise .4s calc(var(--i, 0) * 25ms) var(--ease-out) both; }
+.ar-hint { margin: 14px 0 0; font-size: 13px; opacity: .65; text-align: center; }
+
+/* artist card extras (photo, bio) */
+.a-photo { position: relative; margin: 0; }
+.a-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px 22px 0 0; }
+.a-photo figcaption { position: absolute; left: 10px; bottom: 8px; font-size: 11px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+.a-photo + .a-head { border-radius: 0; }
+.a-note { margin: 12px 20px 0; font-size: 14px; font-weight: 700; opacity: .75; }
+
+/* ---------- Good to know ---------- */
+.info { background: var(--cream); padding: 40px 16px 44px; }
+.info-grid { display: grid; gap: 12px; margin-top: 20px; }
+.info-card { border-radius: 16px; padding: 16px 18px; box-shadow: 0 0 0 2px var(--brown) inset; }
+.info-card h3 { margin: 0; font-weight: 900; font-size: 20px; }
+.info-card p { margin: 6px 0 0; font-size: 16px; line-height: 1.5; }
+.info-link {
+  display: inline-block; margin-top: 10px; color: var(--brown); font-weight: 800; text-decoration: none;
+  border-bottom: 2px solid currentColor;
+}
+
+@media (min-width: 760px) {
+  .topnav { padding-inline: max(32px, calc(50% - 480px)); }
+  .tn-links a { font-size: 15px; padding: 7px 15px; }
+  .days, .info { padding-inline: max(32px, calc(50% - 480px)); }
+  .day-cards { grid-template-columns: repeat(3, 1fr); }
+  .day-card { grid-template-columns: 1fr; row-gap: 10px; padding: 22px 20px 44px; text-align: center; justify-items: center; }
+  .dc-date { grid-row: auto; }
+  .dc-heads { text-align: center; }
+  .info-grid { grid-template-columns: repeat(3, 1fr); }
+  .info-card:first-child { grid-column: span 2; }
+  .artists .section-title, .ar-filters, .ar-hint { padding-inline: max(32px, calc(50% - 480px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rb-track { animation: none !important; }
+  .ribbon { overflow-x: auto; }
+}

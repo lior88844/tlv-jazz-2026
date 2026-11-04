@@ -124,6 +124,7 @@
       DATA = shows;
       store.set(CACHE_KEY, shows);
       renderHeadliners();
+      renderArtists(false);
       updateCount(false);
       mineOn ? renderMine() : renderGrid();
     } catch (e) { /* keep the built-in schedule */ }
@@ -257,13 +258,15 @@
   function renderArtist() {
     const s = DATA.find((x) => x.id === openId); if (!s) return;
     const fav = favs.has(s.id);
-    const info = (window.ARTIST_INFO || {})[s.name];
+    const entry = lineupFor(s);
+    const meta = infoFor(entry, s.name);
+    const info = meta.bio;
     const same = DATA.filter((o) => o.day === s.day && o.id !== s.id && o.start < s.end && s.start < o.end);
-    $("#artist-body").innerHTML =
+    $("#artist-body").innerHTML = photoHTML(meta) +
       `<div class="a-head s-${stageIdx(s.stage)} ${s.kind}">` +
         `<span class="a-kind">${s.kind === "dj" ? "תקלוט" : s.kind === "head" ? "הדליינר" : "הופעה"}</span>` +
         `<h3 class="a-name" id="artist-title">${esc(s.name)}</h3>` +
-        (s.en ? `<p class="a-en">${esc(s.en)}</p>` : "") +
+        ((s.en || (entry && entry.en)) ? `<p class="a-en">${esc(s.en || entry.en)}</p>` : "") +
       `</div>` +
       `<dl class="a-facts">` +
         `<div><dt>יום</dt><dd>${DAYS[s.day].name} ${DAYS[s.day].date}</dd></div>` +
@@ -303,6 +306,103 @@
   dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeArtist(); });
   addEventListener("popstate", () => closeArtist(true));
 
+
+  /* ---------- lineup (official list) + artist info ---------- */
+  const LINEUP = window.LINEUP || [];
+  const GROUP_LABEL = { head: "הדליינר", live: "הופעה", show: "שואוקייס", dj: "תקלוט" };
+  function lineupFor(s) { return LINEUP.find((e) => e.day === s.day && e.show === s.name) || null; }
+  function infoFor(entry, heName) {
+    const I = window.ARTIST_INFO || {};
+    const v = (entry && I[entry.en]) || I[heName] || null;
+    if (!v) return {};
+    return typeof v === "string" ? { bio: v } : v;
+  }
+  function photoHTML(meta) {
+    return meta.photo ? `<figure class="a-photo"><img src="${esc(meta.photo)}" alt="">` +
+      (meta.credit ? `<figcaption>${esc(meta.credit)}</figcaption>` : "") + `</figure>` : "";
+  }
+  function showsFor(e) { return e.show ? DATA.filter((s) => s.day === e.day && s.name === e.show).sort((a, b) => a.start - b.start) : []; }
+
+  function openLineup(i) {
+    const e = LINEUP[i]; if (!e) return;
+    const sh = showsFor(e);
+    if (sh.length) return openArtist(sh[0].id);
+    const meta = infoFor(e);
+    openId = null;
+    $("#artist-body").innerHTML = photoHTML(meta) +
+      `<div class="a-head s-${e.group === "dj" ? 1 : e.group === "head" ? 0 : 2} ${e.group === "dj" ? "dj" : ""}">` +
+        `<span class="a-kind">${GROUP_LABEL[e.group]}</span>` +
+        `<h3 class="a-name" id="artist-title" dir="ltr" style="text-align:left">${esc(e.en)}</h3>` +
+      `</div>` +
+      `<dl class="a-facts"><div><dt>יום</dt><dd>${DAYS[e.day].name} ${DAYS[e.day].date}</dd></div>` +
+        `<div><dt>שעה</dt><dd>בקרוב</dd></div><div><dt>מקום</dt><dd>בית רומנו</dd></div></dl>` +
+      (e.note ? `<p class="a-note">${esc(e.note)}</p>` : "") +
+      (meta.bio ? `<p class="a-info">${esc(meta.bio)}</p>` : "");
+    const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
+    if (!dlg.open) { dlg.showModal(); try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
+    dlg.querySelector(".a-sheet").scrollTop = 0;
+  }
+
+  /* ---------- artists list ---------- */
+  let arFilter = "all";
+  const ORDER = { head: 0, live: 1, show: 2, dj: 3 };
+  const DAY_ORDER = { thu: 0, fri: 1, sat: 2 };
+  function renderArtists(animate) {
+    const list = LINEUP.map((e, i) => ({ e, i })).filter(({ e }) =>
+      arFilter === "all" ? true : arFilter === "dj" ? e.group === "dj" : e.day === arFilter);
+    list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
+    $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
+      const sh = showsFor(e)[0];
+      const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
+      const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
+      return `<li><button class="ar-item g-${e.group}${animate ? " enter" : ""}" style="--i:${Math.min(n, 24)}" data-i="${i}">` +
+        `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></button></li>`;
+    }).join("");
+  }
+  $("#ar-filters").addEventListener("click", (ev) => {
+    const b = ev.target.closest("button[data-f]"); if (!b) return;
+    arFilter = b.dataset.f;
+    $("#ar-filters").querySelectorAll("button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+    renderArtists(true);
+  });
+  $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest(".ar-item"); if (b) openLineup(+b.dataset.i); });
+
+  /* ---------- day cards ---------- */
+  function renderDays() {
+    $("#day-cards").innerHTML = Object.keys(DAYS).map((k) => {
+      const d = DAYS[k], [dd] = d.date.split(".");
+      const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
+      const live = LINEUP.filter((e) => e.day === k && e.group !== "dj").length;
+      const dj = LINEUP.filter((e) => e.day === k && e.group === "dj").length;
+      return `<button class="day-card reveal" data-day="${k}">` +
+        `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
+        `<span class="dc-day">${d.name}</span>` +
+        `<span class="dc-heads">${heads.join(" · ")}</span>` +
+        `<span class="dc-meta">${live} הופעות · ${dj} תקלוטים · ג׳אם חצות</span>` +
+        `<span class="dc-go" aria-hidden="true">←</span></button>`;
+    }).join("");
+    document.querySelectorAll(".day-card").forEach(reveal);
+  }
+  $("#day-cards").addEventListener("click", (ev) => {
+    const c = ev.target.closest(".day-card"); if (!c) return;
+    if (mineOn) setMine(false);
+    setDay(c.dataset.day);
+    $("#schedule").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
+
+  /* ---------- stage ribbon: double the track for a seamless loop ---------- */
+  const rb = $("#rb-track"); if (rb) { rb.innerHTML += rb.innerHTML; rb.querySelectorAll("span, i").forEach((el, n) => n >= rb.children.length / 2 && el.setAttribute("aria-hidden", "true")); }
+
+  /* ---------- top menu ---------- */
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([en]) => document.body.classList.toggle("nav-on", !en.isIntersecting), { rootMargin: "-60px 0px 0px 0px" }).observe($(".poster"));
+    const links = [...document.querySelectorAll(".tn-links a")];
+    const secObs = new IntersectionObserver((entries) => {
+      for (const en of entries) if (en.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id));
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    ["days", "schedule", "artists", "info"].forEach((id) => secObs.observe(document.getElementById(id)));
+  }
+
   function refresh() { mineOn ? renderMine() : renderGrid(); favPop = null; }
 
   let lastPx = pxPerMin();
@@ -314,6 +414,9 @@
 
   document.querySelectorAll(".section-title, .about p, .hint").forEach(reveal);
   renderHeadliners();
+  renderDays();
+  renderArtists(false);
+  document.querySelectorAll(".info-card").forEach(reveal);
   setDay(day);
   updateCount(false);
   loadLive();

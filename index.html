@@ -17,6 +17,16 @@
 </head>
 <body>
 
+<nav class="topnav" id="topnav" aria-label="ניווט">
+  <a class="tn-home" href="#top" aria-label="לראש העמוד"><img src="assets/logo-cream.png" alt="" width="615" height="760"></a>
+  <div class="tn-links">
+    <a href="#days">ערבים</a>
+    <a href="#schedule">לו״ז</a>
+    <a href="#artists">אמנים</a>
+    <a href="#info">מידע</a>
+  </div>
+</nav>
+
 <header class="hero" id="top">
   <div class="hero-top">
     <img class="teder" src="assets/teder.png" alt="Teder">
@@ -31,6 +41,12 @@
   </h1>
 </header>
 
+<div class="ribbon" aria-label="במות הפסטיבל">
+  <div class="rb-track" id="rb-track">
+    <span>בית רומנו</span><i>✦</i><span>פארק המסילה</span><i>✦</i><span>רחבה</span><i>✦</i><span>רפי</span><i>✦</i><span>חואניטה</span><i>✦</i><span>קיסה</span><i>✦</i><span>מטמון</span><i>✦</i><span>נואיבה</span><i>✦</i><span>במה 2</span><i>✦</i>
+  </div>
+</div>
+
 <section class="about">
   <p><b>שלושה ימים</b>&nbsp;<i>·</i> עשרות הופעות ברחבי בית רומנו ופארק המסילה&nbsp;<i>·</i> <span class="nw">אמנים בין־לאומיים</span>&nbsp;<i>·</i> תקלוטים&nbsp;<i>·</i> דוכני אוכל</p>
 </section>
@@ -39,6 +55,11 @@
   <h2 id="hl-title" class="section-title">ההדליינרים</h2>
   <ul class="hl-list" id="hl-list"></ul>
   <img class="hl-trumpet" src="assets/trumpet.png" alt="">
+</section>
+
+<section class="days" id="days" aria-labelledby="days-title">
+  <h2 id="days-title" class="section-title">שלושה ערבים</h2>
+  <div class="day-cards" id="day-cards"></div>
 </section>
 
 <section class="schedule" id="schedule" aria-labelledby="sch-title">
@@ -70,6 +91,46 @@
   <div id="mine-view" hidden></div>
 </section>
 
+<section class="artists" id="artists" aria-labelledby="ar-title">
+  <h2 id="ar-title" class="section-title">האמנים</h2>
+  <div class="ar-filters" role="tablist" id="ar-filters">
+    <button role="tab" data-f="all" aria-selected="true">כל הפסטיבל</button>
+    <button role="tab" data-f="thu">חמישי <small>19.11</small></button>
+    <button role="tab" data-f="fri">שישי <small>20.11</small></button>
+    <button role="tab" data-f="sat">שבת <small>21.11</small></button>
+    <button role="tab" data-f="dj">תקלוטים</button>
+  </div>
+  <ul class="ar-list" id="ar-list"></ul>
+  <p class="ar-hint">לחיצה על שם פותחת את כרטיס האמן</p>
+</section>
+
+<section class="info" id="info" aria-labelledby="info-title">
+  <h2 id="info-title" class="section-title dark">טוב לדעת</h2>
+  <div class="info-grid">
+    <div class="info-card c-yellow">
+      <h3>איפה</h3>
+      <p>בית רומנו, דרך יפו 9, ופארק המסילה. שמונה במות ומתחמים, מהרחבה הגדולה ועד קיסה.</p>
+      <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%91%D7%99%D7%AA+%D7%A8%D7%95%D7%9E%D7%A0%D7%95+%D7%93%D7%A8%D7%9A+%D7%99%D7%A4%D7%95+9+%D7%AA%D7%9C+%D7%90%D7%91%D7%99%D7%91" target="_blank" rel="noopener">למפה ←</a>
+    </div>
+    <div class="info-card c-pink">
+      <h3>כניסה</h3>
+      <p>הכניסה לכל ההופעות חופשית, על בסיס מקום פנוי.</p>
+    </div>
+    <div class="info-card c-blue">
+      <h3>כל לילה</h3>
+      <p>ג׳אם חצות בג׳אז קיסה, בכל אחד משלושת הלילות.</p>
+    </div>
+    <div class="info-card c-cream">
+      <h3>אוכל ושתייה</h3>
+      <p>דוכני אוכל לאורך כל ימי הפסטיבל.</p>
+    </div>
+    <div class="info-card c-tan">
+      <h3>בשבת</h3>
+      <p>הקרנה בשיתוף פסטיבל סאונדטראק: <span dir="ltr">Sonny Rollins: Saxophone Colossus</span>.</p>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <img class="logo-small" src="assets/logo-cream.png" alt="" width="615" height="760">
   <p class="f-dates"><span dir="ltr">19–21</span> בנובמבר 2026<br>בית רומנו, דרך יפו 9<br>הכניסה חופשית</p>
@@ -92,6 +153,8 @@
 
 <script src="data.js"></script>
 <script src="names.js"></script>
+<script src="lineup.js"></script>
+<script src="artists-info.js" onerror="void 0"></script>
 <script src="app.js"></script>
 </body>
 </html>
