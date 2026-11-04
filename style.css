@@ -989,3 +989,8 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .a-sheet::-webkit-scrollbar-track { background: transparent; margin-top: 24px; margin-bottom: 4px; }
 .a-sheet::-webkit-scrollbar-thumb { background: rgba(46, 23, 12, .55); border: 2px solid transparent; background-clip: padding-box; border-radius: 999px; }
 @media (min-width: 760px) { .a-sheet::-webkit-scrollbar-track { margin-bottom: 24px; } }
+
+/* the strips' overlap shows the cream schedule (headliners' brown stops where the schedule begins) */
+.headliners { --ov: 30px; background: linear-gradient(to bottom, var(--brown) calc(100% - var(--ov)), transparent calc(100% - var(--ov))) !important; }
+.hl-list { margin-bottom: calc(-1 * var(--ov)) !important; }
+@media (min-width: 760px) { .headliners { --ov: 34px; } }
