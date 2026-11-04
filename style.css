@@ -1071,3 +1071,22 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-wrap:hover .dc-pop img:nth-child(2) { transform: translateY(17%) rotate(3deg); }
   .dc-wrap:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(14%) rotate(-3deg); }
 }
+
+/* day cards: headliners rise up out of the bottom edge of the card, in front, poking out above the top */
+@media (min-width: 760px) {
+  .dc-pop {
+    top: -95px !important; bottom: 0 !important; height: auto !important; left: 0 !important; right: 0 !important;
+    z-index: 2 !important; overflow: hidden; border-radius: 0 0 18px 18px;
+  }
+  .dc-pop img { height: 100% !important; max-width: 60%; transform: translateY(100%) !important; }
+  .dc-wrap:hover .dc-pop img, .dc-wrap:focus-within .dc-pop img { transform: translateY(0) !important; opacity: 1; }
+  .dc-wrap:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(0) rotate(-2deg) !important; }
+  .dc-wrap:hover .dc-pop img:nth-child(2) { transform: translateY(4%) rotate(2deg) !important; }
+}
+@media (min-width: 760px) {
+  .dc-pop { justify-content: center; }
+  .dc-pop img { max-width: none !important; width: auto; flex: 0 0 auto; height: 100% !important; }
+  .dc-pop img + img { margin-inline-start: -32% !important; }
+}
+/* all of a day's artists pop together */
+@media (min-width: 760px) { .dc-pop img { transition-delay: 0s !important; } }
