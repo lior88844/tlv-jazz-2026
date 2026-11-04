@@ -825,3 +825,6 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .days > :not(.deco), .info > :not(.deco), .footer > :not(.deco), .headliners > :not(.deco):not(.hl-trumpet) { position: relative; z-index: 1; }
 .artists > .section-title, .artists > .ar-list, .artists > .ar-hint { position: relative; z-index: 1; }
 .deco img { animation: starIn .7s var(--d) var(--ease-spring) both, twinkle var(--t) calc(var(--d) + .7s) ease-in-out infinite; }
+@media (min-width: 760px) {
+  .ribbon-info { top: 56%; transform: rotate(5deg); }
+}
