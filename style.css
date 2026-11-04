@@ -808,3 +808,13 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 /* headliner photos: whole photo (no crop), all in the same-size frame */
 .hl-photo, .hl-card:nth-child(even) .hl-photo { object-fit: contain !important; object-position: 50% 100% !important; }
+
+/* footer legal line */
+.f-legal { margin: 14px 0 0; font-size: 12px; line-height: 1.7; opacity: .8; }
+.f-legal a { color: var(--yellow); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.f-legal a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+
+.hl-card:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: -1px; padding: 0; border: 0; }
+.headliners { padding-top: 26px; }
+.hl-list { margin-top: 0 !important; }

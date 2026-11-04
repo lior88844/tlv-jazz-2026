@@ -54,7 +54,7 @@
       const [main, sub] = String(s.en || s.name).split(" · ");
       const en = String(s.en || "").toLowerCase();
       const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
-      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}">` +
+      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}" tabindex="0" role="button" aria-label="${esc(String(s.en || s.name).replace(" · ", " – "))}: פרטים">` +
         (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
@@ -443,6 +443,7 @@
     });
   }
   $("#hl-list").addEventListener("click", (ev) => { const c = ev.target.closest(".hl-card"); if (c) openArtist(c.dataset.id); });
+  $("#hl-list").addEventListener("keydown", (ev) => { const c = ev.target.closest(".hl-card"); if (c && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); openArtist(c.dataset.id); } });
   $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest(".ar-item"); if (b) openLineup(+b.dataset.i); });
 
 
