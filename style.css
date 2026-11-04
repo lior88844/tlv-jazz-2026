@@ -780,3 +780,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .hl-list li.hl-card:nth-child(4), .hl-list li.hl-card:nth-child(5) { width: 40% !important; }
   .hl-strip { margin-top: -54px; padding: 9px 16px 10px; }
 }
+
+.c-lpink { background: #F4B9B2; }
