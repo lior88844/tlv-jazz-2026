@@ -836,3 +836,8 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .ribbon { top: 49%; }
   .ribbon-info { top: 52%; }
 }
+/* strips cross at the same spot as before (left of centre, behind the body); yellow is steeper, rising to the left */
+@media (min-width: 760px) {
+  .ribbon { transform: rotate(-7deg); top: 47%; }
+  .ribbon-info { transform: rotate(12deg); top: 61.3%; }
+}
