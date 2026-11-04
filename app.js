@@ -180,12 +180,12 @@
     for (const k of Object.keys(DAYS)) {
       const items = list.filter((s) => s.day === k).sort((a, b) => a.start - b.start);
       if (!items.length) continue;
-      html += `<h3 class="mv-day ${animate ? "enter" : ""}" style="--i:${n++}">${DAYS[k].name} ${DAYS[k].date}</h3>`;
+      html += `<h3 class="mv-day ${animate ? "enter" : ""}" style="--i:${n++}">${DAYS[k].name} <span>${DAYS[k].date}</span><small>${items.length} ${items.length === 1 ? "הופעה" : "הופעות"}</small></h3>`;
       for (const s of items) {
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
         html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}" role="button" tabindex="0"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
-          `<div class="mv-meta">${esc(s.stage)} · עד ${hhmm(s.end)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
+          `<div class="mv-meta">${esc(s.stage)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
           `${starBtn(s)}</div>`;
       }
     }
@@ -207,6 +207,8 @@
   function setMine(on) {
     mineOn = on;
     $("#mine").setAttribute("aria-pressed", String(on));
+    $("#controls").classList.toggle("mine-on", on);
+    const lbl = $("#mine .mine-label"); if (lbl) lbl.textContent = on ? "חזרה ללו״ז המלא" : "הליינאפ שלי";
     $("#grid-view").hidden = on;
     $("#mine-view").hidden = !on;
     document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(!on && b.dataset.day === day)));
@@ -579,17 +581,17 @@
   addEventListener("resize", () => schedulePlace(300));
   /* ---------- day cards ---------- */
   function renderDays() {
-    $("#day-cards").innerHTML = Object.keys(DAYS).map((k) => {
+    const PICS = { thu: ["margeeah", "johnny"], fri: ["bbb"], sat: ["liraz", "emma"] };
+    $("#day-cards").innerHTML = Object.keys(DAYS).map((k, n) => {
       const d = DAYS[k], [dd] = d.date.split(".");
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
-      const live = LINEUP.filter((e) => e.day === k && e.group !== "dj").length;
-      const dj = LINEUP.filter((e) => e.day === k && e.group === "dj").length;
-      return `<button class="day-card reveal" data-day="${k}" style="--i:${Object.keys(DAYS).indexOf(k)}">` +
+      return `<div class="dc-wrap">` +
+        `<div class="dc-pop" aria-hidden="true">${(PICS[k] || []).map((p, j) => `<img src="assets/headliners/${p}.webp" alt="" style="--j:${j}">`).join("")}</div>` +
+        `<button class="day-card reveal" data-day="${k}" style="--i:${n}">` +
         `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
         `<span class="dc-heads">${heads.join(" · ")}</span>` +
-        `<span class="dc-meta">${live} הופעות · ${dj} תקלוטים · ג׳אם חצות</span>` +
-        `<span class="dc-go" aria-hidden="true">←</span></button>`;
+        `<span class="dc-go" aria-hidden="true">←</span></button></div>`;
     }).join("");
     document.querySelectorAll(".day-card").forEach(reveal);
   }

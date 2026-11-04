@@ -1008,3 +1008,66 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 /* Dekel's stars sit behind the strips; the characters stay in front */
 .poster .poster-stars { position: absolute !important; top: 0; left: 0; width: 100%; height: auto; z-index: 0 !important; pointer-events: none; }
+
+/* ---------- "my lineup" view: calmer and clearer ---------- */
+.controls.mine-on .tabs { display: none; }
+.controls.mine-on { flex-direction: row; justify-content: center; }
+.controls.mine-on .mine { align-self: center; }
+#mine-view { padding: 6px 16px 10px; }
+.mv-day {
+  display: flex; align-items: baseline; gap: 8px; margin: 22px 0 10px; font-size: 22px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--brown);
+}
+.mv-day span { font-weight: 600; font-size: 16px; opacity: .7; }
+.mv-day small { margin-inline-start: auto; font-size: 13px; font-weight: 700; opacity: .65; }
+.mv-item.s-0 { --sc: var(--yellow); } .mv-item.s-1 { --sc: var(--pink); } .mv-item.s-2 { --sc: var(--blue); }
+.mv-item.s-3 { --sc: var(--tan); } .mv-item.s-4 { --sc: var(--red); } .mv-item.s-5 { --sc: var(--brown); }
+.mv-item.s-6 { --sc: var(--cyan); } .mv-item.s-7 { --sc: #F4B9B2; }
+.mv-item {
+  background: var(--paper) !important; color: var(--brown) !important;
+  box-shadow: 0 0 0 1.5px rgba(46, 23, 12, .18) inset !important;
+  border-inline-start: 8px solid var(--sc, var(--yellow));
+  border-radius: 12px; padding: 12px 12px 12px 10px; margin-bottom: 8px; gap: 12px;
+}
+.mv-time { font-size: 19px; min-width: 54px; text-align: right; }
+.mv-name { font-size: 16px; font-weight: 800; }
+.mv-meta { font-size: 13px; opacity: .75; }
+.mv-meta .clash { color: var(--red); opacity: 1; }
+.mv-item .star { color: var(--brown) !important; width: 26px; height: 26px; }
+.mv-item .star[aria-pressed="true"] svg { fill: var(--yellow); stroke: var(--brown); }
+@media (hover: hover) { .mv-item:hover { box-shadow: 0 0 0 2px var(--brown) inset !important; } }
+
+/* phones: only Dekel's own stars in the hero */
+@media (max-width: 759px) { #sky { display: none; } }
+
+/* ---------- day cards: that day's headliners pop up from behind the card on hover ---------- */
+.dc-wrap { position: relative; }
+.dc-wrap .day-card { position: relative; z-index: 1; }
+.dc-wrap:nth-child(1) .day-card { background: var(--yellow); --rot: -1deg; }
+.dc-wrap:nth-child(2) .day-card { background: var(--pink); --rot: .8deg; }
+.dc-wrap:nth-child(3) .day-card { background: var(--blue); --rot: -.6deg; }
+.dc-pop { display: none; }
+@media (min-width: 760px) {
+  .days { overflow: visible !important; }
+  .days > .deco { overflow: hidden; }
+  .dc-pop {
+    display: flex; justify-content: center; align-items: flex-end; gap: 0;
+    position: absolute; left: 6%; right: 6%; bottom: calc(100% - 30px); height: 170px; z-index: 0; pointer-events: none;
+  }
+  .dc-pop img {
+    height: 100%; width: auto; max-width: 62%; object-fit: contain; object-position: bottom;
+    transform: translateY(100%); opacity: 0;
+    transition: transform .55s cubic-bezier(.2, .9, .25, 1.25) calc(var(--j) * 70ms), opacity .25s ease calc(var(--j) * 70ms);
+  }
+  .dc-pop img + img { margin-inline-start: -14%; }
+  .dc-wrap:hover .dc-pop img, .dc-wrap:focus-within .dc-pop img { transform: translateY(28%); opacity: 1; }
+  .dc-wrap:hover .dc-pop img:nth-child(2) { transform: translateY(32%) rotate(3deg); }
+  .dc-wrap:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(28%) rotate(-3deg); }
+}
+@media (prefers-reduced-motion: reduce) { .dc-pop img { transition: opacity .2s !important; transform: translateY(28%) !important; } }
+@media (min-width: 760px) {
+  .dc-pop { height: 230px; bottom: calc(100% - 26px); }
+  .dc-wrap:hover .dc-pop img, .dc-wrap:focus-within .dc-pop img { transform: translateY(14%); }
+  .dc-wrap:hover .dc-pop img:nth-child(2) { transform: translateY(17%) rotate(3deg); }
+  .dc-wrap:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(14%) rotate(-3deg); }
+}
