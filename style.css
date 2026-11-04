@@ -887,3 +887,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .artist.closing .a-sheet { animation: sheetFade .25s ease forwards !important; }
   @keyframes sheetFade { to { opacity: 0; transform: translateY(24px) scale(.98); } }
 }
+
+@media (max-width: 759px) { .hl-trumpet { left: -34px; width: 100px; } }
