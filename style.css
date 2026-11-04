@@ -1104,3 +1104,14 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 @media (min-width: 760px) {
   .dc-pop { top: -70px !important; clip-path: inset(-500px -500px 0 -500px) !important; }
 }
+/* pop-ups grow up out of the card itself (start small inside the card, rise and scale up) */
+@media (min-width: 760px) {
+  .dc-pop img {
+    transform-origin: 50% 100%;
+    transform: translateY(30%) scale(.35) !important; opacity: 0;
+    transition: transform .55s cubic-bezier(.2, .9, .25, 1.2), opacity .2s ease !important;
+  }
+  .dc-wrap:hover .dc-pop img, .dc-wrap:focus-within .dc-pop img { transform: translateY(0) scale(1) !important; opacity: 1; }
+  .dc-wrap:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(0) scale(1) rotate(-2deg) !important; }
+  .dc-wrap:hover .dc-pop img:nth-child(2) { transform: translateY(3%) scale(1) rotate(2deg) !important; }
+}
