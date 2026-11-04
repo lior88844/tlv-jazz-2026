@@ -715,3 +715,8 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .ar-item.g-dj .ar-name { font-size: clamp(12px, 3vw, 17px) !important; }
 .ar-sub { font-size: 11px; margin-top: 2px; }
 .ar-list li { margin-top: -2px; }
+
+/* ---------- lineup: as many strips per row as fit ---------- */
+.ar-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 2px; max-width: 1100px; margin-inline: auto; }
+.ar-list li { margin: 0; flex: 0 1 auto; max-width: 100%; }
+.ar-item .ar-name { white-space: normal; }
