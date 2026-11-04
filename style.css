@@ -1090,3 +1090,8 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 }
 /* all of a day's artists pop together */
 @media (min-width: 760px) { .dc-pop img { transition-delay: 0s !important; } }
+/* pop-ups may spill past the card's top and sides; they're only hidden below its bottom edge */
+@media (min-width: 760px) {
+  .dc-pop { overflow: visible !important; border-radius: 0 !important; clip-path: inset(-400px -400px 0 -400px); top: -130px !important; }
+  .dc-pop img + img { margin-inline-start: -18% !important; }
+}
