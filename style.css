@@ -1157,3 +1157,12 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .day-card:hover .dc-fig:nth-child(1):not(:only-child) { transform: translateY(0) scale(1) rotate(-2deg); }
   .day-card:hover .dc-fig:nth-child(2) { transform: translateY(3%) scale(1) rotate(2deg); }
 }
+
+/* day-card pop-ups: contained inside the card; they slide straight up from its bottom edge (no rotation, no scale) */
+@media (min-width: 760px) {
+  .day-card { overflow: hidden !important; }
+  .dc-pop { top: 14px !important; bottom: 0 !important; left: 0 !important; right: 0 !important; }
+  .dc-fig { transform: translateY(100%) !important; opacity: 0; transition: transform .5s cubic-bezier(.22, 1, .36, 1), opacity .25s ease !important; }
+  .day-card:hover .dc-fig, .day-card:focus-visible .dc-fig,
+  .day-card:hover .dc-fig:nth-child(1):not(:only-child), .day-card:hover .dc-fig:nth-child(2) { transform: translateY(0) !important; opacity: .82; }
+}
