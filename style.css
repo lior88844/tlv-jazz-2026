@@ -52,7 +52,9 @@ button { font: inherit; color: inherit; }
   padding: 9px 16px; border-radius: 999px;
 }
 .poster { margin: 14px -16px 0; position: relative; z-index: 1; }
-.poster img { width: 100%; height: auto; }
+.poster img { width: 100%; height: auto; position: relative; z-index: 1; }
+.poster picture { display: block; position: relative; z-index: 1; }
+.poster { overflow: visible; }
 
 /* ---------- About line ---------- */
 .about {
@@ -439,11 +441,10 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
 
 /* ---------- Stage ribbon ---------- */
 .ribbon {
-  position: relative; z-index: 2; overflow: hidden;
+  position: absolute; z-index: 0; overflow: hidden; left: calc(50% - 50vw - 60px); right: calc(50% - 50vw - 60px); top: 42%;
   background: var(--pink); color: var(--brown);
-  margin: 14px -10px 0; padding: 11px 0 12px;
-  transform: rotate(-1.6deg);
-  box-shadow: 0 0 0 3px var(--brown);
+  padding: 11px 0 12px;
+  transform: rotate(-4deg);
 }
 .rb-track {
   display: flex; width: max-content; align-items: center; gap: 18px;
