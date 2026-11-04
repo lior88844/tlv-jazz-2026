@@ -562,3 +562,5 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
 .collab img { width: 76px; height: auto; }
 .collab .p-soundtrack { width: 66px; border-radius: 6px; }
 @media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 80px; } }
+
+.ribbon { animation: fadeIn .5s .75s both; }
