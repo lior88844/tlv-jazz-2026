@@ -1005,3 +1005,6 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .a-thumb { width: 100%; border-radius: 999px; background: rgba(46, 23, 12, .6); box-shadow: 0 0 0 1px rgba(244, 238, 228, .7); }
 @media (max-width: 759px) { .a-bar { bottom: 12px; } }
 .artist:focus, .artist:focus-visible, .a-sheet:focus { outline: none; }
+
+/* Dekel's stars sit behind the strips; the characters stay in front */
+.poster .poster-stars { position: absolute !important; top: 0; left: 0; width: 100%; height: auto; z-index: 0 !important; pointer-events: none; }
