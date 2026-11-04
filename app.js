@@ -392,6 +392,7 @@
     arFilter = b.dataset.f;
     $("#ar-filters").querySelectorAll("button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
     applyFilter();
+    schedulePlace(1100);
   });
   function matches(day, group) { return arFilter === "all" ? true : arFilter === "dj" ? group === "dj" : day === arFilter; }
 
@@ -495,6 +496,73 @@
       sec.prepend(d);
     }
   }
+
+  /* ---------- phones: move each star to the nearest truly empty spot (or hide it) ---------- */
+  const OBST = {
+    ".hero": [".hero-top > *", ".ribbon"],
+    ".headliners": [".hl-photo", ".hl-strip", ".hl-trumpet"],
+    ".days": [".section-title", ".day-card"],
+    ".artists": [".section-title", ".ar-filters", "#ar-list > li:not([hidden])", ".ar-hint"],
+    ".info": [".section-title", ".info-card"],
+    ".footer": [".logo-small", ".f-dates", ".f-note", ".partners img", ".p-label", ".credits", ".f-legal"],
+  };
+  let artMask = null;
+  (function loadMask() {
+    const im = new Image(); im.src = "assets/poster-art-800.png";
+    im.onload = () => { const c = document.createElement("canvas"); c.width = 200; c.height = Math.round(200 * im.height / im.width);
+      const x = c.getContext("2d"); x.drawImage(im, 0, 0, c.width, c.height); artMask = { w: c.width, h: c.height, d: x.getImageData(0, 0, c.width, c.height).data }; placeStars(); };
+  })();
+  function textRects(el) {
+    if (/^H[1-6]$|^P$/.test(el.tagName)) { const r = document.createRange(); r.selectNodeContents(el); return [...r.getClientRects()]; }
+    return [el.getBoundingClientRect()];
+  }
+  function onArt(x, y, w, h) {   // does this box touch drawn (non-transparent) parts of the poster art?
+    const img = document.querySelector(".poster img"); if (!img || !artMask) return false;
+    const r = img.getBoundingClientRect(); if (x + w < r.left || x > r.right || y + h < r.top || y > r.bottom) return false;
+    for (let sy = y; sy <= y + h; sy += 4) for (let sx = x; sx <= x + w; sx += 4) {
+      const u = Math.floor((sx - r.left) / r.width * artMask.w), v = Math.floor((sy - r.top) / r.height * artMask.h);
+      if (u < 0 || v < 0 || u >= artMask.w || v >= artMask.h) continue;
+      if (artMask.d[(v * artMask.w + u) * 4 + 3] > 20) return true;
+    }
+    return false;
+  }
+  function placeStars() {
+    const stars = document.querySelectorAll(".sky img");
+    if (innerWidth >= 760) { stars.forEach((s) => { s.style.left = s.style.top = ""; s.style.visibility = ""; }); return; }
+    for (const sel in OBST) {
+      const sec = document.querySelector(sel); if (!sec) continue;
+      const sky = sec.querySelector(".sky"); if (!sky) continue;
+      const keepT = sky.style.transform; sky.style.transform = "none";
+      const S = sec.getBoundingClientRect(), pad = 6;
+      const boxes = [];
+      OBST[sel].forEach((q) => sec.querySelectorAll(q).forEach((el) => textRects(el).forEach((r) => { if (r.width && r.height) boxes.push(r); })));
+      const placed = [];
+      const free = (x, y, w, h) => {
+        if (x < S.left + 2 || y < S.top + 2 || x + w > S.right - 2 || y + h > S.bottom - 2) return false;
+        for (const b of boxes.concat(placed)) if (x < b.right + pad && x + w > b.left - pad && y < b.bottom + pad && y + h > b.top - pad) return false;
+        return !(sel === ".hero" && onArt(x - pad, y - pad, w + pad * 2, h + pad * 2));
+      };
+      sky.querySelectorAll("img").forEach((s) => {
+        s.style.left = s.style.top = ""; s.style.visibility = "";
+        const w = s.offsetWidth || 20, h = s.offsetHeight || 20;
+        const ox = S.left + parseFloat(s.style.getPropertyValue("--x")) / 100 * S.width;
+        const oy = S.top + parseFloat(s.style.getPropertyValue("--y")) / 100 * S.height;
+        let best = null, bd = Infinity;
+        for (let y = S.top + 4; y < S.bottom - h; y += 8) for (let x = S.left + 4; x < S.right - w; x += 8) {
+          const d = (x - ox) ** 2 + (y - oy) ** 2; if (d >= bd) continue;
+          if (free(x, y, w, h)) { bd = d; best = [x, y]; }
+        }
+        if (!best || bd > 260 ** 2) { s.style.visibility = "hidden"; return; }
+        s.style.left = (best[0] - S.left) + "px"; s.style.top = (best[1] - S.top) + "px";
+        placed.push({ left: best[0], top: best[1], right: best[0] + w, bottom: best[1] + h });
+      });
+      sky.style.transform = keepT;
+    }
+  }
+  let placeT = null;
+  const schedulePlace = (ms) => { clearTimeout(placeT); placeT = setTimeout(placeStars, ms); };
+  addEventListener("load", () => schedulePlace(1400));
+  addEventListener("resize", () => schedulePlace(300));
   /* ---------- day cards ---------- */
   function renderDays() {
     $("#day-cards").innerHTML = Object.keys(DAYS).map((k) => {
