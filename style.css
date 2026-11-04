@@ -1115,3 +1115,22 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-wrap:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(0) scale(1) rotate(-2deg) !important; }
   .dc-wrap:hover .dc-pop img:nth-child(2) { transform: translateY(3%) scale(1) rotate(2deg) !important; }
 }
+
+/* ---------- day cards v3: the artists live inside the card, which lets them overspill ---------- */
+.day-card { overflow: visible; }
+.day-card > :not(.dc-pop) { position: relative; z-index: 1; }
+.dc-pop { display: none; }
+@media (min-width: 760px) {
+  .dc-pop {
+    display: flex !important; position: absolute !important; z-index: 0 !important;
+    top: -70px !important; bottom: 0 !important; left: -36px !important; right: -36px !important; height: auto !important;
+    justify-content: center; align-items: flex-end; pointer-events: none;
+    clip-path: none !important; overflow: visible !important; border-radius: 0 !important;
+  }
+  .dc-wrap:hover .dc-pop img, .dc-wrap:focus-within .dc-pop img { transform: translateY(30%) scale(.35) !important; opacity: 0; }
+  .day-card .dc-pop img { transform-origin: 50% 100%; transform: translateY(30%) scale(.35) !important; opacity: 0; }
+  .day-card:hover .dc-pop img, .day-card:focus-visible .dc-pop img { transform: translateY(0) scale(1) !important; opacity: 1; }
+  .day-card:hover .dc-pop img:nth-child(1):not(:only-child) { transform: translateY(0) scale(1) rotate(-2deg) !important; }
+  .day-card:hover .dc-pop img:nth-child(2) { transform: translateY(3%) scale(1) rotate(2deg) !important; }
+  .dc-wrap:hover { z-index: 5; position: relative; }
+}

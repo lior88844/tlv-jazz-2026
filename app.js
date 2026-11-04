@@ -586,8 +586,8 @@
       const d = DAYS[k], [dd] = d.date.split(".");
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
       return `<div class="dc-wrap">` +
-        `<div class="dc-pop" aria-hidden="true">${(PICS[k] || []).map((p, j) => `<img src="assets/headliners/${p}.webp?v=2" alt="" style="--j:${j}">`).join("")}</div>` +
         `<button class="day-card reveal" data-day="${k}" style="--i:${n}">` +
+        `<span class="dc-pop" aria-hidden="true">${(PICS[k] || []).map((p, j) => `<img src="assets/headliners/${p}.webp?v=2" alt="" style="--j:${j}">`).join("")}</span>` +
         `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
         `<span class="dc-heads">${heads.join(" · ")}</span>` +
