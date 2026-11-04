@@ -1134,3 +1134,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .day-card:hover .dc-pop img:nth-child(2) { transform: translateY(3%) scale(1) rotate(2deg) !important; }
   .dc-wrap:hover { z-index: 5; position: relative; }
 }
+/* day-card pop-ups: each artist takes half the card's width (as set by Lior) */
+@media (min-width: 760px) { .day-card .dc-pop img { width: 50% !important; } }
