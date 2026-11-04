@@ -796,3 +796,12 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .hl-list li.hl-card, .hl-list li.hl-card:nth-child(even),
   .hl-list li.hl-card:nth-child(4), .hl-list li.hl-card:nth-child(5) { width: 33.5% !important; margin: 0 -1% !important; }
 }
+
+/* full trumpet, inside the section */
+.hl-trumpet { left: 14px; bottom: 14px; width: 110px; }
+@media (min-width: 760px) { .hl-trumpet { left: max(24px, calc(50% - 560px)); bottom: 24px; width: 150px; } }
+
+/* artist window: no scrollbar flash on the page while the sheet slides up */
+.artist, .artist[open] { overflow: hidden; }
+.hl-trumpet { bottom: 34px; }
+@media (min-width: 760px) { .hl-trumpet { bottom: 46px; } }
