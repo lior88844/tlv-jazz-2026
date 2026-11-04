@@ -1166,3 +1166,9 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .day-card:hover .dc-fig, .day-card:focus-visible .dc-fig,
   .day-card:hover .dc-fig:nth-child(1):not(:only-child), .day-card:hover .dc-fig:nth-child(2) { transform: translateY(0) !important; opacity: .82; }
 }
+/* day-card artists all at the same height (width follows each photo's shape) */
+@media (min-width: 760px) {
+  .dc-pop { justify-content: center; gap: 0; }
+  .dc-fig { height: 92% !important; width: auto !important; aspect-ratio: var(--ar); flex: 0 0 auto; }
+  .dc-fig + .dc-fig { margin-inline-start: -6%; }
+}
