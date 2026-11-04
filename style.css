@@ -939,3 +939,31 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .schedule { position: relative; z-index: 1; padding-top: 52px; }
 @media (min-width: 760px) { .hl-list { margin-bottom: -30px !important; } }
 .headliners { overflow-x: clip !important; overflow-y: visible !important; }
+
+.days { padding-top: 26px; }
+.day-cards { margin-top: 0; }
+
+/* ---------- desktop: artist window pops in as a centred card ---------- */
+@media (min-width: 760px) {
+  .artist[open] { align-items: center; }
+  .a-sheet {
+    border-radius: 22px; max-height: 86vh;
+    animation: cardIn .6s cubic-bezier(.2, .9, .25, 1.15) both;
+    transform-origin: 50% 60%;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+  }
+  .a-photo img { border-radius: 22px 22px 0 0; animation: photoIn .8s .1s var(--ease-out) both; }
+  .artist[open]::backdrop { animation: blurIn .4s ease both; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .a-close { animation: popIn .45s .3s var(--ease-spring) both; }
+  .fresh .a-head > * { animation-duration: .55s; }
+}
+@keyframes cardIn {
+  0%   { opacity: 0; transform: translateY(60px) rotate(-3deg) scale(.86); }
+  60%  { opacity: 1; transform: translateY(-6px) rotate(.6deg) scale(1.01); }
+  100% { transform: none; }
+}
+@keyframes blurIn { from { opacity: 0; backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); } }
+@media (min-width: 760px) {
+  .artist.closing .a-sheet { animation: cardOut .28s cubic-bezier(.5, 0, .9, .5) forwards !important; }
+  @keyframes cardOut { to { opacity: 0; transform: translateY(40px) rotate(2deg) scale(.92); } }
+}
