@@ -52,9 +52,13 @@
     const heads = DATA.filter((s) => s.kind === "head").sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
     $("#hl-list").innerHTML = heads.map((s, i) => {
       const [main, sub] = String(s.en || s.name).split(" · ");
-      return `<li class="${COLORS[i % 5]} reveal" style="--i:${i}"><span class="en">${esc(main)}</span>` +
+      const en = String(s.en || "").toLowerCase();
+      const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
+      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}">` +
+        (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp" alt="" loading="lazy">` : "") +
+        `<div class="hl-strip ${COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
-        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></li>`;
+        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></div></li>`;
     }).join("");
     document.querySelectorAll("#hl-list li").forEach((li) => keepIn ? li.classList.add("in") : revealObs && revealObs.observe(li));
   }
@@ -436,6 +440,7 @@
       el.classList.add("drop");
     });
   }
+  $("#hl-list").addEventListener("click", (ev) => { const c = ev.target.closest(".hl-card"); if (c) openArtist(c.dataset.id); });
   $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest(".ar-item"); if (b) openLineup(+b.dataset.i); });
 
 
