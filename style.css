@@ -1136,3 +1136,24 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 }
 /* day-card pop-ups: each artist takes half the card's width (as set by Lior) */
 @media (min-width: 760px) { .day-card .dc-pop img { width: 50% !important; } }
+
+/* ---------- day-card pop-ups tinted in the card's colour, slightly see-through ---------- */
+.dc-wrap:nth-child(1) { --card: var(--yellow); } .dc-wrap:nth-child(2) { --card: var(--pink); } .dc-wrap:nth-child(3) { --card: var(--blue); }
+@media (min-width: 760px) {
+  .dc-fig {
+    position: relative; display: block; flex: 0 0 auto; width: 50%; height: 100%;
+    isolation: isolate; background: var(--card);
+    -webkit-mask: var(--src) center bottom / contain no-repeat; mask: var(--src) center bottom / contain no-repeat;
+    transform-origin: 50% 100%; transform: translateY(30%) scale(.35); opacity: 0;
+    transition: transform .55s cubic-bezier(.2, .9, .25, 1.2), opacity .2s ease;
+  }
+  .day-card .dc-pop .dc-fig > img {
+    width: 100% !important; height: 100% !important; max-width: none !important; margin: 0 !important;
+    object-fit: contain; object-position: center bottom;
+    transform: none !important; opacity: 1 !important; transition: none !important;
+    filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply;
+  }
+  .day-card:hover .dc-fig, .day-card:focus-visible .dc-fig { transform: translateY(0) scale(1); opacity: .82; }
+  .day-card:hover .dc-fig:nth-child(1):not(:only-child) { transform: translateY(0) scale(1) rotate(-2deg); }
+  .day-card:hover .dc-fig:nth-child(2) { transform: translateY(3%) scale(1) rotate(2deg); }
+}
