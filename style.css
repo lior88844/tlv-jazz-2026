@@ -1100,3 +1100,7 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-pop { top: 10px !important; clip-path: inset(0 -36px 0 -36px) !important; }
   .dc-pop img + img { margin-inline-start: -22% !important; }
 }
+/* pop-ups rise from the card's bottom edge and spill freely past its top and sides */
+@media (min-width: 760px) {
+  .dc-pop { top: -70px !important; clip-path: inset(-500px -500px 0 -500px) !important; }
+}
