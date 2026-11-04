@@ -982,3 +982,10 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .a-photo img, .a-close { animation: none !important; }
   .artist[open]::backdrop { animation: fadeIn .3s ease both; }
 }
+
+/* artist window: keep the scrollbar inside the rounded corners */
+.a-sheet { scrollbar-width: thin; }
+.a-sheet::-webkit-scrollbar { width: 8px; }
+.a-sheet::-webkit-scrollbar-track { background: transparent; margin-top: 24px; margin-bottom: 4px; }
+.a-sheet::-webkit-scrollbar-thumb { background: rgba(46, 23, 12, .55); border: 2px solid transparent; background-clip: padding-box; border-radius: 999px; }
+@media (min-width: 760px) { .a-sheet::-webkit-scrollbar-track { margin-bottom: 24px; } }
