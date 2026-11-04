@@ -805,3 +805,6 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .artist, .artist[open] { overflow: hidden; }
 .hl-trumpet { bottom: 34px; }
 @media (min-width: 760px) { .hl-trumpet { bottom: 46px; } }
+
+/* headliner photos: whole photo (no crop), all in the same-size frame */
+.hl-photo, .hl-card:nth-child(even) .hl-photo { object-fit: contain !important; object-position: 50% 100% !important; }

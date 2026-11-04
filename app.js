@@ -353,7 +353,9 @@
   const DAY_ORDER = { thu: 0, fri: 1, sat: 2 };
   function renderArtists(animate) {
     const list = LINEUP.map((e, i) => ({ e, i }));
-    list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
+    const HEAD_ORDER = ["Margeeah", "Johnny", "Blue Break", "Liraz", "Emma"];
+    const ho = (e) => { const k = HEAD_ORDER.findIndex((h) => e.en.startsWith(h)); return k < 0 ? 9 : k; };
+    list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (a.e.group === "head" ? ho(a.e) - ho(b.e) : 0) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
     $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
       const sh = showsFor(e)[0];
       const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
