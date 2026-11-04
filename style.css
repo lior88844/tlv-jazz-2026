@@ -967,3 +967,18 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .artist.closing .a-sheet { animation: cardOut .28s cubic-bezier(.5, 0, .9, .5) forwards !important; }
   @keyframes cardOut { to { opacity: 0; transform: translateY(40px) rotate(2deg) scale(.92); } }
 }
+
+/* ---------- phones: smooth sheet (one GPU transform, no competing animations) ---------- */
+@media (max-width: 759px) {
+  .a-sheet {
+    animation: sheetSlide .46s cubic-bezier(.32, .72, 0, 1) both !important;
+    will-change: transform; contain: layout paint; backface-visibility: hidden;
+  }
+  @keyframes sheetSlide { from { transform: translate3d(0, 100%, 0); } to { transform: translate3d(0, 0, 0); } }
+  .artist.closing .a-sheet { animation: sheetSlideOut .26s cubic-bezier(.4, 0, 1, 1) forwards !important; }
+  @keyframes sheetSlideOut { to { transform: translate3d(0, 100%, 0); } }
+  /* the content arrives with the sheet instead of animating separately */
+  .fresh .a-head > *, .fresh .a-facts > div, .fresh .a-actions > *, .fresh .a-same,
+  .a-photo img, .a-close { animation: none !important; }
+  .artist[open]::backdrop { animation: fadeIn .3s ease both; }
+}
