@@ -293,8 +293,22 @@
       dlg.showModal();
       try { history.pushState({ artist: id }, ""); } catch (e) {}
     }
-    dlg.querySelector(".a-sheet").scrollTop = 0;
+    $("#artist-body").scrollTop = 0; updateBar(); scroller.querySelectorAll("img").forEach((i) => i.addEventListener("load", () => updateBar(), { once: true })); setTimeout(() => updateBar(), 650);
   }
+  /* custom scroll indicator that stays inside the window's rounded corners */
+  const scroller = $("#artist-body"), bar = dlg.querySelector(".a-bar"), thumb = dlg.querySelector(".a-thumb");
+  let barHide = null;
+  function updateBar(show) {
+    const ch = scroller.clientHeight, sh = scroller.scrollHeight;
+    if (!ch || sh <= ch + 2) { bar.style.opacity = 0; return; }
+    const th = bar.clientHeight, h = Math.max(36, th * ch / sh);
+    thumb.style.height = h + "px";
+    thumb.style.transform = `translateY(${(scroller.scrollTop / (sh - ch)) * (th - h)}px)`;
+    if (show) { bar.style.opacity = 1; clearTimeout(barHide); barHide = setTimeout(() => { bar.style.opacity = 0; }, 1100); }
+  }
+  scroller.addEventListener("scroll", () => updateBar(true), { passive: true });
+  addEventListener("resize", () => dlg.open && updateBar());
+  if ("ResizeObserver" in window) new ResizeObserver(() => dlg.open && updateBar()).observe(scroller);
   function closeArtist(fromHistory) {
     if (!dlg.open || dlg.classList.contains("closing")) return;
     if (!fromHistory && history.state && history.state.artist) history.back();
@@ -349,7 +363,7 @@
       (meta.bio ? `<p class="a-info">${esc(meta.bio)}</p>` : "");
     const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
     if (!dlg.open) { dlg.showModal(); try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
-    dlg.querySelector(".a-sheet").scrollTop = 0;
+    $("#artist-body").scrollTop = 0; updateBar(); scroller.querySelectorAll("img").forEach((i) => i.addEventListener("load", () => updateBar(), { once: true })); setTimeout(() => updateBar(), 650);
   }
 
   /* ---------- artists list ---------- */

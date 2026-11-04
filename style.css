@@ -994,3 +994,14 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .headliners { --ov: 30px; background: linear-gradient(to bottom, var(--brown) calc(100% - var(--ov)), transparent calc(100% - var(--ov))) !important; }
 .hl-list { margin-bottom: calc(-1 * var(--ov)) !important; }
 @media (min-width: 760px) { .headliners { --ov: 34px; } }
+
+/* ---------- artist window: frame doesn't scroll; the body scrolls with a hidden native bar ---------- */
+.a-sheet { overflow: hidden !important; display: flex; flex-direction: column; direction: rtl; }
+.a-sheet > * { direction: rtl; }
+#artist-body { overflow-y: auto; overscroll-behavior: contain; flex: 1 1 auto; min-height: 0; scrollbar-width: none; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+#artist-body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.a-sheet { padding-bottom: 0 !important; }
+.a-bar { position: absolute; z-index: 4; right: 5px; top: 26px; bottom: 26px; width: 5px; border-radius: 999px; pointer-events: none; opacity: 0; transition: opacity .3s ease; }
+.a-thumb { width: 100%; border-radius: 999px; background: rgba(46, 23, 12, .6); box-shadow: 0 0 0 1px rgba(244, 238, 228, .7); }
+@media (max-width: 759px) { .a-bar { bottom: 12px; } }
+.artist:focus, .artist:focus-visible, .a-sheet:focus { outline: none; }
