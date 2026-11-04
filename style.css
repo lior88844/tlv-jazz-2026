@@ -846,3 +846,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .ribbon { top: 45%; }
   .ribbon-info { top: 45%; }
 }
+/* phones: room under the stage strip so it isn't clipped */
+@media (max-width: 759px) { .hero { padding-bottom: 22px; } .ribbon { margin-top: 12px; } }
