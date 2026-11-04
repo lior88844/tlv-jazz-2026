@@ -555,3 +555,10 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
   .rb-track { animation: none !important; }
   .ribbon { overflow-x: auto; }
 }
+
+/* partner logos */
+.p-label { margin: 6px 0 0; font-size: 12px; font-weight: 700; opacity: .7; letter-spacing: .04em; }
+.partners.collab { gap: 22px; margin: 10px 0 20px; flex-wrap: wrap; }
+.collab img { width: 76px; height: auto; }
+.collab .p-soundtrack { width: 66px; border-radius: 6px; }
+@media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 80px; } }
