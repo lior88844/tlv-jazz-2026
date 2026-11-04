@@ -861,3 +861,29 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .ar-item.g-dj .ar-name { font-size: 11.5px !important; }
   .ar-sub { font-size: 9.5px; }
 }
+
+/* ---------- artist window: springy open / slide-away close (phones) ---------- */
+@media (max-width: 759px) {
+  .a-sheet { animation: sheetUp .62s cubic-bezier(.2, .9, .25, 1.12) both; transform-origin: 50% 100%; }
+  .a-sheet::before {
+    content: ""; position: sticky; top: 8px; z-index: 3; display: block; width: 44px; height: 5px; margin: 8px auto -13px;
+    border-radius: 999px; background: rgba(46, 23, 12, .35);
+  }
+  .artist[open]::backdrop { animation: fadeIn .35s ease both; }
+  .a-photo img { animation: photoIn .7s .12s var(--ease-out) both; }
+  .fresh .a-head > * { animation-duration: .5s; }
+  .a-close { animation: popIn .45s .25s var(--ease-spring) both; }
+}
+@keyframes sheetUp {
+  0%   { transform: translateY(100%) scale(.98); }
+  65%  { transform: translateY(-2.5%) scale(1); }
+  100% { transform: translateY(0); }
+}
+.artist.closing .a-sheet { animation: sheetDown .3s cubic-bezier(.5, 0, .9, .5) forwards !important; }
+.artist.closing::backdrop { animation: fadeOut .3s ease forwards; }
+@keyframes sheetDown { to { transform: translateY(105%); } }
+@keyframes fadeOut { to { opacity: 0; } }
+@media (min-width: 760px) {
+  .artist.closing .a-sheet { animation: sheetFade .25s ease forwards !important; }
+  @keyframes sheetFade { to { opacity: 0; transform: translateY(24px) scale(.98); } }
+}

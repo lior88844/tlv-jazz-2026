@@ -296,9 +296,14 @@
     dlg.querySelector(".a-sheet").scrollTop = 0;
   }
   function closeArtist(fromHistory) {
-    if (!dlg.open) return;
-    dlg.close();
+    if (!dlg.open || dlg.classList.contains("closing")) return;
     if (!fromHistory && history.state && history.state.artist) history.back();
+    const sheet = dlg.querySelector(".a-sheet");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !sheet.getAnimations) { dlg.close(); return; }
+    dlg.classList.add("closing");
+    const done = () => { dlg.classList.remove("closing"); dlg.close(); };
+    sheet.addEventListener("animationend", done, { once: true });
+    setTimeout(() => { if (dlg.classList.contains("closing")) done(); }, 450);
   }
   dlg.addEventListener("click", (e) => {
     if (e.target === dlg || e.target.closest(".a-close")) return closeArtist();
