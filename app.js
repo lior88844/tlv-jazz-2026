@@ -356,7 +356,7 @@
       const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
       const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
-      const r = ((rnd(1) - .5) * 5).toFixed(2), dx = ((rnd(2) - .5) * 26).toFixed(0);
+      const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
       return `<li><button class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
         `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></button></li>`;
     }).join("");

@@ -720,3 +720,10 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .ar-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 2px; max-width: 1100px; margin-inline: auto; }
 .ar-list li { margin: 0; flex: 0 1 auto; max-width: 100%; }
 .ar-item .ar-name { white-space: normal; }
+
+/* ---------- lineup: give the strips room ---------- */
+.ar-list { gap: 12px 10px; padding: 16px 12px 8px; overflow: visible; }
+.ar-list li:nth-child(odd) { z-index: auto; }
+.ar-item { padding: 8px 14px 7px; clip-path: polygon(0 3%, 99.5% 0, 100% 96%, .5% 100%); }
+.ar-list li:nth-child(even) .ar-item { clip-path: polygon(.5% 0, 100% 3%, 99.5% 100%, 0 97%); }
+.ar-name { line-height: 1.12; }
