@@ -469,6 +469,27 @@
       }, { passive: true });
     }
   }
+
+  /* ---------- little stars and dots in the empty spaces of each section ---------- */
+  function decorate() {
+    const small = innerWidth < 760;
+    // [section, dark background?, [x%, y%, size, shape, rotation] ...]
+    const SETS = [
+      [".headliners", true, [[3, 6, 22, "white", 10], [95, 12, 16, "pink", -20], [92, 48, 26, "blue", 15], [4, 58, 14, "dots", 0], [96, 82, 14, "white", -30], [48, 2, 12, "pink", 25]]],
+      [".days", true, [[96, 8, 20, "blue", -10], [3, 14, 14, "white", 20], [94, 70, 14, "dots", 180], [5, 90, 22, "pink", -15], [50, 97, 12, "white", 0]]],
+      [".artists", true, [[4, 3, 18, "pink", 15], [95, 6, 24, "white", -12], [2, 30, 14, "dots", 0], [97, 38, 16, "blue", 30], [3, 62, 22, "white", -20], [96, 70, 14, "pink", 10], [5, 92, 14, "blue", 0], [94, 95, 18, "dots", 180]]],
+      [".info", false, [[95, 6, 26, "pink", -10], [4, 10, 18, "blue", 20], [97, 60, 16, "blue", -25], [3, 86, 22, "pink", 15], [60, 3, 34, "moon", -8]]],
+      [".footer", true, [[8, 10, 22, "white", 12], [90, 14, 16, "pink", -18], [14, 52, 14, "dots", 0], [88, 48, 24, "blue", 20], [6, 86, 14, "pink", -10], [93, 84, 18, "white", 30]]],
+    ];
+    const src = (k) => `assets/stars/${k === "dots" ? "dots" : k === "moon" ? "moon" : "star-" + k}.png`;
+    for (const [sel, dark, list] of SETS) {
+      const sec = document.querySelector(sel); if (!sec) continue;
+      const d = document.createElement("div"); d.className = "sky deco"; d.setAttribute("aria-hidden", "true");
+      d.innerHTML = list.filter((_, n) => !small || n % 3 !== 2).map(([x, y, s, k, r], n) =>
+        `<img src="${src(dark ? k : (k === "dots" ? "pink" : k))}" alt="" style="--x:${x}%;--y:${y}%;--s:${Math.round(s * (small ? .8 : 1.6))}px;--r:${r}deg;--d:${(.1 + n * .12).toFixed(2)}s;--t:${(2.8 + (n % 4) * .8).toFixed(1)}s">`).join("");
+      sec.prepend(d);
+    }
+  }
   /* ---------- day cards ---------- */
   function renderDays() {
     $("#day-cards").innerHTML = Object.keys(DAYS).map((k) => {
@@ -522,6 +543,7 @@
   document.querySelectorAll(".info-card").forEach((el, i) => { el.style.setProperty("--i", i); reveal(el); });
   document.querySelectorAll(".footer .partners img, .footer .p-label").forEach((el, i) => { el.style.setProperty("--i", i); reveal(el); });
   buildSky();
+  decorate();
   setDay(day);
   updateCount(false);
   loadLive();
