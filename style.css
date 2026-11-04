@@ -828,3 +828,11 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 @media (min-width: 760px) {
   .ribbon-info { top: 56%; transform: rotate(5deg); }
 }
+@media (min-width: 760px) {
+  .ribbon { transform: rotate(-9deg); top: 44%; }
+  .ribbon-info { transform: rotate(3deg); top: 58%; }
+}
+@media (min-width: 760px) {
+  .ribbon { top: 49%; }
+  .ribbon-info { top: 52%; }
+}
