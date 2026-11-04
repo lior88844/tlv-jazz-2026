@@ -919,3 +919,15 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 @media (min-width: 760px) { .hl-trumpet-r { right: -46px; } }
 @media (min-width: 1100px) { .headliners { padding-inline: 175px; } }
 @media (min-width: 760px) and (max-width: 1099px) { .hl-trumpet-r { right: 50px; } }
+
+/* yellow strip angle */
+@media (min-width: 760px) { .ribbon-info { transform: rotate(16deg); } }
+
+/* headliners span the whole screen, edge to edge (trumpets removed) */
+.headliners { padding-inline: 0 !important; }
+.hl-list { max-width: none !important; width: 100%; }
+@media (min-width: 1100px) {
+  .hl-list li.hl-card, .hl-list li.hl-card:nth-child(even),
+  .hl-list li.hl-card:nth-child(4), .hl-list li.hl-card:nth-child(5) { width: 20.6% !important; margin: 0 -.3% !important; }
+  .hl-strip .en { font-size: clamp(15px, 1.5vw, 24px); }
+}
