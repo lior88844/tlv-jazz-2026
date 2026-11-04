@@ -1095,3 +1095,8 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-pop { overflow: visible !important; border-radius: 0 !important; clip-path: inset(-400px -400px 0 -400px); top: -130px !important; }
   .dc-pop img + img { margin-inline-start: -18% !important; }
 }
+/* pop-ups stay inside the card's height, rise from its bottom edge, may spill a little to the sides */
+@media (min-width: 760px) {
+  .dc-pop { top: 10px !important; clip-path: inset(0 -36px 0 -36px) !important; }
+  .dc-pop img + img { margin-inline-start: -22% !important; }
+}
