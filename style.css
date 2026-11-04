@@ -441,11 +441,15 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
 
 /* ---------- Stage ribbon ---------- */
 .ribbon {
-  position: absolute; z-index: 0; overflow: hidden; left: calc(50% - 50vw - 60px); right: calc(50% - 50vw - 60px); top: 42%;
+  /* phones: the stage strip sits under the character */
+  order: 2; position: relative; z-index: 2; overflow: hidden;
+  margin: 8px -24px 0; padding: 11px 0 12px;
   background: var(--pink); color: var(--brown);
-  padding: 11px 0 12px;
-  transform: rotate(-4deg);
+  transform: rotate(-2deg);
 }
+.ribbon-info { display: none; background: var(--yellow); }
+.poster { display: flex; flex-direction: column; }
+.poster picture { order: 1; }
 .rb-track {
   display: flex; width: max-content; align-items: center; gap: 18px;
   font-weight: 900; font-size: clamp(22px, 6vw, 34px); line-height: 1; white-space: nowrap;
@@ -563,4 +567,128 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
 .collab .p-soundtrack { width: 66px; border-radius: 6px; }
 @media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 80px; } }
 
-.ribbon { animation: fadeIn .5s .75s both; }
+.ribbon { animation: ribbonIn .7s .75s var(--ease-out) both; }
+.ribbon-info { animation-delay: .9s; }
+@keyframes ribbonIn { from { opacity: 0; clip-path: inset(0 0 0 100%); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+.rb-track b { font-weight: 900; }
+
+/* desktop: the two strips cross in an X behind the character, full screen width */
+@media (min-width: 760px) {
+  .poster { display: block; }
+  .ribbon {
+    position: absolute; z-index: 0; margin: 0; top: 47%;
+    left: calc(50% - 50vw - 90px); right: calc(50% - 50vw - 90px);
+    transform: rotate(-7deg);
+  }
+  .ribbon-info { display: block; transform: rotate(7deg); }
+  .ribbon-info .rb-track { animation-direction: reverse; animation-duration: 46s; font-size: clamp(20px, 2.6vw, 30px); }
+  .about { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; padding: 0; }
+}
+
+/* =========================================================
+   Round 3: stars across the hero, artist strips with gravity, more motion
+   ========================================================= */
+
+/* ---------- stars across the full hero ---------- */
+.sky { position: absolute; inset: 0; z-index: 0; pointer-events: none; will-change: transform; }
+.sky img {
+  position: absolute; left: var(--x); top: var(--y); width: var(--s); height: auto;
+  transform: rotate(var(--r)); opacity: 0;
+  animation: starIn .7s var(--d) var(--ease-spring) both, twinkle var(--t) calc(var(--d) + .7s) ease-in-out infinite;
+}
+@keyframes starIn { from { opacity: 0; transform: rotate(calc(var(--r) - 90deg)) scale(.2); } to { opacity: 1; transform: rotate(var(--r)) scale(1); } }
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: rotate(var(--r)) scale(1); }
+  45% { opacity: .55; transform: rotate(calc(var(--r) + 14deg)) scale(.82); }
+  60% { opacity: 1; transform: rotate(calc(var(--r) + 6deg)) scale(1.06); }
+}
+.hero-top { z-index: 3; }
+
+/* ---------- artists: stacked strips that fall in ---------- */
+.ar-list { border-top: 0; padding: 6px 10px 0; overflow: hidden; }
+.ar-list li { border-bottom: 0; display: flex; justify-content: center; margin-top: -3px; position: relative; }
+.ar-list li:nth-child(odd) { z-index: 2; }
+.ar-item {
+  width: auto; max-width: 100%; display: inline-block;
+  padding: 11px 18px 10px; color: var(--brown);
+  background: var(--strip, var(--yellow));
+  clip-path: polygon(0 7%, 99% 0, 100% 91%, 1% 100%);
+  transform: translateX(var(--dx, 0)) rotate(var(--r, 0deg));
+  transition: transform .25s var(--ease-spring), filter .2s;
+}
+.ar-list li:nth-child(even) .ar-item { clip-path: polygon(1% 0, 100% 8%, 99% 100%, 0 93%); }
+.ar-list li:nth-child(5n+1) .ar-item { --strip: var(--yellow); }
+.ar-list li:nth-child(5n+2) .ar-item { --strip: var(--cream); }
+.ar-list li:nth-child(5n+3) .ar-item { --strip: var(--blue); }
+.ar-list li:nth-child(5n+4) .ar-item { --strip: var(--pink); }
+.ar-list li:nth-child(5n+5) .ar-item { --strip: #F4B9B2; }
+.ar-list li .ar-item .ar-name { color: var(--brown) !important; }
+.ar-item.g-dj { --strip: var(--tan) !important; color: var(--paper); }
+.ar-list li .ar-item.g-dj .ar-name { color: var(--paper) !important; }
+.ar-sub { opacity: .8; }
+.ar-item.g-head .ar-name { font-size: clamp(26px, 7.6vw, 58px); }
+@media (hover: hover) {
+  .ar-item:hover { background: var(--strip, var(--yellow)); transform: translateX(var(--dx, 0)) translateY(-4px) rotate(0deg) scale(1.03); filter: drop-shadow(0 6px 0 rgba(0,0,0,.35)); }
+}
+.ar-item:active { transform: translateX(var(--dx, 0)) rotate(0) scale(.97); }
+
+/* gravity: each strip falls, bounces and settles on the pile */
+.js .ar-item.wait { opacity: 0; }
+.ar-item.drop { animation: gravity .95s var(--d, 0ms) cubic-bezier(.3, 0, .6, 1) both; }
+@keyframes gravity {
+  0%   { opacity: 0; transform: translateX(var(--dx, 0)) translateY(-240px) rotate(calc(var(--r, 0deg) * -5)); }
+  12%  { opacity: 1; }
+  52%  { transform: translateX(var(--dx, 0)) translateY(0) rotate(calc(var(--r, 0deg) * 2)); animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+  68%  { transform: translateX(var(--dx, 0)) translateY(-16px) rotate(calc(var(--r, 0deg) * .4)); animation-timing-function: cubic-bezier(.6, 0, .8, .4); }
+  82%  { transform: translateX(var(--dx, 0)) translateY(0) rotate(calc(var(--r, 0deg) * 1.4)); }
+  91%  { transform: translateX(var(--dx, 0)) translateY(-4px) rotate(var(--r, 0deg)); }
+  100% { opacity: 1; transform: translateX(var(--dx, 0)) translateY(0) rotate(var(--r, 0deg)); }
+}
+
+/* ---------- more micro animations ---------- */
+/* section titles drop in with a little bounce */
+.js .section-title.reveal { transform: translateY(-26px) rotate(-3deg); transition: opacity .5s var(--ease-out), transform .7s var(--ease-spring); }
+.js .section-title.reveal.in { transform: none; }
+
+/* day cards: date bubble pops, arrow nudges */
+.js .day-card.reveal { transform: translateY(24px) rotate(var(--rot, 0deg)) scale(.96); transition: opacity .55s var(--ease-out), transform .7s var(--ease-spring); transition-delay: calc(var(--i, 0) * 110ms); }
+.js .day-card.reveal.in { transform: rotate(var(--rot, 0deg)); }
+.day-card:nth-child(1) { --rot: -1deg; } .day-card:nth-child(2) { --rot: .8deg; } .day-card:nth-child(3) { --rot: -.6deg; }
+.day-card.in .dc-date { animation: popIn .6s calc(var(--i, 0) * 110ms + .25s) var(--ease-spring) both; }
+.dc-go { transition: transform .25s var(--ease-out); }
+@media (hover: hover) { .day-card:hover .dc-go { animation: nudge .7s ease-in-out infinite; } }
+@keyframes nudge { 50% { transform: translateX(-6px); } }
+
+/* info cards: stagger in with a tilt, lift on hover */
+.js .info-card.reveal { transform: translateY(20px) rotate(calc(var(--i, 0) % 2 * 3deg - 1.5deg)); transition: opacity .5s var(--ease-out), transform .6s var(--ease-spring); transition-delay: calc(var(--i, 0) * 80ms); }
+.js .info-card.reveal.in { transform: none; }
+.info-card { transition: transform .25s var(--ease-spring), box-shadow .25s; }
+@media (hover: hover) { .info-card:hover { transform: translateY(-4px) rotate(-.8deg); box-shadow: 0 0 0 2px var(--brown) inset, 0 6px 0 var(--brown); } }
+.info-link { transition: transform .2s var(--ease-out); }
+@media (hover: hover) { .info-link:hover { transform: translateX(-4px); } }
+
+/* top menu: active pill pops */
+.tn-links a.on { animation: popIn .4s var(--ease-spring); }
+.tn-home img { transition: transform .4s var(--ease-spring); }
+@media (hover: hover) { .tn-home:hover img { transform: rotate(-12deg) scale(1.1); } }
+
+/* footer: logos rise in, wiggle on hover */
+.js .footer .reveal { transition-delay: calc(var(--i, 0) * 90ms); }
+.partners img { transition: transform .3s var(--ease-spring); }
+@media (hover: hover) { .partners img:hover { transform: rotate(-6deg) scale(1.08); } }
+.logo-small { animation: float 5s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-6px) rotate(-1.5deg); } }
+
+/* artist window photo eases in */
+.a-photo img { animation: photoIn .6s var(--ease-out) both; }
+@keyframes photoIn { from { opacity: 0; transform: scale(1.06); } }
+
+/* filter chips: little press bounce */
+.ar-filters button[aria-selected="true"] { animation: popIn .35s var(--ease-spring); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sky img { opacity: 1 !important; }
+  .js .ar-item.wait { opacity: 1 !important; }
+  .js .section-title.reveal, .js .day-card.reveal, .js .info-card.reveal { opacity: 1 !important; transform: none !important; }
+}
+@media (hover: hover) { .js .day-card.reveal.in:hover { transform: rotate(0) translateY(-4px); } }

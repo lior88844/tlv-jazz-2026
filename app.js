@@ -355,9 +355,26 @@
       const sh = showsFor(e)[0];
       const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
       const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
-      return `<li><button class="ar-item g-${e.group}${animate ? " enter" : ""}" style="--i:${Math.min(n, 24)}" data-i="${i}">` +
+      const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
+      const r = ((rnd(1) - .5) * 5).toFixed(2), dx = ((rnd(2) - .5) * 26).toFixed(0);
+      return `<li><button class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
         `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></button></li>`;
     }).join("");
+    dropObserve();
+  }
+  /* gravity: strips fall in as they scroll into view, in small waves */
+  let dropQueue = 0, dropTimer = null;
+  const dropObs = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    for (const en of entries) {
+      if (!en.isIntersecting) continue;
+      const el = en.target; dropObs.unobserve(el);
+      el.style.setProperty("--d", (dropQueue++ * 70) + "ms");
+      el.classList.remove("wait"); el.classList.add("drop");
+    }
+    clearTimeout(dropTimer); dropTimer = setTimeout(() => { dropQueue = 0; }, 120);
+  }, { rootMargin: "0px 0px -6% 0px", threshold: 0.2 }) : null;
+  function dropObserve() {
+    document.querySelectorAll("#ar-list .ar-item").forEach((el) => dropObs ? dropObs.observe(el) : el.classList.remove("wait"));
   }
   $("#ar-filters").addEventListener("click", (ev) => {
     const b = ev.target.closest("button[data-f]"); if (!b) return;
@@ -367,6 +384,29 @@
   });
   $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest(".ar-item"); if (b) openLineup(+b.dataset.i); });
 
+
+  /* ---------- stars across the whole hero ---------- */
+  function buildSky() {
+    const sky = $("#sky"); if (!sky) return;
+    // x, y (% of hero), width (px), shape, rotation
+    const S = [
+      [3, 7, 34, "white", 10], [12, 22, 18, "pink", -20], [6, 46, 26, "blue", 12], [15, 63, 14, "white", 30], [4, 82, 30, "pink", -8],
+      [22, 9, 14, "dots", 0], [20, 88, 16, "blue", 25], [27, 52, 12, "white", -30],
+      [96, 9, 28, "blue", -15], [88, 24, 16, "white", 20], [94, 41, 34, "pink", 8], [86, 60, 14, "dots", 180], [95, 74, 22, "white", -25], [83, 90, 18, "blue", 15],
+      [76, 6, 12, "pink", 40], [73, 47, 12, "white", 0], [50, 3, 14, "white", -10], [60, 95, 14, "pink", 20], [40, 94, 12, "blue", -20],
+    ];
+    const small = innerWidth < 760;
+    sky.innerHTML = S.map(([x, y, s, k, r], n) =>
+      `<img src="assets/stars/${k === "dots" ? "dots" : "star-" + k}.png" alt="" style="--x:${x}%;--y:${y}%;--s:${Math.round(s * (small ? .8 : 1.25))}px;--r:${r}deg;--d:${(.25 + n * .06).toFixed(2)}s;--t:${(2.6 + (n % 5) * .7).toFixed(1)}s">`).join("");
+    // gentle parallax while scrolling
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      let ticking = false;
+      addEventListener("scroll", () => {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(() => { if (scrollY < innerHeight * 1.5) sky.style.transform = `translateY(${scrollY * .18}px)`; ticking = false; });
+      }, { passive: true });
+    }
+  }
   /* ---------- day cards ---------- */
   function renderDays() {
     $("#day-cards").innerHTML = Object.keys(DAYS).map((k) => {
@@ -374,7 +414,7 @@
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
       const live = LINEUP.filter((e) => e.day === k && e.group !== "dj").length;
       const dj = LINEUP.filter((e) => e.day === k && e.group === "dj").length;
-      return `<button class="day-card reveal" data-day="${k}">` +
+      return `<button class="day-card reveal" data-day="${k}" style="--i:${Object.keys(DAYS).indexOf(k)}">` +
         `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
         `<span class="dc-heads">${heads.join(" · ")}</span>` +
@@ -391,6 +431,7 @@
   });
 
   /* ---------- stage ribbon: double the track for a seamless loop ---------- */
+  const rbi = $("#rb-info"); if (rbi) rbi.innerHTML = rbi.innerHTML.repeat(4);
   const rb = $("#rb-track"); if (rb) { rb.innerHTML += rb.innerHTML; rb.querySelectorAll("span, i").forEach((el, n) => n >= rb.children.length / 2 && el.setAttribute("aria-hidden", "true")); }
 
   /* ---------- top menu ---------- */
@@ -416,7 +457,9 @@
   renderHeadliners();
   renderDays();
   renderArtists(false);
-  document.querySelectorAll(".info-card").forEach(reveal);
+  document.querySelectorAll(".info-card").forEach((el, i) => { el.style.setProperty("--i", i); reveal(el); });
+  document.querySelectorAll(".footer .partners img, .footer .p-label").forEach((el, i) => { el.style.setProperty("--i", i); reveal(el); });
+  buildSky();
   setDay(day);
   updateCount(false);
   loadLive();
