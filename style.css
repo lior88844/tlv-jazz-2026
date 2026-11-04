@@ -1172,3 +1172,4 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-fig { height: 92% !important; width: auto !important; aspect-ratio: var(--ar); flex: 0 0 auto; }
   .dc-fig + .dc-fig { margin-inline-start: -6%; }
 }
+.dc-more { display: block; margin-top: 4px; font-size: 13px; font-weight: 700; opacity: .8; }
