@@ -270,7 +270,7 @@
       `</div>` +
       `<dl class="a-facts">` +
         `<div><dt>יום</dt><dd>${DAYS[s.day].name} ${DAYS[s.day].date}</dd></div>` +
-        `<div><dt>שעה</dt><dd dir="ltr">${hhmm(s.start)}–${hhmm(s.end)}</dd></div>` +
+        `<div><dt>שעה</dt><dd dir="ltr">${hhmm(s.start)}</dd></div>` +
         `<div><dt>במה</dt><dd>${esc(s.stage)}</dd></div>` +
       `</dl>` +
       (info ? `<p class="a-info">${esc(info)}</p>` : "") +
@@ -279,7 +279,7 @@
         `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">הוספה ליומן</a>` +
       `</div>` +
       (same.length ? `<div class="a-same"><h4>באותו זמן</h4>` + same.map((o) =>
-        `<button class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(o.stage)} · <span dir="ltr">${hhmm(o.start)}–${hhmm(o.end)}</span></small></button>`).join("") + `</div>` : "");
+        `<button class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(o.stage)} · <span dir="ltr">${hhmm(o.start)}</span></small></button>`).join("") + `</div>` : "");
   }
   function openArtist(id) {
     const first = !dlg.open;

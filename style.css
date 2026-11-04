@@ -692,3 +692,26 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
   .js .section-title.reveal, .js .day-card.reveal, .js .info-card.reveal { opacity: 1 !important; transform: none !important; }
 }
 @media (hover: hover) { .js .day-card.reveal.in:hover { transform: rotate(0) translateY(-4px); } }
+
+/* ---------- scrollbars in the site's style, on the right ---------- */
+html { scrollbar-color: var(--yellow) var(--brown); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--brown); }
+::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 999px; border: 2px solid var(--brown); }
+::-webkit-scrollbar-thumb:hover { background: var(--pink); }
+/* the artist window scrolls with its bar on the right (RTL would put it on the left) */
+.a-sheet { direction: ltr; scrollbar-color: var(--brown) var(--cream); }
+.a-sheet > * { direction: rtl; }
+.a-sheet::-webkit-scrollbar-track { background: var(--cream); }
+.a-sheet::-webkit-scrollbar-thumb { background: var(--brown); border-color: var(--cream); }
+.scroller { scrollbar-color: var(--brown) var(--cream); }
+.scroller::-webkit-scrollbar-track { background: var(--cream); }
+.scroller::-webkit-scrollbar-thumb { background: var(--brown); border-color: var(--cream); }
+
+/* ---------- smaller lineup strips ---------- */
+.ar-item { padding: 6px 12px 6px; }
+.ar-name { font-size: clamp(14px, 3.6vw, 22px) !important; letter-spacing: 0; }
+.ar-item.g-head .ar-name { font-size: clamp(17px, 4.6vw, 28px) !important; }
+.ar-item.g-dj .ar-name { font-size: clamp(12px, 3vw, 17px) !important; }
+.ar-sub { font-size: 11px; margin-top: 2px; }
+.ar-list li { margin-top: -2px; }
