@@ -848,3 +848,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 }
 /* phones: room under the stage strip so it isn't clipped */
 @media (max-width: 759px) { .hero { padding-bottom: 22px; } .ribbon { margin-top: 12px; } }
+
+@media (max-width: 759px) { .hl-trumpet { left: -2px; } }
