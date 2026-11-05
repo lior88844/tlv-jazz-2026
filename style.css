@@ -564,7 +564,8 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
 .partners.collab { gap: 22px; margin: 10px 0 20px; flex-wrap: wrap; }
 .collab img { width: 76px; height: auto; }
 .collab .p-soundtrack { width: 150px; }
-@media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 180px; } }
+.collab .p-imsf { width: 120px; }
+@media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 180px; } .collab .p-imsf { width: 140px; } }
 
 .ribbon { animation: ribbonIn .7s .75s var(--ease-out) both; }
 .ribbon-info { animation-delay: .9s; }

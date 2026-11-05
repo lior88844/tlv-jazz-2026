@@ -44,7 +44,7 @@
   const reveal = (el) => { el.classList.add("reveal"); revealObs ? revealObs.observe(el) : el.classList.add("in"); };
 
   // schedule isn't final yet: show only the day, not the time and stage. Set to true to bring them back.
-  const SHOW_TIMES = false;
+  const SHOW_TIMES = true;
 
   /* ---------- headliners ---------- */
   function renderHeadliners() {
