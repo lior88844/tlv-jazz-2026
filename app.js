@@ -157,7 +157,7 @@
         const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
         const delay = Math.round(((s.start - d.start) / (DAY_END - d.start)) * 260 + stages.indexOf(st) * 45);
         html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px;--d:${delay}ms" ` +
-          `role="button" tabindex="0" aria-label="פרטים: ${esc(s.name)}, ${hhmm(s.start)} עד ${hhmm(s.end)}, ${esc(s.stage)}">` +
+          `aria-label="${esc(s.name)}, ${hhmm(s.start)} עד ${hhmm(s.end)}, ${esc(s.stage)}">` +
           `<span class="top">${starBtn(s)}<span class="nm">${esc(s.name)}</span></span>` +
           `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></div>`;
       }
@@ -183,7 +183,7 @@
       html += `<h3 class="mv-day ${animate ? "enter" : ""}" style="--i:${n++}">${DAYS[k].name} <span>${DAYS[k].date}</span><small>${items.length} ${items.length === 1 ? "הופעה" : "הופעות"}</small></h3>`;
       for (const s of items) {
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
-        html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}" role="button" tabindex="0"><div class="mv-time">${hhmm(s.start)}</div>` +
+        html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
           `<div class="mv-meta">${esc(s.stage)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
           `${starBtn(s)}</div>`;
@@ -234,17 +234,12 @@
   /* ---------- events ---------- */
   $("#tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) setDay(b.dataset.day); });
   $("#mine").addEventListener("click", () => setMine(!mineOn));
-  // star = favorite, anywhere else on the block = artist details
+  // schedule blocks aren't clickable (artist texts exist for headliners only); the star still toggles favorites
   function onListClick(e) {
     const star = e.target.closest(".star");
-    if (star) { e.stopPropagation(); toggle(star.dataset.id); refresh(); return; }
-    const item = e.target.closest("[data-id]");
-    if (item) openArtist(item.dataset.id);
+    if (star) { e.stopPropagation(); toggle(star.dataset.id); refresh(); }
   }
-  function onListKey(e) {
-    if ((e.key === "Enter" || e.key === " ") && e.target.matches("[role=button][data-id]")) { e.preventDefault(); openArtist(e.target.dataset.id); }
-  }
-  for (const el of [$("#grid"), $("#mine-view")]) { el.addEventListener("click", onListClick); el.addEventListener("keydown", onListKey); }
+  for (const el of [$("#grid"), $("#mine-view")]) el.addEventListener("click", onListClick);
 
   /* ---------- artist details ---------- */
   const dlg = $("#artist");
@@ -285,7 +280,7 @@
         `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">הוספה ליומן</a>` +
       `</div>` +
       (same.length ? `<div class="a-same"><h4>באותו זמן</h4>` + same.map((o) =>
-        `<button class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(o.stage)} · <span dir="ltr">${hhmm(o.start)}</span></small></button>`).join("") + `</div>` : "");
+        { const tg = o.kind === "head" ? "button" : "div"; return `<${tg} class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(o.stage)} · <span dir="ltr">${hhmm(o.start)}</span></small></${tg}>`; }).join("") + `</div>` : "");
   }
   function openArtist(id) {
     const first = !dlg.open;
@@ -325,7 +320,7 @@
     if (e.target === dlg || e.target.closest(".a-close")) return closeArtist();
     const fav = e.target.closest(".a-fav");
     if (fav) { toggle(fav.dataset.id); refresh(); $("#artist-body").classList.remove("fresh"); renderArtist(); return; }
-    const other = e.target.closest(".a-same-item");
+    const other = e.target.closest("button.a-same-item");
     if (other) openArtist(other.dataset.id);
   });
   dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeArtist(); });
@@ -383,8 +378,9 @@
       const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
-      return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><button class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
-        `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></button></li>`;
+      const tg = e.group === "head" ? "button" : "div";
+      return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><${tg} class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
+        `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></${tg}></li>`;
     }).join("");
     dropObserve();
   }
@@ -466,7 +462,7 @@
   }
   $("#hl-list").addEventListener("click", (ev) => { const c = ev.target.closest(".hl-card"); if (c) openArtist(c.dataset.id); });
   $("#hl-list").addEventListener("keydown", (ev) => { const c = ev.target.closest(".hl-card"); if (c && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); openArtist(c.dataset.id); } });
-  $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest(".ar-item"); if (b) openLineup(+b.dataset.i); });
+  $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest("button.ar-item"); if (b) openLineup(+b.dataset.i); });
 
 
   /* ---------- stars across the whole hero ---------- */
