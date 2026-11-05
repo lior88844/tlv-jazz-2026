@@ -592,9 +592,9 @@
   }
   $("#day-cards").addEventListener("click", (ev) => {
     const c = ev.target.closest(".day-card"); if (!c) return;
-    if (mineOn) setMine(false);
-    setDay(c.dataset.day);
-    $("#schedule").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    // schedule is hidden for now: show that day's artists instead
+    const f = $(`#ar-filters button[data-f="${c.dataset.day}"]`); if (f) f.click();
+    $("#artists").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   });
 
   /* ---------- stage ribbon: double the track for a seamless loop ---------- */
@@ -608,7 +608,7 @@
     const secObs = new IntersectionObserver((entries) => {
       for (const en of entries) if (en.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id));
     }, { rootMargin: "-45% 0px -50% 0px" });
-    ["days", "schedule", "artists", "info"].forEach((id) => secObs.observe(document.getElementById(id)));
+    ["days", "artists", "info"].forEach((id) => secObs.observe(document.getElementById(id)));
   }
 
   function refresh() { mineOn ? renderMine() : renderGrid(); favPop = null; }

@@ -1172,3 +1172,5 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .dc-more { display: block; margin-top: 4px; font-size: 13px; font-weight: 700; opacity: .8; }
 /* arrow in the day cards: bottom-left corner */
 .day-card > .dc-go { position: absolute !important; left: 16px; bottom: 12px; right: auto; top: auto; z-index: 2; }
+
+.schedule[hidden] { display: none !important; }
