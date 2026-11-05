@@ -54,7 +54,7 @@ window.LINEUP = [
  { day: "sat", group: "head", en: "Emma Smith & Yonatan Riklis", show: "אמה סמית' & יונתן ריקליס" },
  { day: "sat", group: "live", en: "Alon Tayar & Daniel Dor", show: "אלון תייר & דניאל דור" },
  { day: "sat", group: "live", en: "Asaf Yuria Quartet", show: "רביעיית אסף יוריה" },
- { day: "sat", group: "live", en: "David Digmi" },
+ { day: "sat", group: "live", en: "David Dagmi" },
  { day: "sat", group: "live", en: "Duoizm" },
  { day: "sat", group: "live", en: "Jonathan Levy", show: "יונתן לוי" },
  { day: "sat", group: "live", en: "Mamelo Gaitanopolous Quintet", show: "חמישיית ממלו גיטנופולוס" },
