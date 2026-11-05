@@ -43,6 +43,9 @@
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.15 }) : null;
   const reveal = (el) => { el.classList.add("reveal"); revealObs ? revealObs.observe(el) : el.classList.add("in"); };
 
+  // schedule isn't final yet: show only the day, not the time and stage. Set to true to bring them back.
+  const SHOW_TIMES = false;
+
   /* ---------- headliners ---------- */
   function renderHeadliners() {
     const keepIn = document.querySelectorAll("#hl-list li.in").length > 0;
@@ -58,7 +61,7 @@
         (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=2" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
-        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date} · ${hhmm(s.start)} · ${esc(s.stage)}</span></div></li>`;
+        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date}${SHOW_TIMES ? ` · ${hhmm(s.start)} · ${esc(s.stage)}` : ""}</span></div></li>`;
     }).join("");
     document.querySelectorAll("#hl-list li").forEach((li) => keepIn ? li.classList.add("in") : revealObs && revealObs.observe(li));
   }
@@ -374,7 +377,7 @@
     list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (a.e.group === "head" ? ho(a.e) - ho(b.e) : 0) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
     $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
       const sh = showsFor(e)[0];
-      const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
+      const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh && SHOW_TIMES ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
       const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
