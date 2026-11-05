@@ -1171,6 +1171,15 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-fig { height: 92% !important; width: auto !important; aspect-ratio: var(--ar); flex: 0 0 auto; }
   .dc-fig + .dc-fig { margin-inline-start: -6%; }
 }
+/* day-card artists: more of them, smaller, rising one after another */
+@media (min-width: 760px) {
+  .day-card { container-type: inline-size; }
+  .dc-pop { align-items: flex-end; }
+  /* one size for every card, so the fullest card (5 artists) still fits its width */
+  .dc-fig { height: 28cqw !important; }
+  .dc-fig + .dc-fig { margin-inline-start: -6cqw !important; }
+  .dc-fig { transition-delay: calc(var(--j, 0) * 45ms) !important; }
+}
 .dc-more { display: block; margin-top: 4px; font-size: 13px; font-weight: 700; opacity: .8; }
 /* arrow in the day cards: bottom-left corner */
 .day-card > .dc-go { position: absolute !important; left: 16px; bottom: 12px; right: auto; top: auto; z-index: 2; }
