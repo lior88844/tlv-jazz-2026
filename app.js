@@ -406,8 +406,15 @@
     if (arFilter === b.dataset.f) return;
     arFilter = b.dataset.f;
     $("#ar-filters").querySelectorAll("button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    applyFilter();
-    schedulePlace(1100);
+    // if we're scrolled down inside the list, first glide back up to the top of the artists, then filter
+    // (filtering shortens the page, which would cut a running scroll short)
+    const navH = document.body.classList.contains("nav-on") ? $("#topnav").offsetHeight : 0;
+    const top = $("#ar-list").getBoundingClientRect().top + scrollY - navH - $("#ar-filters").offsetHeight - 8;
+    const run = () => { applyFilter(); schedulePlace(1100); };
+    if (scrollY <= top + 4) return run();
+    let done = false; const go = () => { if (done) return; done = true; removeEventListener("scrollend", go); run(); };
+    addEventListener("scrollend", go); setTimeout(go, 900);
+    scrollTo({ top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   });
   function matches(day, group) { return arFilter === "all" ? true : arFilter === "dj" ? group === "dj" : day === arFilter; }
 
