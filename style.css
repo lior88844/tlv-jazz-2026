@@ -312,6 +312,7 @@ div.ar-item, div.a-same-item { cursor: default; }
 .partners { display: flex; justify-content: center; align-items: center; gap: 26px; margin: 24px 0 18px; }
 .p-teder { width: 56px; }
 .p-jameson { width: 92px; }
+.p-tlv { width: 104px; height: auto; }
 .credits { margin: 0; font-size: 12px; opacity: .75; line-height: 1.6; }
 
 .toast {
@@ -562,8 +563,8 @@ section[id], footer { scroll-margin-top: calc(var(--nav-h) + 8px); }
 .p-label { margin: 6px 0 0; font-size: 12px; font-weight: 700; opacity: .7; letter-spacing: .04em; }
 .partners.collab { gap: 22px; margin: 10px 0 20px; flex-wrap: wrap; }
 .collab img { width: 76px; height: auto; }
-.collab .p-soundtrack { width: 66px; border-radius: 6px; }
-@media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 80px; } }
+.collab .p-soundtrack { width: 150px; }
+@media (min-width: 760px) { .collab img { width: 92px; } .collab .p-soundtrack { width: 180px; } }
 
 .ribbon { animation: ribbonIn .7s .75s var(--ease-out) both; }
 .ribbon-info { animation-delay: .9s; }
