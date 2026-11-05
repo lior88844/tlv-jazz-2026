@@ -1173,11 +1173,12 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 }
 /* day-card artists: more of them, smaller, rising one after another */
 @media (min-width: 760px) {
-  .day-card { container-type: inline-size; }
-  .dc-pop { align-items: flex-end; }
+  .dc-pop { align-items: flex-end; container-type: inline-size; }
   /* one size for every card, so the fullest card (5 artists) still fits its width */
-  .dc-fig { height: 28cqw !important; }
-  .dc-fig + .dc-fig { margin-inline-start: -6cqw !important; }
+  .dc-pop { justify-content: center !important; }
+  .dc-fig { height: calc(var(--h) * var(--s, 1) * 1cqw) !important; }
+  .dc-fig + .dc-fig { margin-inline-start: calc(var(--ov) * -1cqw) !important; }
+  .dc-fig.head { z-index: 1; }
   .dc-fig { transition-delay: calc(var(--j, 0) * 45ms) !important; }
 }
 .dc-more { display: block; margin-top: 4px; font-size: 13px; font-weight: 700; opacity: .8; }

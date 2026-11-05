@@ -583,13 +583,24 @@
     const AR = { margeeah: "640/637", johnny: "640/530", bbb: "565/640", liraz: "424/640", emma: "538/640",
       ronen: "676/640", cinema: "689/640", rosen: "489/640", hillel: "362/640", dina: "420/640", kadosh: "755/640", mamelo: "459/640", milton: "473/640" };
     const HEADS = ["margeeah", "johnny", "bbb", "liraz", "emma"];
+    // headliners big, the rest smaller; each card's row is scaled so it fills the card's width exactly
+    const SMALL = 0.6, OVERLAP = 4; // overlap between figures, in % of the card width
+    function popRow(list) {
+      const others = list.filter((p) => !HEADS.includes(p)), heads = list.filter((p) => HEADS.includes(p));
+      const cut = Math.ceil(others.length / 2);
+      const row = [...others.slice(0, cut), ...heads, ...others.slice(cut)]; // headliners in the middle
+      const ratio = (p) => { const [w, h] = AR[p].split("/"); return w / h; };
+      const sum = row.reduce((t, p) => t + ratio(p) * (HEADS.includes(p) ? 1 : SMALL), 0);
+      const h = Math.min(62, (100 + OVERLAP * (row.length - 1)) / sum); // headliner height, in % of the card width
+      return { row, h };
+    }
     const picSrc = (p) => HEADS.includes(p) ? `assets/headliners/${p}.webp?v=2` : `assets/popouts/${p}.webp?v=1`;
     $("#day-cards").innerHTML = Object.keys(DAYS).map((k, n) => {
       const d = DAYS[k], [dd] = d.date.split(".");
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
       return `<div class="dc-wrap">` +
         `<button class="day-card reveal" data-day="${k}" style="--i:${n}">` +
-        `<span class="dc-pop" aria-hidden="true">${(PICS[k] || []).map((p, j) => `<span class="dc-fig" style="--j:${j};--ar:${AR[p]};--src:url('${picSrc(p)}')"><img src="${picSrc(p)}" alt="" loading="lazy"></span>`).join("")}</span>` +
+        (({ row, h }) => `<span class="dc-pop" aria-hidden="true" style="--h:${h.toFixed(2)};--ov:${OVERLAP}">${row.map((p, j) => `<span class="dc-fig${HEADS.includes(p) ? " head" : ""}" style="--j:${j};--s:${HEADS.includes(p) ? 1 : SMALL};--ar:${AR[p]};--src:url('${picSrc(p)}')"><img src="${picSrc(p)}" alt="" loading="lazy"></span>`).join("")}</span>`)(popRow(PICS[k] || [])) +
         `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
         `<span class="dc-heads">${heads.join(" · ")}</span>` +
