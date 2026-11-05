@@ -593,7 +593,6 @@
         `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
         `<span class="dc-heads">${heads.join(" · ")}</span>` +
-        `<span class="dc-more">ועוד הרבה הופעות ותקלוטים</span>` +
         `<span class="dc-go" aria-hidden="true">←</span></button></div>`;
     }).join("");
     document.querySelectorAll(".day-card").forEach(reveal);
