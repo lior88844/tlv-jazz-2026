@@ -1179,6 +1179,10 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .dc-fig { height: calc(var(--h) * var(--s, 1) * 1cqw) !important; }
   .dc-fig + .dc-fig { margin-inline-start: calc(var(--ov) * -1cqw) !important; }
   .dc-fig.head { z-index: 1; }
+  /* artists live in a clear strip under the text, so they never cover it */
+  .day-card { --zone: 118px; padding-bottom: calc(var(--zone) + 10px) !important; }
+  .dc-pop { top: auto !important; bottom: 0 !important; height: var(--zone) !important; }
+  .dc-fig { height: min(calc(var(--h) * var(--s, 1) * 1cqw), calc(var(--zone) * var(--s, 1))) !important; }
   .dc-fig { transition-delay: calc(var(--j, 0) * 45ms) !important; }
 }
 .dc-more { display: block; margin-top: 4px; font-size: 13px; font-weight: 700; opacity: .8; }
