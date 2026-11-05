@@ -58,7 +58,7 @@
       const en = String(s.en || "").toLowerCase();
       const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
       return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}">` +
-        (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=2" alt="" loading="lazy">` : "") +
+        (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=3" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
         `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date}${SHOW_TIMES ? ` · ${hhmm(s.start)} · ${esc(s.stage)}` : ""}</span></div></li>`;
@@ -587,7 +587,7 @@
   function renderDays() {
     // headliners first, then more artists from that night (cutouts from the reel)
     const PICS = { thu: ["margeeah", "johnny", "ronen"], fri: ["bbb", "cinema", "rosen", "hillel", "dina"], sat: ["liraz", "emma", "kadosh", "mamelo", "milton"] };
-    const AR = { margeeah: "640/637", johnny: "640/530", bbb: "565/640", liraz: "424/640", emma: "538/640",
+    const AR = { margeeah: "640/637", johnny: "640/530", bbb: "848/640", liraz: "424/640", emma: "538/640",
       ronen: "676/640", cinema: "689/640", rosen: "489/640", hillel: "362/640", dina: "420/640", kadosh: "755/640", mamelo: "459/640", milton: "473/640" };
     const HEADS = ["margeeah", "johnny", "bbb", "liraz", "emma"];
     // headliners big, the rest smaller; each card's row is scaled so it fills the card's width exactly
@@ -601,7 +601,7 @@
       const h = Math.min(62, (100 + OVERLAP * (row.length - 1)) / sum); // headliner height, in % of the card width
       return { row, h };
     }
-    const picSrc = (p) => HEADS.includes(p) ? `assets/headliners/${p}.webp?v=2` : `assets/popouts/${p}.webp?v=1`;
+    const picSrc = (p) => HEADS.includes(p) ? `assets/headliners/${p}.webp?v=3` : `assets/popouts/${p}.webp?v=1`;
     $("#day-cards").innerHTML = Object.keys(DAYS).map((k, n) => {
       const d = DAYS[k], [dd] = d.date.split(".");
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
