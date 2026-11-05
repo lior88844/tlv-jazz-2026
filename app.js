@@ -54,7 +54,7 @@
       const [main, sub] = String(s.en || s.name).split(" · ");
       const en = String(s.en || "").toLowerCase();
       const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
-      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}" tabindex="0" role="button" aria-label="${esc(String(s.en || s.name).replace(" · ", " – "))}: פרטים">` +
+      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}">` +
         (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=2" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
@@ -378,7 +378,7 @@
       const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
-      const tg = e.group === "head" ? "button" : "div";
+      const tg = "div"; // no artist texts yet, so nothing opens
       return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><${tg} class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
         `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></${tg}></li>`;
     }).join("");
@@ -460,9 +460,7 @@
       el.classList.add("drop");
     });
   }
-  $("#hl-list").addEventListener("click", (ev) => { const c = ev.target.closest(".hl-card"); if (c) openArtist(c.dataset.id); });
-  $("#hl-list").addEventListener("keydown", (ev) => { const c = ev.target.closest(".hl-card"); if (c && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); openArtist(c.dataset.id); } });
-  $("#ar-list").addEventListener("click", (ev) => { const b = ev.target.closest("button.ar-item"); if (b) openLineup(+b.dataset.i); });
+  // artist cards are off for now (no texts yet): headliners and the artists list don't open anything
 
 
   /* ---------- stars across the whole hero ---------- */

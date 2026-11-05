@@ -731,7 +731,7 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 /* ---------- headliners with the reel's photos ---------- */
 .hl-list { gap: 26px; }
 .hl-list li.hl-card {
-  padding: 0; clip-path: none; background: none; position: relative; cursor: pointer;
+  padding: 0; clip-path: none; background: none; position: relative;
   display: flex; flex-direction: column; align-items: flex-start; width: min(100%, 520px);
 }
 .hl-list li.hl-card:nth-child(even) { clip-path: none; align-items: flex-end; }
@@ -751,7 +751,6 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .hl-card:hover .hl-photo { transform: translateY(-8px) rotate(-1.5deg) scale(1.03); }
   .hl-card:hover .hl-strip { transform: rotate(1deg) translateY(-2px); }
 }
-.hl-card:active .hl-strip { transform: scale(.97); }
 .js .hl-card.reveal .hl-photo { opacity: 0; transform: translateY(30px) scale(.94); transition: opacity .6s var(--ease-out), transform .8s var(--ease-spring); transition-delay: calc(var(--i) * 70ms + .1s); }
 .js .hl-card.reveal.in .hl-photo { opacity: 1; transform: none; }
 @media (min-width: 760px) {
