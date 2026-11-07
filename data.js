@@ -131,7 +131,7 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "במה 1",
-  "name": "שואוקייס · הג׳אז אינסטיטיוט של רימון",
+  "name": "Nadav Lavie",
   "start": 750,
   "end": 810,
   "kind": "live",
@@ -203,7 +203,7 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "במה 1",
-  "name": "שואוקייס · הג׳אז אינסטיטיוט של רימון",
+  "name": "The Hard Bop Congress",
   "start": 900,
   "end": 960,
   "kind": "live",
@@ -329,7 +329,7 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "במה 1",
-  "name": "שואוקייס · הג׳אז אינסטיטיוט של רימון",
+  "name": "Noa Blumer & Roy Kimelman",
   "start": 1140,
   "end": 1200,
   "kind": "live",
@@ -401,7 +401,7 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "במה 1",
-  "name": "שואוקייס · הג׳אז אינסטיטיוט של רימון",
+  "name": "Sounds of the Jungle",
   "start": 1290,
   "end": 1350,
   "kind": "live",
@@ -492,7 +492,7 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "במה 1",
-  "name": "שואוקייס · הקונסרבטוריון הישראלי למוזיקה",
+  "name": "David Hillel Damari Quartet",
   "start": 750,
   "end": 810,
   "kind": "live",
@@ -555,7 +555,7 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "במה 1",
-  "name": "שואוקייס · הקונסרבטוריון הישראלי למוזיקה",
+  "name": "Dor Bar On Trio",
   "start": 900,
   "end": 960,
   "kind": "live",
@@ -672,7 +672,7 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "במה 1",
-  "name": "שואוקייס · הקונסרבטוריון הישראלי למוזיקה",
+  "name": "Ori Lapid Quartet",
   "start": 1140,
   "end": 1200,
   "kind": "live",
@@ -745,7 +745,7 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "במה 1",
-  "name": "שואוקייס · הקונסרבטוריון הישראלי למוזיקה",
+  "name": "Yehonatan Karmi Trio",
   "start": 1290,
   "end": 1350,
   "kind": "live",
