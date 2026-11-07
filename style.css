@@ -215,6 +215,7 @@ button { font: inherit; color: inherit; }
 .s-5 { background-color: var(--brown); color: var(--cream); box-shadow: none; }
 .s-6 { background-color: var(--cyan); }
 .s-7 { background-color: #F4B9B2; }
+.s-8 { background-color: #B9D98C; }
 
 .legend {
   display: flex; gap: 16px; align-items: center; padding: 10px 16px 0; font-size: 13px;
@@ -1021,7 +1022,7 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .mv-day small { margin-inline-start: auto; font-size: 13px; font-weight: 700; opacity: .65; }
 .mv-item.s-0 { --sc: var(--yellow); } .mv-item.s-1 { --sc: var(--pink); } .mv-item.s-2 { --sc: var(--blue); }
 .mv-item.s-3 { --sc: var(--tan); } .mv-item.s-4 { --sc: var(--red); } .mv-item.s-5 { --sc: var(--brown); }
-.mv-item.s-6 { --sc: var(--cyan); } .mv-item.s-7 { --sc: #F4B9B2; }
+.mv-item.s-6 { --sc: var(--cyan); } .mv-item.s-7 { --sc: #F4B9B2; } .mv-item.s-8 { --sc: #B9D98C; }
 .mv-item {
   background: var(--paper) !important; color: var(--brown) !important;
   box-shadow: 0 0 0 1.5px rgba(46, 23, 12, .18) inset !important;

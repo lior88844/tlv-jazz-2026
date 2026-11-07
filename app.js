@@ -4,7 +4,7 @@
   const SHEET_CSV = "https://docs.google.com/spreadsheets/d/1Cxua6aZYxJ8CCthvtaJc7cUPqcfAgxoieajsiCifOXE/pub?gid=1205429231&single=true&output=csv";
   const CACHE_KEY = "jazz26-live";
   let DATA = window.SCHEDULE || [];
-  const STAGES = ["רחבה", "רפי", "חואניטה", "קיסה", "מטמון", "רומנו", "נואיבה", "במה 2"];
+  const STAGES = ["רחבה", "רפי", "חואניטה", "קיסה", "מטמון", "רומנו", "נואיבה", "במה 1", "במה 2"];
   const DAYS = {
     thu: { name: "חמישי", date: "19.11", iso: "2026-11-19", start: 18 * 60 },
     fri: { name: "שישי",  date: "20.11", iso: "2026-11-20", start: 12 * 60 },
@@ -20,8 +20,6 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
   };
 
-  const cached = store.get(CACHE_KEY, null);
-  if (cached && Array.isArray(cached) && cached.length) DATA = cached;
   let favs = new Set(store.get(FAV_KEY, []));
   let day = pickDay();
   let mineOn = false;
@@ -333,7 +331,7 @@
   /* ---------- lineup (official list) + artist info ---------- */
   const LINEUP = window.LINEUP || [];
   const GROUP_LABEL = { head: "הדליינר", live: "הופעה", show: "שואוקייס", dj: "תקלוט" };
-  function lineupFor(s) { return LINEUP.find((e) => e.day === s.day && e.show === s.name) || null; }
+  function lineupFor(s) { return LINEUP.find((e) => e.day === s.day && (e.show || e.en) === s.name) || null; }
   function infoFor(entry, heName) {
     const I = window.ARTIST_INFO || {};
     const v = (entry && I[entry.en]) || I[heName] || null;
@@ -344,7 +342,7 @@
     return meta.photo ? `<figure class="a-photo"><img src="${esc(meta.photo)}" alt="">` +
       (meta.credit ? `<figcaption>${esc(meta.credit)}</figcaption>` : "") + `</figure>` : "";
   }
-  function showsFor(e) { return e.show ? DATA.filter((s) => s.day === e.day && s.name === e.show).sort((a, b) => a.start - b.start) : []; }
+  function showsFor(e) { const n = e.show || e.en; return DATA.filter((s) => s.day === e.day && s.name === n).sort((a, b) => a.start - b.start); }
 
   function openLineup(i) {
     const e = LINEUP[i]; if (!e) return;
@@ -617,9 +615,9 @@
   }
   $("#day-cards").addEventListener("click", (ev) => {
     const c = ev.target.closest(".day-card"); if (!c) return;
-    // schedule is hidden for now: show that day's artists instead
-    const f = $(`#ar-filters button[data-f="${c.dataset.day}"]`); if (f) f.click();
-    $("#artists").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    if (mineOn) setMine(false);
+    setDay(c.dataset.day);
+    $("#schedule").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   });
 
   /* ---------- stage ribbon: double the track for a seamless loop ---------- */
@@ -633,7 +631,7 @@
     const secObs = new IntersectionObserver((entries) => {
       for (const en of entries) if (en.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id));
     }, { rootMargin: "-45% 0px -50% 0px" });
-    ["days", "artists", "info"].forEach((id) => secObs.observe(document.getElementById(id)));
+    ["schedule", "artists", "info"].forEach((id) => secObs.observe(document.getElementById(id)));
   }
 
   function refresh() { mineOn ? renderMine() : renderGrid(); favPop = null; }
@@ -655,5 +653,5 @@
   decorate();
   setDay(day);
   updateCount(false);
-  loadLive();
+  // the schedule now comes from data.js (sheet "JAZZ WEBSITE TIMETABLE"), not the old live sheet
 })();

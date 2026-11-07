@@ -68,11 +68,11 @@ window.DJ_NAMES = [
 
 // ההדליינרים: שם התצוגה → השם באנגלית כמו בפוסטר (סדר = סדר ההצגה באתר).
 window.HEADLINERS = {
- "מרגיעה & אעלק לי": "Margeeah & Alek Lee",
- "ג'וני אוניל": "Johnny O'Neal",
- "לירז – טהרן / תל אביב": "Liraz – Tehran / TLV · Special guest: Sahba Motallebi",
- "Blue Break Beats – רון מגריל טריו פיצ'רינג ניל שוגרמן": "Blue Break Beats – Ron Magril Trio feat. Neal Sugarman",
- "אמה סמית' & יונתן ריקליס": "Emma Smith & Yonatan Riklis"
+ "Margeeah & Alek Lee": "Margeeah & Alek Lee",
+ "Johnny O'Neal": "Johnny O'Neal",
+ "Liraz - Tehran / TLV feat. Special Guest: Sahba Motallebi": "Liraz – Tehran / TLV · Special guest: Sahba Motallebi",
+ "Blue Break Beats - Ron Magril Trio feat Neal Sugarman": "Blue Break Beats – Ron Magril Trio feat. Neal Sugarman",
+ "Emma Smith & Yonatan Riklis": "Emma Smith & Yonatan Riklis"
 };
 
 // תיאור קצר לכל אמן (אופציונלי) — יופיע בחלון הפרטים. המפתח = שם התצוגה.
