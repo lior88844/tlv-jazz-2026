@@ -169,6 +169,37 @@
     sc.scrollLeft = keep;
   }
 
+  /* ---------- calendar ---------- */
+  const PLACE = "בית רומנו, דרך יפו 9, תל אביב-יפו";
+  const SITE = "https://lior88844.github.io/tlv-jazz-2026/";
+  // local festival time -> "YYYYMMDDTHHMMSS"; minutes past midnight roll over to the next date
+  function calStamp(dayKey, min, utc) {
+    const [y, mo, d] = DAYS[dayKey].iso.split("-").map(Number);
+    const t = new Date(Date.UTC(y, mo - 1, d, 0, min - (utc ? 120 : 0))); // Israel is UTC+2 in November
+    const p = (n) => String(n).padStart(2, "0");
+    return `${t.getUTCFullYear()}${p(t.getUTCMonth() + 1)}${p(t.getUTCDate())}T${p(t.getUTCHours())}${p(t.getUTCMinutes())}00` + (utc ? "Z" : "");
+  }
+  const calTitle = (s) => `${s.name} · פסטיבל הג'אז ת״א-יפו`;
+  const calDetails = (s) => `${s.stage}${s.kind === "dj" ? " · תקלוט" : ""}\n${SITE}`;
+  function gcalURL(s) {
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+      `&text=${encodeURIComponent(calTitle(s))}&dates=${calStamp(s.day, s.start)}/${calStamp(s.day, s.end)}` +
+      `&ctz=Asia/Jerusalem&location=${encodeURIComponent(PLACE)}&details=${encodeURIComponent(calDetails(s))}`;
+  }
+  function downloadICS(list) {
+    const e = (t) => String(t).replace(/[\\;,]/g, (c) => "\\" + c).replace(/\n/g, "\\n");
+    const now = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Teder//TLV Jazz 2026//HE", "CALSCALE:GREGORIAN", "METHOD:PUBLISH"];
+    for (const s of list) lines.push("BEGIN:VEVENT", `UID:${encodeURIComponent(s.id)}@tlv-jazz-2026`, `DTSTAMP:${now}`,
+      `DTSTART:${calStamp(s.day, s.start, true)}`, `DTEND:${calStamp(s.day, s.end, true)}`,
+      `SUMMARY:${e(calTitle(s))}`, `LOCATION:${e(PLACE)}`, `DESCRIPTION:${e(calDetails(s))}`, "END:VEVENT");
+    lines.push("END:VCALENDAR");
+    const url = URL.createObjectURL(new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" }));
+    const a = Object.assign(document.createElement("a"), { href: url, download: "tlv-jazz-2026-my-lineup.ics" });
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+  const CAL_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
+
   /* ---------- my lineup ---------- */
   function renderMine(animate) {
     let n = 0;
@@ -177,7 +208,8 @@
       $("#mine-view").innerHTML = `<div class="empty ${animate ? "enter" : ""}"><span class="big">★</span>עוד לא סימנתם הופעות.<br>הקישו על ☆ ליד הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.</div>`;
       return;
     }
-    let html = "";
+    let html = `<div class="mv-cal-all ${animate ? "enter" : ""}" style="--i:${n++}"><button type="button" class="mv-cal-btn" id="cal-all">${CAL_SVG}<span>הוספת כל הליינאפ ליומן</span></button>` +
+      `<small>או הקישו על <span class="ic">${CAL_SVG}</span> ליד הופעה כדי להוסיף אותה ליומן Google</small></div>`;
     for (const k of Object.keys(DAYS)) {
       const items = list.filter((s) => s.day === k).sort((a, b) => a.start - b.start);
       if (!items.length) continue;
@@ -187,6 +219,7 @@
         html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
           `<div class="mv-meta">${esc(s.stage)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
+          `<a class="mv-cal" href="${gcalURL(s)}" target="_blank" rel="noopener" aria-label="הוספת ${esc(s.name)} ליומן Google" title="הוספה ליומן Google">${CAL_SVG}</a>` +
           `${starBtn(s)}</div>`;
       }
     }
@@ -237,6 +270,7 @@
   $("#mine").addEventListener("click", () => setMine(!mineOn));
   // schedule blocks aren't clickable (artist texts exist for headliners only); the star still toggles favorites
   function onListClick(e) {
+    if (e.target.closest("#cal-all")) { downloadICS(DATA.filter((s) => favs.has(s.id)).sort((a, b) => a.day.localeCompare(b.day) || a.start - b.start)); toast("הקובץ ירד — פתחו אותו כדי להוסיף ליומן"); return; }
     const star = e.target.closest(".star");
     if (star) { e.stopPropagation(); toggle(star.dataset.id); refresh(); }
   }
