@@ -1353,3 +1353,8 @@ html.a11y-reduce-motion *, html.a11y-reduce-motion ::before, html.a11y-reduce-mo
 html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the look + record icon say it; keep the time visible */
 @media (max-width: 759px) { .ar-list li:has(.ar-item.has-host) { max-width: 100%; } }   /* strips with a logo get a full row so the name stays on one line */
 
+/* desktop artists list: no strip is wider than half a row, so every row holds at least two artists (long names wrap) */
+@media (min-width: 760px) {
+  .ar-list li { max-width: calc(50% - 6px); }
+  .ar-list li .ar-item { max-width: 100%; }
+}
