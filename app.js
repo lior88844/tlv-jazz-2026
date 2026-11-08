@@ -4,13 +4,15 @@
   const SHEET_CSV = "https://docs.google.com/spreadsheets/d/1Cxua6aZYxJ8CCthvtaJc7cUPqcfAgxoieajsiCifOXE/pub?gid=1205429231&single=true&output=csv";
   const CACHE_KEY = "jazz26-live";
   let DATA = window.SCHEDULE || [];
-  const STAGES = ["רחבה", "רפי", "חואניטה", "קיסה", "מטמון", "רומנו", "נואיבה", "במה 1", "במה 2"];
+  const STAGES = ["רחבה", "רפי", "חואניטה", "קיסה", "מטמון", "רומנו", "נואיבה", "פארק המסילה 1", "פארק המסילה 2"];
   // English page (en.html) sets <html lang="en">; everything else stays Hebrew
   const EN = document.documentElement.lang === "en";
   const L = (he, en) => (EN ? en : he);
-  const STAGE_EN = { "רחבה": "The Plaza", "רפי": "Rafi", "חואניטה": "Juanita", "קיסה": "Kisa", "מטמון": "Matmon", "רומנו": "Romano", "נואיבה": "Nuweiba", "במה 1": "Stage 1", "במה 2": "Stage 2" };
+  const STAGE_EN = { "רחבה": "The Plaza", "רפי": "Rafi", "חואניטה": "Juanita", "קיסה": "Kisa", "מטמון": "Matmon", "רומנו": "Romano", "נואיבה": "Nuweiba", "פארק המסילה 1": "HaMesila Park 1", "פארק המסילה 2": "HaMesila Park 2" };
   const NOTE_EN = { "הג׳אז אינסטיטיוט של רימון": "Rimon Jazz Institute", "הקונסרבטוריון הישראלי למוזיקה": "Israel Conservatory of Music" };
   const stg = (st) => (EN ? STAGE_EN[st] || st : st);
+  // show name for this page: Hebrew name on the Hebrew page, English (or its English label) on the English page
+  const nm = (s) => (EN ? s.label_en || s.name : s.he || s.name);
   const note = (t) => (EN ? NOTE_EN[t] || t : t);
   const DAYS = {
     thu: { name: L("חמישי", "Thursday"), date: L("19.11", "Nov 19"), dd: "19", iso: "2026-11-19", start: 18 * 60 },
@@ -165,8 +167,8 @@
         const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
         const delay = Math.round(((s.start - d.start) / (DAY_END - d.start)) * 260 + stages.indexOf(st) * 45);
         html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px;--d:${delay}ms" ` +
-          `aria-label="${esc(s.name)}, ${hhmm(s.start)} ${L("עד", "to")} ${hhmm(s.end)}, ${esc(stg(s.stage))}">` +
-          `<span class="top">${starBtn(s)}<span class="nm">${esc(s.name)}</span></span>` +
+          `aria-label="${esc(nm(s))}, ${hhmm(s.start)} ${L("עד", "to")} ${hhmm(s.end)}, ${esc(stg(s.stage))}">` +
+          `<span class="top">${starBtn(s)}<span class="nm">${esc(nm(s))}</span></span>` +
           `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></div>`;
       }
       html += `</div></div>`;
@@ -186,7 +188,7 @@
     const p = (n) => String(n).padStart(2, "0");
     return `${t.getUTCFullYear()}${p(t.getUTCMonth() + 1)}${p(t.getUTCDate())}T${p(t.getUTCHours())}${p(t.getUTCMinutes())}00` + (utc ? "Z" : "");
   }
-  const calTitle = (s) => `${s.name} · ${L("פסטיבל הג'אז ת״א-יפו", "Tel Aviv-Yafo Jazz Festival")}`;
+  const calTitle = (s) => `${nm(s)} · ${L("פסטיבל הג'אז ת״א-יפו", "Tel Aviv-Yafo Jazz Festival")}`;
   const calDetails = (s) => `${stg(s.stage)}${s.kind === "dj" ? L(" · תקלוט", " · DJ set") : ""}\n${SITE}`;
   function gcalURL(s) {
     return "https://calendar.google.com/calendar/render?action=TEMPLATE" +
@@ -224,9 +226,9 @@
       for (const s of items) {
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
         html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}"><div class="mv-time">${hhmm(s.start)}</div>` +
-          `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
+          `<div class="mv-body"><div class="mv-name">${esc(nm(s))}</div>` +
           `<div class="mv-meta">${esc(stg(s.stage))}${s.kind === "dj" ? L(" · תקלוט", " · DJ set") : ""}${clash ? ` · <span class="clash">${L("חופף להופעה אחרת", "Overlaps another show")}</span>` : ""}</div></div>` +
-          `<a class="mv-cal" href="${gcalURL(s)}" target="_blank" rel="noopener" aria-label="${L(`הוספת ${esc(s.name)} ליומן Google`, `Add ${esc(s.name)} to Google Calendar`)}" title="${L("הוספה ליומן Google", "Add to Google Calendar")}">${CAL_SVG}</a>` +
+          `<a class="mv-cal" href="${gcalURL(s)}" target="_blank" rel="noopener" aria-label="${L(`הוספת ${esc(nm(s))} ליומן Google`, `Add ${esc(nm(s))} to Google Calendar`)}" title="${L("הוספה ליומן Google", "Add to Google Calendar")}">${CAL_SVG}</a>` +
           `${starBtn(s)}</div>`;
       }
     }
@@ -308,7 +310,7 @@
     $("#artist-body").innerHTML = photoHTML(meta) +
       `<div class="a-head s-${stageIdx(s.stage)} ${s.kind}">` +
         `<span class="a-kind">${s.kind === "dj" ? L("תקלוט", "DJ set") : s.kind === "head" ? L("הדליינר", "Headliner") : L("הופעה", "Live")}</span>` +
-        `<h3 class="a-name" id="artist-title">${esc(s.name)}</h3>` +
+        `<h3 class="a-name" id="artist-title">${esc(nm(s))}</h3>` +
         ((s.en || (entry && entry.en)) ? `<p class="a-en">${esc(s.en || entry.en)}</p>` : "") +
       `</div>` +
       `<dl class="a-facts">` +
@@ -322,7 +324,7 @@
         `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">${L("הוספה ליומן", "Add to calendar")}</a>` +
       `</div>` +
       (same.length ? `<div class="a-same"><h4>${L("באותו זמן", "At the same time")}</h4>` + same.map((o) =>
-        { const tg = o.kind === "head" ? "button" : "div"; return `<${tg} class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(stg(o.stage))} · <span dir="ltr">${hhmm(o.start)}</span></small></${tg}>`; }).join("") + `</div>` : "");
+        { const tg = o.kind === "head" ? "button" : "div"; return `<${tg} class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(nm(o))}</b><small>${esc(stg(o.stage))} · <span dir="ltr">${hhmm(o.start)}</span></small></${tg}>`; }).join("") + `</div>` : "");
   }
   function openArtist(id) {
     const first = !dlg.open;
@@ -422,7 +424,7 @@
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
       const tg = "div"; // no artist texts yet, so nothing opens
       return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><${tg} class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
-        `<span class="ar-name">${esc(e.en)}</span><span class="ar-sub">${tag}${when}</span></${tg}></li>`;
+        `<span class="ar-name">${esc(EN || !sh || !sh.he ? e.en : sh.he)}</span><span class="ar-sub">${tag}${when}</span></${tg}></li>`;
     }).join("");
     dropObserve();
   }

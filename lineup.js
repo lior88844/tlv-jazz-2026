@@ -58,7 +58,7 @@ window.LINEUP = [
  { day: "sat", group: "live", en: "David Dagmi" },
  { day: "sat", group: "live", en: "Duoizm" },
  { day: "sat", group: "live", en: "Jonathan Levy" },
- { day: "sat", group: "live", en: "Mamelo Gaitanopolous Quintet" },
+ { day: "sat", group: "live", en: "Mamelo Gaitanopoulos Quintet" },
  { day: "sat", group: "live", en: "Mark Moshayev Quartet" },
  { day: "sat", group: "live", en: "Milton Michaeli Sextet" },
  { day: "sat", group: "live", en: "Noa Blumer" },

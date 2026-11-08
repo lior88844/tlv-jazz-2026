@@ -51,7 +51,7 @@ window.ARTIST_INFO = {
     photo: "assets/artists/kadosh-brothers.jpg",
     credit: "צילום: יוסי צבקר"
   },
-  "Mamelo Gaitanopolous Quintet": {
+  "Mamelo Gaitanopoulos Quintet": {
     he: "חמישיית ממלו גיטנופולוס",
     bio: "החמישייה של ממלו גיטנופולוס תנגן קטעים מקוריים שהלחין לאורך השנים, לצד סטנדרטים בעיבודים יצירתיים.",
     photo: "assets/artists/mamelo-gaitanopoulos.jpg",

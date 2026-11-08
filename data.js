@@ -1,4 +1,5 @@
-// לו"ז הפסטיבל — מתוך הגיליון JAZZ WEBSITE TIMETABLE ב-Drive. זמנים בדקות מחצות (01:00 = 1500).
+// לו"ז הפסטיבל — מתוך "לוז_פסטיבל_הגאז_2026_מעודכן_8-11" ב-Drive. זמנים בדקות מחצות (01:00 = 1500).
+// name = השם באנגלית (מקשר לליינאפ), he = השם בעמוד העברי, label_en = שם שונה לעמוד האנגלי.
 window.SCHEDULE = [
  {
   "day": "thu",
@@ -7,6 +8,7 @@ window.SCHEDULE = [
   "start": 1080,
   "end": 1140,
   "kind": "dj",
+  "he": "עמי בן צבי",
   "id": "thu-1080-רחבה"
  },
  {
@@ -23,8 +25,9 @@ window.SCHEDULE = [
   "stage": "רחבה",
   "name": "Ami Ben Zvi",
   "start": 1200,
-  "end": 1230,
+  "end": 1245,
   "kind": "dj",
+  "he": "עמי בן צבי",
   "id": "thu-1200-רחבה"
  },
  {
@@ -40,30 +43,22 @@ window.SCHEDULE = [
   "day": "thu",
   "stage": "רחבה",
   "name": "Johnny O'Neal",
-  "start": 1230,
-  "end": 1290,
+  "start": 1245,
+  "end": 1305,
   "kind": "head",
+  "he": "ג׳וני אוניל",
   "en": "Johnny O'Neal",
-  "id": "thu-1230-רחבה"
+  "id": "thu-1245-רחבה"
  },
  {
   "day": "thu",
   "stage": "רחבה",
   "name": "Ofer Tal",
-  "start": 1290,
-  "end": 1320,
+  "start": 1305,
+  "end": 1350,
   "kind": "dj",
-  "id": "thu-1290-רחבה"
- },
- {
-  "day": "thu",
-  "stage": "רחבה",
-  "name": "Margeeah & Alek Lee",
-  "start": 1320,
-  "end": 1380,
-  "kind": "head",
-  "en": "Margeeah & Alek Lee",
-  "id": "thu-1320-רחבה"
+  "he": "עופר טל",
+  "id": "thu-1305-רחבה"
  },
  {
   "day": "thu",
@@ -72,16 +67,19 @@ window.SCHEDULE = [
   "start": 1320,
   "end": 1500,
   "kind": "dj",
+  "he": "עינת טורוק",
   "id": "thu-1320-נואיבה"
  },
  {
   "day": "thu",
   "stage": "רחבה",
-  "name": "Ofer Tal",
-  "start": 1380,
+  "name": "Margeeah & Alek Lee",
+  "start": 1350,
   "end": 1410,
-  "kind": "dj",
-  "id": "thu-1380-רחבה"
+  "kind": "head",
+  "he": "מרגיעה ואעלק ליי",
+  "en": "Margeeah & Alek Lee",
+  "id": "thu-1350-רחבה"
  },
  {
   "day": "thu",
@@ -99,6 +97,7 @@ window.SCHEDULE = [
   "start": 1440,
   "end": 1500,
   "kind": "live",
+  "he": "Midnight Jam Session · בניהול האחים קדוש",
   "id": "thu-1440-קיסה"
  },
  {
@@ -108,6 +107,8 @@ window.SCHEDULE = [
   "start": 1450,
   "end": 1500,
   "kind": "dj",
+  "he": "Kidnappa Koko b2b Cence",
+  "label_en": "Kidnappa Koko b2b Cence",
   "id": "thu-1450-רפי"
  },
  {
@@ -117,6 +118,7 @@ window.SCHEDULE = [
   "start": 720,
   "end": 840,
   "kind": "dj",
+  "he": "איתמר שלמה כהן",
   "id": "fri-720-רחבה"
  },
  {
@@ -130,12 +132,14 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "במה 1",
+  "stage": "פארק המסילה 1",
   "name": "Nadav Lavie",
   "start": 750,
   "end": 810,
   "kind": "live",
-  "id": "fri-750-במה 1"
+  "he": "נדב לביא פוגש את הרימון ג'אז אינסטיטיוט",
+  "label_en": "Nadav Lavie meets the Rimon Jazz Institute",
+  "id": "fri-750-פארק המסילה 1"
  },
  {
   "day": "fri",
@@ -144,16 +148,18 @@ window.SCHEDULE = [
   "start": 780,
   "end": 840,
   "kind": "live",
+  "he": "שראל הכהן",
   "id": "fri-780-חואניטה"
  },
  {
   "day": "fri",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "Omri Porat Trio",
   "start": 810,
   "end": 870,
   "kind": "live",
-  "id": "fri-810-במה 2"
+  "he": "עומרי פורת טריו",
+  "id": "fri-810-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -169,18 +175,19 @@ window.SCHEDULE = [
   "stage": "חואניטה",
   "name": "Ido Sucho",
   "start": 840,
-  "end": 900,
+  "end": 870,
   "kind": "dj",
   "id": "fri-840-חואניטה"
  },
  {
   "day": "fri",
-  "stage": "קיסה",
+  "stage": "חואניטה",
   "name": "Ofer Landsberg Trio",
   "start": 870,
   "end": 930,
   "kind": "live",
-  "id": "fri-870-קיסה"
+  "he": "שלישיית עופר לנדסברג",
+  "id": "fri-870-חואניטה"
  },
  {
   "day": "fri",
@@ -189,25 +196,19 @@ window.SCHEDULE = [
   "start": 900,
   "end": 960,
   "kind": "dj",
+  "he": "אלעד משה",
   "id": "fri-900-רחבה"
  },
  {
   "day": "fri",
-  "stage": "חואניטה",
-  "name": "Yaara Haim",
-  "start": 900,
-  "end": 930,
-  "kind": "dj",
-  "id": "fri-900-חואניטה"
- },
- {
-  "day": "fri",
-  "stage": "במה 1",
+  "stage": "פארק המסילה 1",
   "name": "The Hard Bop Congress",
   "start": 900,
   "end": 960,
   "kind": "live",
-  "id": "fri-900-במה 1"
+  "he": "Rimon Jazz Institute: The Hard Bop Congress",
+  "label_en": "Rimon Jazz Institute: The Hard Bop Congress",
+  "id": "fri-900-פארק המסילה 1"
  },
  {
   "day": "fri",
@@ -216,6 +217,7 @@ window.SCHEDULE = [
   "start": 930,
   "end": 990,
   "kind": "live",
+  "he": "חמישיית הלל סאלם - מחווה לוויין שורטר",
   "id": "fri-930-חואניטה"
  },
  {
@@ -225,6 +227,7 @@ window.SCHEDULE = [
   "start": 960,
   "end": 1020,
   "kind": "live",
+  "he": "רביעיית עמוס הופמן",
   "id": "fri-960-רחבה"
  },
  {
@@ -232,18 +235,20 @@ window.SCHEDULE = [
   "stage": "חואניטה",
   "name": "Yaara Haim",
   "start": 990,
-  "end": 1050,
+  "end": 1020,
   "kind": "dj",
+  "he": "יערה חיים",
   "id": "fri-990-חואניטה"
  },
  {
   "day": "fri",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "Ofri Haroz",
   "start": 990,
   "end": 1050,
   "kind": "live",
-  "id": "fri-990-במה 2"
+  "he": "עפרי הרעוז",
+  "id": "fri-990-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -252,25 +257,17 @@ window.SCHEDULE = [
   "start": 1020,
   "end": 1080,
   "kind": "dj",
+  "he": "אלעד משה",
   "id": "fri-1020-רחבה"
  },
  {
   "day": "fri",
-  "stage": "קיסה",
+  "stage": "חואניטה",
   "name": "Yonatan Rosen Plays the Blues",
   "start": 1020,
   "end": 1080,
   "kind": "live",
-  "id": "fri-1020-קיסה"
- },
- {
-  "day": "fri",
-  "stage": "חואניטה",
-  "name": "Be'eri",
-  "start": 1050,
-  "end": 1110,
-  "kind": "dj",
-  "id": "fri-1050-חואניטה"
+  "id": "fri-1020-חואניטה"
  },
  {
   "day": "fri",
@@ -283,12 +280,23 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "במה 2",
+  "stage": "חואניטה",
+  "name": "Yaara Haim",
+  "start": 1080,
+  "end": 1110,
+  "kind": "dj",
+  "he": "יערה חיים",
+  "id": "fri-1080-חואניטה"
+ },
+ {
+  "day": "fri",
+  "stage": "פארק המסילה 2",
   "name": "Chucha",
   "start": 1080,
   "end": 1140,
   "kind": "live",
-  "id": "fri-1080-במה 2"
+  "he": "צ׳וצ׳ה",
+  "id": "fri-1080-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -297,6 +305,7 @@ window.SCHEDULE = [
   "start": 1110,
   "end": 1200,
   "kind": "dj",
+  "he": "רומי אבידן",
   "id": "fri-1110-רחבה"
  },
  {
@@ -319,21 +328,24 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "קיסה",
-  "name": "Tamar Shawki",
-  "start": 1140,
-  "end": 1200,
-  "kind": "live",
-  "id": "fri-1140-קיסה"
- },
- {
-  "day": "fri",
-  "stage": "במה 1",
+  "stage": "פארק המסילה 1",
   "name": "Noa Blumer & Roy Kimelman",
   "start": 1140,
   "end": 1200,
   "kind": "live",
-  "id": "fri-1140-במה 1"
+  "he": "נעה בלומר ורועי קימלמן פוגשים את הרימון ג'אז אינסטיטיוט",
+  "label_en": "Noa Blumer & Roy Kimelman meet the Rimon Jazz Institute",
+  "id": "fri-1140-פארק המסילה 1"
+ },
+ {
+  "day": "fri",
+  "stage": "מטמון",
+  "name": "Tamar Shawki",
+  "start": 1155,
+  "end": 1185,
+  "kind": "live",
+  "he": "תמר שאוקי",
+  "id": "fri-1155-מטמון"
  },
  {
   "day": "fri",
@@ -342,6 +354,7 @@ window.SCHEDULE = [
   "start": 1170,
   "end": 1230,
   "kind": "live",
+  "he": "חואניטה כהן סמית׳",
   "id": "fri-1170-חואניטה"
  },
  {
@@ -351,6 +364,7 @@ window.SCHEDULE = [
   "start": 1200,
   "end": 1260,
   "kind": "dj",
+  "he": "נועם נגרי",
   "id": "fri-1200-רחבה"
  },
  {
@@ -360,6 +374,7 @@ window.SCHEDULE = [
   "start": 1230,
   "end": 1320,
   "kind": "dj",
+  "he": "ליעד שטנסקי",
   "id": "fri-1230-חואניטה"
  },
  {
@@ -367,18 +382,19 @@ window.SCHEDULE = [
   "stage": "מטמון",
   "name": "Eyal Netzer & Strings",
   "start": 1230,
-  "end": 1290,
+  "end": 1260,
   "kind": "live",
   "id": "fri-1230-מטמון"
  },
  {
   "day": "fri",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "Farha",
   "start": 1230,
   "end": 1290,
   "kind": "live",
-  "id": "fri-1230-במה 2"
+  "he": "פארחה",
+  "id": "fri-1230-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -387,6 +403,7 @@ window.SCHEDULE = [
   "start": 1260,
   "end": 1320,
   "kind": "live",
+  "he": "סינמה רויאל (ניתאי הרשקוביץ וריג׳ויסר)",
   "id": "fri-1260-רחבה"
  },
  {
@@ -400,20 +417,23 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "במה 1",
+  "stage": "פארק המסילה 1",
   "name": "Sounds of the Jungle",
   "start": 1290,
   "end": 1350,
   "kind": "live",
-  "id": "fri-1290-במה 1"
+  "he": "Rimon Jazz Institute: Sounds of the Jungle",
+  "label_en": "Rimon Jazz Institute: Sounds of the Jungle",
+  "id": "fri-1290-פארק המסילה 1"
  },
  {
   "day": "fri",
   "stage": "רחבה",
   "name": "Noam Negry",
   "start": 1320,
-  "end": 1350,
+  "end": 1365,
   "kind": "dj",
+  "he": "נועם נגרי",
   "id": "fri-1320-רחבה"
  },
  {
@@ -427,40 +447,43 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "רחבה",
-  "name": "Blue Break Beats - Ron Magril Trio feat Neal Sugarman",
-  "start": 1350,
-  "end": 1410,
-  "kind": "head",
-  "en": "Blue Break Beats – Ron Magril Trio feat. Neal Sugarman",
-  "id": "fri-1350-רחבה"
- },
- {
-  "day": "fri",
   "stage": "קיסה",
   "name": "Ariel Bart Trio",
   "start": 1350,
   "end": 1410,
   "kind": "live",
+  "he": "שלישיית אריאל ברט",
   "id": "fri-1350-קיסה"
  },
  {
   "day": "fri",
-  "stage": "רפי",
-  "name": "Radiotrip & Neal Sugarman (DJ Set)",
-  "start": 1410,
-  "end": 1500,
-  "kind": "dj",
-  "id": "fri-1410-רפי"
+  "stage": "רחבה",
+  "name": "Blue Break Beats - Ron Magril Trio feat Neal Sugarman",
+  "start": 1365,
+  "end": 1425,
+  "kind": "head",
+  "he": "Blue Break Beats - רון מגריל טריו מארח את ניל שוגרמן",
+  "en": "Blue Break Beats – Ron Magril Trio feat. Neal Sugarman",
+  "id": "fri-1365-רחבה"
  },
  {
   "day": "fri",
   "stage": "מטמון",
   "name": "Sandia",
   "start": 1410,
-  "end": 1470,
+  "end": 1440,
   "kind": "live",
   "id": "fri-1410-מטמון"
+ },
+ {
+  "day": "fri",
+  "stage": "רפי",
+  "name": "Radiotrip & Neal Sugarman (DJ Set)",
+  "start": 1425,
+  "end": 1500,
+  "kind": "dj",
+  "he": "Radio Trip & Neal Sugarman DJ Set",
+  "id": "fri-1425-רפי"
  },
  {
   "day": "fri",
@@ -469,6 +492,7 @@ window.SCHEDULE = [
   "start": 1440,
   "end": 1500,
   "kind": "live",
+  "he": "Midnight Jam Session · בניהול הלל סאלם",
   "id": "fri-1440-קיסה"
  },
  {
@@ -487,16 +511,18 @@ window.SCHEDULE = [
   "start": 720,
   "end": 780,
   "kind": "dj",
+  "he": "נועה ואייל",
   "id": "sat-720-חואניטה"
  },
  {
   "day": "sat",
-  "stage": "במה 1",
-  "name": "David Hillel Damari Quartet",
-  "start": 750,
-  "end": 810,
+  "stage": "פארק המסילה 1",
+  "name": "Yehonatan Karmi Trio",
+  "start": 720,
+  "end": 780,
   "kind": "live",
-  "id": "sat-750-במה 1"
+  "he": "שלישיית יהונתן כרמי",
+  "id": "sat-720-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -514,16 +540,18 @@ window.SCHEDULE = [
   "start": 810,
   "end": 870,
   "kind": "live",
+  "he": "שישיית מילטון מיכאלי",
   "id": "sat-810-רחבה"
  },
  {
   "day": "sat",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "Yarden Erez - Ajab",
   "start": 810,
   "end": 870,
   "kind": "live",
-  "id": "sat-810-במה 2"
+  "he": "ירדן ארז - עג׳ב",
+  "id": "sat-810-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -532,6 +560,7 @@ window.SCHEDULE = [
   "start": 840,
   "end": 900,
   "kind": "dj",
+  "he": "נועה ואייל",
   "id": "sat-840-חואניטה"
  },
  {
@@ -546,7 +575,7 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "חואניטה",
-  "name": "Mamelo Gaitanopolous Quintet",
+  "name": "Mamelo Gaitanopoulos Quintet",
   "start": 900,
   "end": 960,
   "kind": "live",
@@ -554,12 +583,13 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "במה 1",
-  "name": "Dor Bar On Trio",
+  "stage": "פארק המסילה 1",
+  "name": "Ori Lapid Quartet",
   "start": 900,
   "end": 960,
   "kind": "live",
-  "id": "sat-900-במה 1"
+  "he": "רביעיית אורי לפיד",
+  "id": "sat-900-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -582,10 +612,11 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "מטמון",
-  "name": "הקרנה: Sonny Rollins – Saxophone Colossus",
+  "name": "Sonny Rollins: Saxophone Colossus · Screening",
   "start": 960,
   "end": 1080,
   "kind": "live",
+  "he": "הקרנה במסגרת פסטיבל סאונדטראק: סוני רולינס – סקסופון קולוסוס",
   "id": "sat-960-מטמון"
  },
  {
@@ -599,12 +630,13 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "David Dagmi",
   "start": 990,
   "end": 1050,
   "kind": "live",
-  "id": "sat-990-במה 2"
+  "he": "דוד דגמי",
+  "id": "sat-990-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -613,6 +645,8 @@ window.SCHEDULE = [
   "start": 1020,
   "end": 1080,
   "kind": "live",
+  "he": "Jonathan Levy – Farewell Metro Boy",
+  "label_en": "Jonathan Levy – Farewell Metro Boy",
   "id": "sat-1020-חואניטה"
  },
  {
@@ -622,6 +656,7 @@ window.SCHEDULE = [
   "start": 1080,
   "end": 1140,
   "kind": "live",
+  "he": "האחים קדוש",
   "id": "sat-1080-רחבה"
  },
  {
@@ -629,36 +664,19 @@ window.SCHEDULE = [
   "stage": "חואניטה",
   "name": "Noa Miz",
   "start": 1080,
-  "end": 1110,
+  "end": 1140,
   "kind": "dj",
   "id": "sat-1080-חואניטה"
  },
  {
   "day": "sat",
-  "stage": "קיסה",
-  "name": "Alon Tayar & Daniel Dor",
-  "start": 1080,
-  "end": 1140,
-  "kind": "live",
-  "id": "sat-1080-קיסה"
- },
- {
-  "day": "sat",
-  "stage": "חואניטה",
-  "name": "Honey Dew",
-  "start": 1110,
-  "end": 1170,
-  "kind": "dj",
-  "id": "sat-1110-חואניטה"
- },
- {
-  "day": "sat",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "Noa Blumer",
   "start": 1110,
   "end": 1170,
   "kind": "live",
-  "id": "sat-1110-במה 2"
+  "he": "נעה בלומר",
+  "id": "sat-1110-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -671,21 +689,22 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "במה 1",
-  "name": "Ori Lapid Quartet",
+  "stage": "חואניטה",
+  "name": "Mark Moshayev Quartet",
   "start": 1140,
   "end": 1200,
   "kind": "live",
-  "id": "sat-1140-במה 1"
+  "id": "sat-1140-חואניטה"
  },
  {
   "day": "sat",
-  "stage": "חואניטה",
-  "name": "Mark Moshayev Quartet",
-  "start": 1170,
-  "end": 1230,
+  "stage": "פארק המסילה 1",
+  "name": "David Hillel Damari Quartet",
+  "start": 1140,
+  "end": 1200,
   "kind": "live",
-  "id": "sat-1170-חואניטה"
+  "he": "רביעיית דוד הלל דמרי",
+  "id": "sat-1140-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -694,6 +713,7 @@ window.SCHEDULE = [
   "start": 1200,
   "end": 1260,
   "kind": "head",
+  "he": "אמה סמית׳ ויונתן ריקליס",
   "en": "Emma Smith & Yonatan Riklis",
   "id": "sat-1200-רחבה"
  },
@@ -701,19 +721,19 @@ window.SCHEDULE = [
   "day": "sat",
   "stage": "חואניטה",
   "name": "Honey Dew",
-  "start": 1230,
+  "start": 1200,
   "end": 1260,
   "kind": "dj",
-  "id": "sat-1230-חואניטה"
+  "id": "sat-1200-חואניטה"
  },
  {
   "day": "sat",
-  "stage": "במה 2",
+  "stage": "פארק המסילה 2",
   "name": "Duoizm",
   "start": 1230,
   "end": 1290,
   "kind": "live",
-  "id": "sat-1230-במה 2"
+  "id": "sat-1230-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -731,6 +751,7 @@ window.SCHEDULE = [
   "start": 1260,
   "end": 1320,
   "kind": "live",
+  "he": "רביעיית אסף יוריה",
   "id": "sat-1260-חואניטה"
  },
  {
@@ -740,16 +761,18 @@ window.SCHEDULE = [
   "start": 1260,
   "end": 1500,
   "kind": "dj",
+  "he": "עמרי כהן",
   "id": "sat-1260-נואיבה"
  },
  {
   "day": "sat",
-  "stage": "במה 1",
-  "name": "Yehonatan Karmi Trio",
+  "stage": "פארק המסילה 1",
+  "name": "Dor Bar On Trio",
   "start": 1290,
   "end": 1350,
   "kind": "live",
-  "id": "sat-1290-במה 1"
+  "he": "דור בר און",
+  "id": "sat-1290-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -758,8 +781,20 @@ window.SCHEDULE = [
   "start": 1320,
   "end": 1380,
   "kind": "head",
+  "he": "לירז צ׳רכי מארחת את סהבא מוטלבי - טהרן תל אביב",
   "en": "Liraz – Tehran / TLV · Special guest: Sahba Motallebi",
   "id": "sat-1320-רחבה"
+ },
+ {
+  "day": "sat",
+  "stage": "קיסה",
+  "name": "Honey Dew",
+  "start": 1320,
+  "end": 1440,
+  "kind": "dj",
+  "he": "Honey Dew DJ Set",
+  "label_en": "Honey Dew DJ Set",
+  "id": "sat-1320-קיסה"
  },
  {
   "day": "sat",
@@ -768,6 +803,7 @@ window.SCHEDULE = [
   "start": 1380,
   "end": 1500,
   "kind": "dj",
+  "he": "Marzipan – תקלוט סיום",
   "id": "sat-1380-רפי"
  },
  {
@@ -777,6 +813,7 @@ window.SCHEDULE = [
   "start": 1440,
   "end": 1500,
   "kind": "live",
+  "he": "Midnight Jam Session · בניהול ג׳וני אוניל",
   "id": "sat-1440-קיסה"
  }
 ];
