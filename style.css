@@ -1210,16 +1210,21 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 .schedule[hidden] { display: none !important; }
 
-/* ---------- language switch ---------- */
-.hero-links { display: flex; align-items: center; gap: 8px; }
-.hero-links a { white-space: nowrap; }
-.lang-link {
-  color: var(--cream); text-decoration: none; font-weight: 800; font-size: 14px;
-  border: 1.5px solid rgba(244, 238, 228, .6); border-radius: 999px; padding: 7px 13px;
-  transition: background-color .2s var(--ease-out), color .2s var(--ease-out);
+/* ---------- language switch: a small tab fixed to the left edge of the screen ---------- */
+.lang-tab {
+  position: fixed; left: 0; top: 58%; z-index: 40;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  background: var(--yellow); color: var(--brown); text-decoration: none;
+  font-weight: 800; font-size: 13px; letter-spacing: .02em; line-height: 1;
+  padding: 12px 7px; border-radius: 10px 0 0 10px;   /* rounded on the screen side after the rotation */
+  box-shadow: 0 0 0 1.5px var(--brown);
+  transition: padding .2s var(--ease-out);
 }
-@media (hover: hover) { .lang-link:hover { background: var(--cream); color: var(--brown); } }
-.tn-links a.tn-lang { border-style: dashed; }
+.lang-tab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+@media (hover: hover) { .lang-tab:hover { padding-left: 11px; } }
+@media (min-width: 760px) { .lang-tab { font-size: 14px; padding: 14px 9px; } }
+/* English page: the stage names sit on the left, so the tab goes on the right edge */
+html[dir="ltr"] .lang-tab { left: auto; right: 0; transform: none; }
 
 /* ---------- English page (left to right) ---------- */
 html[dir="ltr"] .show.dj .tm::after { content: " · DJ set"; }
