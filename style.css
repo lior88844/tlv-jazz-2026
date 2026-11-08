@@ -1303,3 +1303,36 @@ html.a11y-reduce-motion *, html.a11y-reduce-motion ::before, html.a11y-reduce-mo
   animation-duration: .001ms !important; animation-iteration-count: 1 !important;
   transition-duration: .001ms !important; scroll-behavior: auto !important;
 }
+
+/* ---------- host logos: small brown badge (logos are light, made for the dark footer) ---------- */
+.show .bot { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-width: 0; }
+.host { display: inline-flex; align-items: center; flex: none; background: var(--brown); border-radius: 5px; padding: 3px 5px; line-height: 0; }
+.host img { display: block; width: auto; height: 14px; }
+.host.h-soundtrack img { height: 10px; }
+.host.h-rimon img, .host.h-csj img { height: 20px; }
+.show .host { padding: 2px 4px; }
+.show .host img { height: 12px; }
+.show .host.h-soundtrack img { height: 9px; }
+.show .host.h-rimon img, .show .host.h-csj img { height: 17px; }
+.mv-meta .host { margin-inline-start: 8px; vertical-align: middle; }
+.ar-item .host { margin-top: 6px; }
+html.a11y-contrast .host { background: #000; }
+
+/* ---------- DJ sets look clearly different from live shows ----------
+   live = solid block in the stage colour; DJ = light block, dashed outline, stage-colour stripe and a record icon */
+.s-0 { --sc: var(--yellow); } .s-1 { --sc: var(--pink); } .s-2 { --sc: var(--blue); } .s-3 { --sc: var(--tan); } .s-4 { --sc: var(--red); }
+.s-5 { --sc: var(--brown); } .s-6 { --sc: var(--cyan); } .s-7 { --sc: #F4B9B2; } .s-8 { --sc: #B9D98C; }
+.show.dj {
+  background-color: var(--paper); background-image: none; color: var(--brown);
+  box-shadow: none; border: 2px dashed var(--brown); border-inline-start: 7px solid var(--sc);
+  padding: 5px 7px 4px 7px;
+}
+.show.dj .star, .show.dj .star[aria-pressed="true"] { color: var(--brown); }
+.show.dj.fav { border-style: solid; border-inline-start-style: solid; box-shadow: 0 0 0 1.5px var(--brown) inset; }
+.show.dj .nm { font-weight: 700; }
+.show.dj .tm::before {
+  content: ""; display: inline-block; width: 11px; height: 11px; margin-inline-end: 4px; vertical-align: -1px; border-radius: 50%;
+  background: radial-gradient(circle, var(--sc) 0 2px, var(--brown) 2.5px 100%);
+}
+.lg-dj { background: var(--paper); border-style: dashed; border-inline-start: 5px solid var(--yellow); }
+html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the look + record icon say it; keep the time visible */

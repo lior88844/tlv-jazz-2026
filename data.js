@@ -139,6 +139,7 @@ window.SCHEDULE = [
   "kind": "live",
   "he": "נדב לביא פוגש את הרימון ג'אז אינסטיטיוט",
   "label_en": "Nadav Lavie meets the Rimon Jazz Institute",
+  "host": "rimon",
   "id": "fri-750-פארק המסילה 1"
  },
  {
@@ -208,6 +209,7 @@ window.SCHEDULE = [
   "kind": "live",
   "he": "Rimon Jazz Institute: The Hard Bop Congress",
   "label_en": "Rimon Jazz Institute: The Hard Bop Congress",
+  "host": "rimon",
   "id": "fri-900-פארק המסילה 1"
  },
  {
@@ -276,6 +278,7 @@ window.SCHEDULE = [
   "start": 1080,
   "end": 1110,
   "kind": "live",
+  "host": "imsf",
   "id": "fri-1080-רחבה"
  },
  {
@@ -315,6 +318,7 @@ window.SCHEDULE = [
   "start": 1110,
   "end": 1140,
   "kind": "live",
+  "host": "imsf",
   "id": "fri-1110-חואניטה"
  },
  {
@@ -335,6 +339,7 @@ window.SCHEDULE = [
   "kind": "live",
   "he": "נעה בלומר ורועי קימלמן פוגשים את הרימון ג'אז אינסטיטיוט",
   "label_en": "Noa Blumer & Roy Kimelman meet the Rimon Jazz Institute",
+  "host": "rimon",
   "id": "fri-1140-פארק המסילה 1"
  },
  {
@@ -345,6 +350,7 @@ window.SCHEDULE = [
   "end": 1185,
   "kind": "live",
   "he": "תמר שאוקי",
+  "host": "imsf",
   "id": "fri-1155-מטמון"
  },
  {
@@ -384,6 +390,7 @@ window.SCHEDULE = [
   "start": 1230,
   "end": 1260,
   "kind": "live",
+  "host": "imsf",
   "id": "fri-1230-מטמון"
  },
  {
@@ -424,6 +431,7 @@ window.SCHEDULE = [
   "kind": "live",
   "he": "Rimon Jazz Institute: Sounds of the Jungle",
   "label_en": "Rimon Jazz Institute: Sounds of the Jungle",
+  "host": "rimon",
   "id": "fri-1290-פארק המסילה 1"
  },
  {
@@ -443,6 +451,7 @@ window.SCHEDULE = [
   "start": 1320,
   "end": 1350,
   "kind": "live",
+  "host": "imsf",
   "id": "fri-1320-חואניטה"
  },
  {
@@ -473,6 +482,7 @@ window.SCHEDULE = [
   "start": 1410,
   "end": 1440,
   "kind": "live",
+  "host": "imsf",
   "id": "fri-1410-מטמון"
  },
  {
@@ -522,6 +532,7 @@ window.SCHEDULE = [
   "end": 780,
   "kind": "live",
   "he": "שלישיית יהונתן כרמי",
+  "host": "csj",
   "id": "sat-720-פארק המסילה 1"
  },
  {
@@ -589,6 +600,7 @@ window.SCHEDULE = [
   "end": 960,
   "kind": "live",
   "he": "רביעיית אורי לפיד",
+  "host": "csj",
   "id": "sat-900-פארק המסילה 1"
  },
  {
@@ -617,6 +629,7 @@ window.SCHEDULE = [
   "end": 1080,
   "kind": "live",
   "he": "הקרנה במסגרת פסטיבל סאונדטראק: סוני רולינס – סקסופון קולוסוס",
+  "host": "soundtrack",
   "id": "sat-960-מטמון"
  },
  {
@@ -704,6 +717,7 @@ window.SCHEDULE = [
   "end": 1200,
   "kind": "live",
   "he": "רביעיית דוד הלל דמרי",
+  "host": "csj",
   "id": "sat-1140-פארק המסילה 1"
  },
  {
@@ -772,6 +786,7 @@ window.SCHEDULE = [
   "end": 1350,
   "kind": "live",
   "he": "דור בר און",
+  "host": "csj",
   "id": "sat-1290-פארק המסילה 1"
  },
  {

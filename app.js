@@ -15,6 +15,15 @@
   const stg = (st) => (EN ? STAGE_EN[st] || st : st);
   // show name for this page: Hebrew name on the Hebrew page, English (or its English label) on the English page
   const nm = (s) => (EN ? s.label_en || s.name : s.he || s.name);
+  // partners hosting a show: a small logo badge next to it
+  const HOSTS = {
+    imsf: { he: "חשיפה בינלאומית", en: "Israel Music Showcase Festival" },
+    rimon: { he: "הג׳אז אינסטיטיוט של רימון", en: "Rimon Jazz Institute" },
+    csj: { he: "המרכז ללימודי ג׳אז", en: "Center for Jazz Studies" },
+    soundtrack: { he: "פסטיבל סאונדטראק", en: "Soundtrack Festival" },
+  };
+  const hostChip = (s) => { const h = s && HOSTS[s.host]; if (!h) return "";
+    const t = L(h.he, h.en); return `<span class="host h-${s.host}" title="${esc(t)}"><img src="assets/hosts/${s.host}.png?v=1" alt="${esc(t)}"></span>`; };
   const note = (t) => (EN ? NOTE_EN[t] || t : t);
   const DAYS = {
     thu: { name: L("חמישי", "Thursday"), date: L("19.11", "Nov 19"), dd: "19", iso: "2026-11-19", start: 18 * 60 },
@@ -166,12 +175,12 @@
       html += `<div class="row"><div class="stage">${esc(stg(st))}</div><div class="lane" style="width:${width + 16}px">`;
       for (const s of shows.filter((x) => x.stage === st)) {
         const w = (s.end - s.start) * px - 4;
-        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
+        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, s.end - s.start <= 30 ? "short" : "", favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
         const delay = Math.round(((s.start - d.start) / (DAY_END - d.start)) * 260 + stages.indexOf(st) * 45);
         html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px;--d:${delay}ms" ` +
-          `aria-label="${esc(nm(s))}, ${hhmm(s.start)} ${L("עד", "to")} ${hhmm(s.end)}, ${esc(stg(s.stage))}">` +
+          `aria-label="${esc(nm(s))}${s.kind === "dj" ? L(", תקלוט", ", DJ set") : ""}, ${hhmm(s.start)} ${L("עד", "to")} ${hhmm(s.end)}, ${esc(stg(s.stage))}">` +
           `<span class="top">${starBtn(s)}<span class="nm">${esc(nm(s))}</span></span>` +
-          `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></div>`;
+          `<span class="bot"><span class="tm"><em>${hhmm(s.start)}</em>${s.host && s.end - s.start <= 30 ? "" : "–" + hhmm(s.end)}</span>${hostChip(s)}</span></div>`;
       }
       html += `</div></div>`;
     }
@@ -229,7 +238,7 @@
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
         html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(nm(s))}</div>` +
-          `<div class="mv-meta">${esc(stg(s.stage))}${s.kind === "dj" ? L(" · תקלוט", " · DJ set") : ""}${clash ? ` · <span class="clash">${L("חופף להופעה אחרת", "Overlaps another show")}</span>` : ""}</div></div>` +
+          `<div class="mv-meta">${esc(stg(s.stage))}${s.kind === "dj" ? L(" · תקלוט", " · DJ set") : ""}${clash ? ` · <span class="clash">${L("חופף להופעה אחרת", "Overlaps another show")}</span>` : ""}${hostChip(s)}</div></div>` +
           `<a class="mv-cal" href="${gcalURL(s)}" target="_blank" rel="noopener" aria-label="${L(`הוספת ${esc(nm(s))} ליומן Google`, `Add ${esc(nm(s))} to Google Calendar`)}" title="${L("הוספה ליומן Google", "Add to Google Calendar")}">${CAL_SVG}</a>` +
           `${starBtn(s)}</div>`;
       }
@@ -426,7 +435,7 @@
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
       const tg = "div"; // no artist texts yet, so nothing opens
       return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><${tg} class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
-        `<span class="ar-name">${esc(EN || !sh || !sh.he ? e.en : sh.he)}</span><span class="ar-sub">${tag}${when}</span></${tg}></li>`;
+        `<span class="ar-name">${esc(EN || !sh || !sh.he ? e.en : sh.he)}</span><span class="ar-sub">${tag}${when}</span>${hostChip(sh)}</${tg}></li>`;
     }).join("");
     dropObserve();
   }
