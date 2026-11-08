@@ -1209,3 +1209,35 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 .day-card > .dc-go { position: absolute !important; left: 16px; bottom: 12px; right: auto; top: auto; z-index: 2; }
 
 .schedule[hidden] { display: none !important; }
+
+/* ---------- language switch ---------- */
+.hero-links { display: flex; align-items: center; gap: 8px; }
+.hero-links a { white-space: nowrap; }
+.lang-link {
+  color: var(--cream); text-decoration: none; font-weight: 800; font-size: 14px;
+  border: 1.5px solid rgba(244, 238, 228, .6); border-radius: 999px; padding: 7px 13px;
+  transition: background-color .2s var(--ease-out), color .2s var(--ease-out);
+}
+@media (hover: hover) { .lang-link:hover { background: var(--cream); color: var(--brown); } }
+.tn-links a.tn-lang { border-style: dashed; }
+
+/* ---------- English page (left to right) ---------- */
+html[dir="ltr"] .show.dj .tm::after { content: " · DJ set"; }
+html[dir="ltr"] .times span { transform: translateX(-50%); }
+html[dir="ltr"] .lane { background-image: repeating-linear-gradient(to right, rgba(45,24,16,.14) 0 1px, transparent 1px calc(var(--px-min) * 30)); }
+html[dir="ltr"] .show, html[dir="ltr"] .show .tm { text-align: left; }
+html[dir="ltr"] .star { margin: -5px 0 0 -5px; }
+html[dir="ltr"] .a-same-item, html[dir="ltr"] .mv-time { text-align: left; }
+html[dir="ltr"] .rb-track { animation-name: marqueeLtr; }
+@keyframes marqueeLtr { to { transform: translateX(-50%); } }
+html[dir="ltr"] .day-card { text-align: left; padding: 16px 44px 16px 18px; }
+html[dir="ltr"] .dc-heads { text-align: left; }
+html[dir="ltr"] .day-card > .dc-go { left: auto; right: 16px; }
+@keyframes nudgeLtr { 50% { transform: translateX(6px); } }
+@media (hover: hover) {
+  html[dir="ltr"] .day-card:hover .dc-go { animation-name: nudgeLtr; }
+  html[dir="ltr"] .pill-link:hover { transform: translateX(3px) rotate(2deg); }
+  html[dir="ltr"] .info-link:hover { transform: translateX(4px); }
+}
+html[dir="ltr"] .a-sheet, html[dir="ltr"] .a-sheet > * { direction: ltr; }
+@media (min-width: 760px) { html[dir="ltr"] .day-card { padding: 22px 20px 44px; text-align: center; } html[dir="ltr"] .dc-heads { text-align: center; } }

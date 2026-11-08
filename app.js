@@ -5,10 +5,17 @@
   const CACHE_KEY = "jazz26-live";
   let DATA = window.SCHEDULE || [];
   const STAGES = ["רחבה", "רפי", "חואניטה", "קיסה", "מטמון", "רומנו", "נואיבה", "במה 1", "במה 2"];
+  // English page (en.html) sets <html lang="en">; everything else stays Hebrew
+  const EN = document.documentElement.lang === "en";
+  const L = (he, en) => (EN ? en : he);
+  const STAGE_EN = { "רחבה": "The Plaza", "רפי": "Rafi", "חואניטה": "Juanita", "קיסה": "Kisa", "מטמון": "Matmon", "רומנו": "Romano", "נואיבה": "Nuweiba", "במה 1": "Stage 1", "במה 2": "Stage 2" };
+  const NOTE_EN = { "הג׳אז אינסטיטיוט של רימון": "Rimon Jazz Institute", "הקונסרבטוריון הישראלי למוזיקה": "Israel Conservatory of Music" };
+  const stg = (st) => (EN ? STAGE_EN[st] || st : st);
+  const note = (t) => (EN ? NOTE_EN[t] || t : t);
   const DAYS = {
-    thu: { name: "חמישי", date: "19.11", iso: "2026-11-19", start: 18 * 60 },
-    fri: { name: "שישי",  date: "20.11", iso: "2026-11-20", start: 12 * 60 },
-    sat: { name: "שבת",   date: "21.11", iso: "2026-11-21", start: 12 * 60 },
+    thu: { name: L("חמישי", "Thursday"), date: L("19.11", "Nov 19"), dd: "19", iso: "2026-11-19", start: 18 * 60 },
+    fri: { name: L("שישי", "Friday"),    date: L("20.11", "Nov 20"), dd: "20", iso: "2026-11-20", start: 12 * 60 },
+    sat: { name: L("שבת", "Saturday"),   date: L("21.11", "Nov 21"), dd: "21", iso: "2026-11-21", start: 12 * 60 },
   };
   const DAY_END = 25 * 60; // 01:00
   const FAV_KEY = "jazz26-favs";
@@ -59,7 +66,7 @@
         (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=3" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
-        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date}${SHOW_TIMES ? ` · ${hhmm(s.start)} · ${esc(s.stage)}` : ""}</span></div></li>`;
+        `<span class="when">${DAYS[s.day].name} ${DAYS[s.day].date}${SHOW_TIMES ? ` · ${hhmm(s.start)} · ${esc(stg(s.stage))}` : ""}</span></div></li>`;
     }).join("");
     document.querySelectorAll("#hl-list li").forEach((li) => keepIn ? li.classList.add("in") : revealObs && revealObs.observe(li));
   }
@@ -136,7 +143,7 @@
   }
 
   const STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.3l-5.8 3.1 1.2-6.5L2.6 9.4l6.5-.8z"/></svg>';
-  const starBtn = (s) => `<button class="star" data-id="${s.id}" aria-pressed="${favs.has(s.id)}" aria-label="${favs.has(s.id) ? "הסרה מהליינאפ שלי" : "הוספה לליינאפ שלי"}">${STAR_SVG}</button>`;
+  const starBtn = (s) => `<button class="star" data-id="${s.id}" aria-pressed="${favs.has(s.id)}" aria-label="${favs.has(s.id) ? L("הסרה מהליינאפ שלי", "Remove from my lineup") : L("הוספה לליינאפ שלי", "Add to my lineup")}">${STAR_SVG}</button>`;
 
   /* ---------- grid ---------- */
   function renderGrid(animate) {
@@ -152,13 +159,13 @@
     }
     let html = `<div class="times" style="width:${width}px">${times}</div>`;
     for (const st of stages) {
-      html += `<div class="row"><div class="stage">${esc(st)}</div><div class="lane" style="width:${width + 16}px">`;
+      html += `<div class="row"><div class="stage">${esc(stg(st))}</div><div class="lane" style="width:${width + 16}px">`;
       for (const s of shows.filter((x) => x.stage === st)) {
         const w = (s.end - s.start) * px - 4;
         const cls = ["show", "s-" + stageIdx(s.stage), s.kind, favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
         const delay = Math.round(((s.start - d.start) / (DAY_END - d.start)) * 260 + stages.indexOf(st) * 45);
         html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px;--d:${delay}ms" ` +
-          `aria-label="${esc(s.name)}, ${hhmm(s.start)} עד ${hhmm(s.end)}, ${esc(s.stage)}">` +
+          `aria-label="${esc(s.name)}, ${hhmm(s.start)} ${L("עד", "to")} ${hhmm(s.end)}, ${esc(stg(s.stage))}">` +
           `<span class="top">${starBtn(s)}<span class="nm">${esc(s.name)}</span></span>` +
           `<span class="tm"><em>${hhmm(s.start)}</em>–${hhmm(s.end)}</span></div>`;
       }
@@ -170,8 +177,8 @@
   }
 
   /* ---------- calendar ---------- */
-  const PLACE = "בית רומנו, דרך יפו 9, תל אביב-יפו";
-  const SITE = "https://tlvjazzfest26.com/";
+  const PLACE = L("בית רומנו, דרך יפו 9, תל אביב-יפו", "Beit Romano, 9 Jaffa Rd, Tel Aviv-Yafo");
+  const SITE = "https://tlvjazzfest26.com/" + L("", "en");
   // local festival time -> "YYYYMMDDTHHMMSS"; minutes past midnight roll over to the next date
   function calStamp(dayKey, min, utc) {
     const [y, mo, d] = DAYS[dayKey].iso.split("-").map(Number);
@@ -179,8 +186,8 @@
     const p = (n) => String(n).padStart(2, "0");
     return `${t.getUTCFullYear()}${p(t.getUTCMonth() + 1)}${p(t.getUTCDate())}T${p(t.getUTCHours())}${p(t.getUTCMinutes())}00` + (utc ? "Z" : "");
   }
-  const calTitle = (s) => `${s.name} · פסטיבל הג'אז ת״א-יפו`;
-  const calDetails = (s) => `${s.stage}${s.kind === "dj" ? " · תקלוט" : ""}\n${SITE}`;
+  const calTitle = (s) => `${s.name} · ${L("פסטיבל הג'אז ת״א-יפו", "Tel Aviv-Yafo Jazz Festival")}`;
+  const calDetails = (s) => `${stg(s.stage)}${s.kind === "dj" ? L(" · תקלוט", " · DJ set") : ""}\n${SITE}`;
   function gcalURL(s) {
     return "https://calendar.google.com/calendar/render?action=TEMPLATE" +
       `&text=${encodeURIComponent(calTitle(s))}&dates=${calStamp(s.day, s.start)}/${calStamp(s.day, s.end)}` +
@@ -205,21 +212,21 @@
     let n = 0;
     const list = DATA.filter((s) => favs.has(s.id));
     if (!list.length) {
-      $("#mine-view").innerHTML = `<div class="empty ${animate ? "enter" : ""}"><span class="big">★</span>עוד לא סימנתם הופעות.<br>הקישו על ☆ ליד הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.</div>`;
+      $("#mine-view").innerHTML = `<div class="empty ${animate ? "enter" : ""}"><span class="big">★</span>${L("עוד לא סימנתם הופעות.<br>הקישו על ☆ ליד הופעה בלו״ז כדי להוסיף אותה לליינאפ שלכם.", "You haven’t picked any shows yet.<br>Tap ☆ next to a show in the schedule to add it to your lineup.")}</div>`;
       return;
     }
-    let html = `<div class="mv-cal-all ${animate ? "enter" : ""}" style="--i:${n++}"><button type="button" class="mv-cal-btn" id="cal-all">${CAL_SVG}<span>הוספת כל הליינאפ ליומן</span></button>` +
-      `<small>או הקישו על <span class="ic">${CAL_SVG}</span> ליד הופעה כדי להוסיף אותה ליומן Google</small></div>`;
+    let html = `<div class="mv-cal-all ${animate ? "enter" : ""}" style="--i:${n++}"><button type="button" class="mv-cal-btn" id="cal-all">${CAL_SVG}<span>${L("הוספת כל הליינאפ ליומן", "Add my whole lineup to my calendar")}</span></button>` +
+      `<small>${L("או הקישו על", "Or tap")} <span class="ic">${CAL_SVG}</span> ${L("ליד הופעה כדי להוסיף אותה ליומן Google", "next to a show to add it to Google Calendar")}</small></div>`;
     for (const k of Object.keys(DAYS)) {
       const items = list.filter((s) => s.day === k).sort((a, b) => a.start - b.start);
       if (!items.length) continue;
-      html += `<h3 class="mv-day ${animate ? "enter" : ""}" style="--i:${n++}">${DAYS[k].name} <span>${DAYS[k].date}</span><small>${items.length} ${items.length === 1 ? "הופעה" : "הופעות"}</small></h3>`;
+      html += `<h3 class="mv-day ${animate ? "enter" : ""}" style="--i:${n++}">${DAYS[k].name} <span>${DAYS[k].date}</span><small>${items.length} ${items.length === 1 ? L("הופעה", "show") : L("הופעות", "shows")}</small></h3>`;
       for (const s of items) {
         const clash = items.some((o) => o !== s && o.start < s.end && s.start < o.end);
         html += `<div class="mv-item s-${stageIdx(s.stage)} ${animate ? "enter" : ""}" style="--i:${n++}" data-id="${s.id}"><div class="mv-time">${hhmm(s.start)}</div>` +
           `<div class="mv-body"><div class="mv-name">${esc(s.name)}</div>` +
-          `<div class="mv-meta">${esc(s.stage)}${s.kind === "dj" ? " · תקלוט" : ""}${clash ? ' · <span class="clash">חופף להופעה אחרת</span>' : ""}</div></div>` +
-          `<a class="mv-cal" href="${gcalURL(s)}" target="_blank" rel="noopener" aria-label="הוספת ${esc(s.name)} ליומן Google" title="הוספה ליומן Google">${CAL_SVG}</a>` +
+          `<div class="mv-meta">${esc(stg(s.stage))}${s.kind === "dj" ? L(" · תקלוט", " · DJ set") : ""}${clash ? ` · <span class="clash">${L("חופף להופעה אחרת", "Overlaps another show")}</span>` : ""}</div></div>` +
+          `<a class="mv-cal" href="${gcalURL(s)}" target="_blank" rel="noopener" aria-label="${L(`הוספת ${esc(s.name)} ליומן Google`, `Add ${esc(s.name)} to Google Calendar`)}" title="${L("הוספה ליומן Google", "Add to Google Calendar")}">${CAL_SVG}</a>` +
           `${starBtn(s)}</div>`;
       }
     }
@@ -242,7 +249,7 @@
     mineOn = on;
     $("#mine").setAttribute("aria-pressed", String(on));
     $("#controls").classList.toggle("mine-on", on);
-    const lbl = $("#mine .mine-label"); if (lbl) lbl.textContent = on ? "חזרה ללו״ז המלא" : "הליינאפ שלי";
+    const lbl = $("#mine .mine-label"); if (lbl) lbl.textContent = on ? L("חזרה ללו״ז המלא", "Back to full schedule") : L("הליינאפ שלי", "My lineup");
     $("#grid-view").hidden = on;
     $("#mine-view").hidden = !on;
     document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(!on && b.dataset.day === day)));
@@ -260,7 +267,7 @@
     store.set(FAV_KEY, [...favs]);
     updateCount(on);
     if (navigator.vibrate) navigator.vibrate(on ? 12 : 6);
-    toast(on ? "★ נוסף לליינאפ שלי" : "הוסר מהליינאפ שלי");
+    toast(on ? L("★ נוסף לליינאפ שלי", "★ Added to my lineup") : L("הוסר מהליינאפ שלי", "Removed from my lineup"));
     favPop = on ? id : null;
     return on;
   }
@@ -270,7 +277,7 @@
   $("#mine").addEventListener("click", () => setMine(!mineOn));
   // schedule blocks aren't clickable (artist texts exist for headliners only); the star still toggles favorites
   function onListClick(e) {
-    if (e.target.closest("#cal-all")) { downloadICS(DATA.filter((s) => favs.has(s.id)).sort((a, b) => a.day.localeCompare(b.day) || a.start - b.start)); toast("הקובץ ירד — פתחו אותו כדי להוסיף ליומן"); return; }
+    if (e.target.closest("#cal-all")) { downloadICS(DATA.filter((s) => favs.has(s.id)).sort((a, b) => a.day.localeCompare(b.day) || a.start - b.start)); toast(L("הקובץ ירד — פתחו אותו כדי להוסיף ליומן", "File downloaded — open it to add to your calendar")); return; }
     const star = e.target.closest(".star");
     if (star) { e.stopPropagation(); toggle(star.dataset.id); refresh(); }
   }
@@ -285,9 +292,9 @@
       return base.toISOString().slice(0, 16).replace(/[-:]/g, "") + "00";
     };
     const q = new URLSearchParams({
-      action: "TEMPLATE", text: `${s.name} · פסטיבל הג'אז תל אביב-יפו`,
+      action: "TEMPLATE", text: calTitle(s),
       dates: `${t(s.start)}/${t(s.end)}`, ctz: "Asia/Jerusalem",
-      location: `בית רומנו, דרך יפו 9, תל אביב-יפו (${s.stage})`,
+      location: `${PLACE} (${stg(s.stage)})`,
     });
     return "https://calendar.google.com/calendar/render?" + q.toString();
   }
@@ -300,22 +307,22 @@
     const same = DATA.filter((o) => o.day === s.day && o.id !== s.id && o.start < s.end && s.start < o.end);
     $("#artist-body").innerHTML = photoHTML(meta) +
       `<div class="a-head s-${stageIdx(s.stage)} ${s.kind}">` +
-        `<span class="a-kind">${s.kind === "dj" ? "תקלוט" : s.kind === "head" ? "הדליינר" : "הופעה"}</span>` +
+        `<span class="a-kind">${s.kind === "dj" ? L("תקלוט", "DJ set") : s.kind === "head" ? L("הדליינר", "Headliner") : L("הופעה", "Live")}</span>` +
         `<h3 class="a-name" id="artist-title">${esc(s.name)}</h3>` +
         ((s.en || (entry && entry.en)) ? `<p class="a-en">${esc(s.en || entry.en)}</p>` : "") +
       `</div>` +
       `<dl class="a-facts">` +
-        `<div><dt>יום</dt><dd>${DAYS[s.day].name} ${DAYS[s.day].date}</dd></div>` +
-        `<div><dt>שעה</dt><dd dir="ltr">${hhmm(s.start)}</dd></div>` +
-        `<div><dt>במה</dt><dd>${esc(s.stage)}</dd></div>` +
+        `<div><dt>${L("יום", "Day")}</dt><dd>${DAYS[s.day].name} ${DAYS[s.day].date}</dd></div>` +
+        `<div><dt>${L("שעה", "Time")}</dt><dd dir="ltr">${hhmm(s.start)}</dd></div>` +
+        `<div><dt>${L("במה", "Stage")}</dt><dd>${esc(stg(s.stage))}</dd></div>` +
       `</dl>` +
       (info ? `<p class="a-info">${esc(info)}</p>` : "") +
       `<div class="a-actions">` +
-        `<button class="a-fav ${fav ? "on" : ""}" data-id="${s.id}"><span class="a-star">${STAR_SVG}</span>${fav ? "בליינאפ שלי" : "הוספה לליינאפ שלי"}</button>` +
-        `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">הוספה ליומן</a>` +
+        `<button class="a-fav ${fav ? "on" : ""}" data-id="${s.id}"><span class="a-star">${STAR_SVG}</span>${fav ? L("בליינאפ שלי", "In my lineup") : L("הוספה לליינאפ שלי", "Add to my lineup")}</button>` +
+        `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">${L("הוספה ליומן", "Add to calendar")}</a>` +
       `</div>` +
-      (same.length ? `<div class="a-same"><h4>באותו זמן</h4>` + same.map((o) =>
-        { const tg = o.kind === "head" ? "button" : "div"; return `<${tg} class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(o.stage)} · <span dir="ltr">${hhmm(o.start)}</span></small></${tg}>`; }).join("") + `</div>` : "");
+      (same.length ? `<div class="a-same"><h4>${L("באותו זמן", "At the same time")}</h4>` + same.map((o) =>
+        { const tg = o.kind === "head" ? "button" : "div"; return `<${tg} class="a-same-item" data-id="${o.id}"><span class="dot s-${stageIdx(o.stage)}"></span><b>${esc(o.name)}</b><small>${esc(stg(o.stage))} · <span dir="ltr">${hhmm(o.start)}</span></small></${tg}>`; }).join("") + `</div>` : "");
   }
   function openArtist(id) {
     const first = !dlg.open;
@@ -364,7 +371,7 @@
 
   /* ---------- lineup (official list) + artist info ---------- */
   const LINEUP = window.LINEUP || [];
-  const GROUP_LABEL = { head: "הדליינר", live: "הופעה", show: "שואוקייס", dj: "תקלוט" };
+  const GROUP_LABEL = EN ? { head: "Headliner", live: "Live", show: "Showcase", dj: "DJ set" } : { head: "הדליינר", live: "הופעה", show: "שואוקייס", dj: "תקלוט" };
   function lineupFor(s) { return LINEUP.find((e) => e.day === s.day && (e.show || e.en) === s.name) || null; }
   function infoFor(entry, heName) {
     const I = window.ARTIST_INFO || {};
@@ -389,9 +396,9 @@
         `<span class="a-kind">${GROUP_LABEL[e.group]}</span>` +
         `<h3 class="a-name" id="artist-title" dir="ltr" style="text-align:left">${esc(e.en)}</h3>` +
       `</div>` +
-      `<dl class="a-facts"><div><dt>יום</dt><dd>${DAYS[e.day].name} ${DAYS[e.day].date}</dd></div>` +
-        `<div><dt>שעה</dt><dd>בקרוב</dd></div><div><dt>מקום</dt><dd>בית רומנו</dd></div></dl>` +
-      (e.note ? `<p class="a-note">${esc(e.note)}</p>` : "") +
+      `<dl class="a-facts"><div><dt>${L("יום", "Day")}</dt><dd>${DAYS[e.day].name} ${DAYS[e.day].date}</dd></div>` +
+        `<div><dt>${L("שעה", "Time")}</dt><dd>${L("בקרוב", "TBA")}</dd></div><div><dt>${L("מקום", "Venue")}</dt><dd>${L("בית רומנו", "Beit Romano")}</dd></div></dl>` +
+      (e.note ? `<p class="a-note">${esc(note(e.note))}</p>` : "") +
       (meta.bio ? `<p class="a-info">${esc(meta.bio)}</p>` : "");
     const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
     if (!dlg.open) { dlg.showModal(); try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
@@ -409,8 +416,8 @@
     list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (a.e.group === "head" ? ho(a.e) - ho(b.e) : 0) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
     $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
       const sh = showsFor(e)[0];
-      const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh && SHOW_TIMES ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(sh.stage)}` : "");
-      const tag = e.group === "dj" ? "תקלוט · " : e.group === "show" ? esc(e.note || "שואוקייס") + " · " : "";
+      const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh && SHOW_TIMES ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(stg(sh.stage))}` : "");
+      const tag = e.group === "dj" ? L("תקלוט · ", "DJ set · ") : e.group === "show" ? esc(note(e.note || "") || GROUP_LABEL.show) + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
       const tg = "div"; // no artist texts yet, so nothing opens
@@ -635,15 +642,15 @@
     }
     const picSrc = (p) => HEADS.includes(p) ? `assets/headliners/${p}.webp?v=3` : `assets/popouts/${p}.webp?v=1`;
     $("#day-cards").innerHTML = Object.keys(DAYS).map((k, n) => {
-      const d = DAYS[k], [dd] = d.date.split(".");
+      const d = DAYS[k], dd = d.dd;
       const heads = LINEUP.filter((e) => e.day === k && e.group === "head").map((e) => esc(e.en.split(/ feat\.? | - /i)[0]));
       return `<div class="dc-wrap">` +
         `<button class="day-card reveal" data-day="${k}" style="--i:${n}">` +
         (({ row, h }) => `<span class="dc-pop" aria-hidden="true" style="--h:${h.toFixed(2)};--ov:${OVERLAP}">${row.map((p, j) => `<span class="dc-fig${HEADS.includes(p) ? " head" : ""}" style="--j:${j};--s:${HEADS.includes(p) ? 1 : SMALL};--ar:${AR[p]};--src:url('${picSrc(p)}')"><img src="${picSrc(p)}" alt="" loading="lazy"></span>`).join("")}</span>`)(popRow(PICS[k] || [])) +
-        `<span class="dc-date"><span><b>${dd}</b><small>בנובמבר</small></span></span>` +
+        `<span class="dc-date"><span><b>${dd}</b><small>${L("בנובמבר", "November")}</small></span></span>` +
         `<span class="dc-day">${d.name}</span>` +
         `<span class="dc-heads">${heads.join(" · ")}</span>` +
-        `<span class="dc-go" aria-hidden="true">←</span></button></div>`;
+        `<span class="dc-go" aria-hidden="true">${L("←", "→")}</span></button></div>`;
     }).join("");
     document.querySelectorAll(".day-card").forEach(reveal);
   }

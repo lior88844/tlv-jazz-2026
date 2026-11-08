@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tel Aviv-Yafo Jazz Festival 2026</title>
+<meta name="description" content="Tel Aviv-Yafo Jazz Festival · November 19–21, 2026 · Beit Romano, 9 Jaffa Rd · Free entry">
+<meta name="theme-color" content="#2E170C">
+<meta property="og:title" content="Tel Aviv-Yafo Jazz Festival 2026">
+<meta property="og:description" content="November 19–21 · Beit Romano, 9 Jaffa Rd · Free entry">
+<link rel="canonical" href="https://tlvjazzfest26.com/en">
+<link rel="alternate" hreflang="he" href="https://tlvjazzfest26.com/">
+<link rel="alternate" hreflang="en" href="https://tlvjazzfest26.com/en">
+<meta property="og:image" content="https://tlvjazzfest26.com/assets/poster-1400.jpg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=20261108b">
+</head>
+<body>
+
+<nav class="topnav" id="topnav" aria-label="Navigation">
+  <a class="tn-home" href="#top" aria-label="Back to top"><img src="assets/logo-cream.png" alt="" width="615" height="760"></a>
+  <div class="tn-links">
+    <a href="#schedule">Schedule</a>
+    <a href="#artists">Artists</a>
+    <a href="#info">Info</a>
+    <a class="tn-lang" href="./" lang="he" hreflang="he">עב</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="sky" id="sky" aria-hidden="true"></div>
+  <div class="hero-top">
+    <img class="teder" src="assets/teder.png" alt="Teder">
+    <div class="hero-links">
+      <a class="lang-link" href="./" lang="he" hreflang="he">עברית</a>
+      <a class="pill-link" href="#schedule">Schedule →</a>
+    </div>
+  </div>
+  <h1 class="poster">
+    <img class="poster-stars" src="assets/poster-stars-800.png" srcset="assets/poster-stars-800.webp 800w, assets/poster-stars-1400.webp 1400w" sizes="(min-width: 760px) 720px, 100vw" width="1400" height="1523" alt="" aria-hidden="true">
+    <div class="ribbon" aria-label="Festival stages">
+      <div class="rb-track" id="rb-track">
+        <span>Beit Romano</span><i>✦</i><span>HaMesila Park</span><i>✦</i><span>The Plaza</span><i>✦</i><span>Rafi</span><i>✦</i><span>Juanita</span><i>✦</i><span>Kisa</span><i>✦</i><span>Matmon</span><i>✦</i><span>Nuweiba</span><i>✦</i><span>Stage 2</span><i>✦</i>
+      </div>
+    </div>
+    <div class="ribbon ribbon-info" aria-hidden="true">
+      <div class="rb-track" id="rb-info"><span><b>Three days</b></span><i>✦</i><span>Dozens of shows across Beit Romano and HaMesila Park</span><i>✦</i><span>International artists</span><i>✦</i><span>DJ sets</span><i>✦</i><span>Food stalls</span><i>✦</i></div>
+    </div>
+    <picture>
+      <source type="image/webp" srcset="assets/poster-art-800.webp 800w, assets/poster-art-1400.webp 1400w" sizes="(min-width: 760px) 720px, 100vw">
+      <img src="assets/poster-art-800.png" srcset="assets/poster-art-800.png 800w, assets/poster-art-1400.png 1400w" sizes="(min-width: 760px) 720px, 100vw"
+           width="1400" height="1523" alt="Tel Aviv-Yafo Jazz Festival · November 19–21 · Beit Romano, 9 Jaffa Rd · Free entry" fetchpriority="high">
+    </picture>
+  </h1>
+</header>
+
+
+<section class="about">
+  <p><b>November 19–21, 2026</b>&nbsp;<i>·</i> Beit Romano, 9 Jaffa Rd, Tel Aviv-Yafo&nbsp;<i>·</i> <b>Free entry</b><br>Three days&nbsp;<i>·</i> dozens of shows across Beit Romano and HaMesila Park&nbsp;<i>·</i> <span class="nw">international artists</span>&nbsp;<i>·</i> DJ sets&nbsp;<i>·</i> food stalls</p>
+</section>
+
+<section class="days" id="days" aria-labelledby="days-title">
+  <h2 id="days-title" class="sr-only">Three nights</h2>
+  <div class="day-cards" id="day-cards"></div>
+</section>
+
+<section class="headliners" aria-labelledby="hl-title">
+  <h2 id="hl-title" class="sr-only">Headliners</h2>
+  <ul class="hl-list" id="hl-list"></ul>
+</section>
+
+<section class="schedule" id="schedule" aria-labelledby="sch-title">
+  <div class="sch-head">
+    <h2 id="sch-title" class="section-title dark">Schedule</h2>
+    <p class="hint">Tap <b>☆</b> to add a show to your lineup</p>
+  </div>
+
+  <div class="controls" id="controls">
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" data-day="thu">Thu <small>Nov 19</small></button>
+      <button role="tab" data-day="fri">Fri <small>Nov 20</small></button>
+      <button role="tab" data-day="sat">Sat <small>Nov 21</small></button>
+    </div>
+    <button class="mine" id="mine" aria-pressed="false"><span class="mine-star">★</span> <span class="mine-label">My lineup</span> <span class="count" id="count">0</span></button>
+  </div>
+
+  <div id="grid-view">
+    <div class="scroller" id="scroller">
+      <div class="grid" id="grid"></div>
+    </div>
+    <div class="legend">
+      <span><i class="lg lg-live"></i>Live</span>
+      <span><i class="lg lg-dj"></i>DJ set</span>
+      <span class="swipe">Scroll sideways →</span>
+    </div>
+  </div>
+
+  <div id="mine-view" hidden></div>
+</section>
+
+<section class="artists" id="artists" aria-labelledby="ar-title">
+  <h2 id="ar-title" class="section-title">Artists</h2>
+  <div class="ar-filters" role="tablist" id="ar-filters">
+    <button role="tab" data-f="all" aria-selected="true">All</button>
+    <button role="tab" data-f="thu">Thu <small>Nov 19</small></button>
+    <button role="tab" data-f="fri">Fri <small>Nov 20</small></button>
+    <button role="tab" data-f="sat">Sat <small>Nov 21</small></button>
+    <button role="tab" data-f="dj">DJ sets</button>
+  </div>
+  <ul class="ar-list" id="ar-list"></ul>
+</section>
+
+<section class="info" id="info" aria-labelledby="info-title">
+  <h2 id="info-title" class="section-title dark">Good to know</h2>
+  <div class="info-grid">
+    <div class="info-card c-yellow">
+      <h3>Where</h3>
+      <p>Beit Romano, 9 Jaffa Rd, and HaMesila Park. Eight stages and spaces, from the big Plaza to Kisa.</p>
+      <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%91%D7%99%D7%AA+%D7%A8%D7%95%D7%9E%D7%A0%D7%95+%D7%93%D7%A8%D7%9A+%D7%99%D7%A4%D7%95+9+%D7%AA%D7%9C+%D7%90%D7%91%D7%99%D7%91" target="_blank" rel="noopener">Map →</a>
+    </div>
+    <div class="info-card c-pink">
+      <h3>Entry</h3>
+      <p>All shows are free, first come, first served.</p>
+    </div>
+    <div class="info-card c-blue">
+      <h3>Every night</h3>
+      <p>Midnight jam session at Jazz Kisa, on all three nights.</p>
+    </div>
+    <div class="info-card c-cream">
+      <h3>Food &amp; drinks</h3>
+      <p>Food stalls throughout the festival.</p>
+    </div>
+    <div class="info-card c-tan">
+      <h3>Screening</h3>
+      <p><i>Sonny Rollins: Saxophone Colossus</i>, with the Soundtrack Festival.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <img class="logo-small" src="assets/logo-cream.png" alt="" width="615" height="760">
+  <p class="f-dates">November 19–21, 2026<br>Beit Romano, 9 Jaffa Rd<br>Free entry</p>
+  <p class="f-note">Schedule subject to change</p>
+  <div class="partners">
+    <img src="assets/partners/tlv-muni.png" alt="Tel Aviv-Yafo Municipality" class="p-tlv" width="520" height="284">
+    <img src="assets/teder.png" alt="Teder" class="p-teder">
+    <img src="assets/jameson.png" alt="Jameson" class="p-jameson">
+  </div>
+  <p class="p-label">In collaboration with</p>
+  <div class="partners collab">
+    <img src="assets/partners/rimon.png" alt="Rimon School of Music" class="p-rimon" width="300" height="300">
+    <img src="assets/partners/soundtrack-wide.png" alt="Soundtrack – Music Film Festival" class="p-soundtrack" width="640" height="106">
+    <img src="assets/partners/imsf.png" alt="Israel Music Showcase Festival" class="p-imsf" width="560" height="215">
+    <img src="assets/partners/conservatory.png" alt="Israel Conservatory of Music" class="p-cons" width="300" height="300">
+  </div>
+  <p class="credits">Community, Culture &amp; Sports Administration | Culture &amp; Arts Division | Performances Department</p>
+  <p class="f-legal"><a href="accessibility.html" hreflang="he">Accessibility statement (Hebrew)</a><span aria-hidden="true"> · </span>Illustrations: Dekel Hevroni<span aria-hidden="true"> · </span>© 2026 Lior Doron. All rights reserved.</p>
+</footer>
+
+<dialog class="artist" id="artist" aria-labelledby="artist-title">
+  <div class="a-sheet">
+    <button class="a-close" aria-label="Close">✕</button>
+    <div id="artist-body"></div>
+    <div class="a-bar" aria-hidden="true"><div class="a-thumb"></div></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data.js?v=20261108b"></script>
+<script src="names.js?v=20261108b"></script>
+<script src="lineup.js?v=20261108b"></script>
+<script src="artists-info.js?v=20261108b" onerror="void 0"></script>
+<script src="app.js?v=20261108b"></script>
+</body>
+</html>
