@@ -203,6 +203,8 @@ button { font: inherit; color: inherit; }
 .show.fav { box-shadow: 0 0 0 3.5px var(--brown) inset; }
 .s-3.fav, .s-4.fav, .s-5.fav { box-shadow: 0 0 0 3.5px var(--yellow) inset; }
 .show.head .nm { font-weight: 900; font-size: 14px; }
+/* the after party has a long title in a short block, so it may use a third line */
+.show.late.dj .nm { -webkit-line-clamp: 3; font-size: 12px; line-height: 1.12; }
 .show.dj { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.18) 0 6px, transparent 6px 12px); }
 .show.dj .tm::after { content: " · תקלוט"; }
 
@@ -1313,20 +1315,23 @@ html.a11y-reduce-motion *, html.a11y-reduce-motion ::before, html.a11y-reduce-mo
 }
 .h-imsf { --m: url("assets/hosts/imsf-mask.png?v=1"); --ar: 167 / 64; }
 .h-rimon { --m: url("assets/hosts/rimon-mask.png?v=1"); --ar: 66 / 64; }
-.h-csj { --m: url("assets/hosts/csj-mask.png?v=1"); --ar: 68 / 64; }
+.h-csj { --m: url("assets/hosts/csj-mask.png?v=2"); --ar: 246 / 300; }
 .h-soundtrack { --m: url("assets/hosts/soundtrack-mask.png?v=1"); --ar: 290 / 48; }
 .host.h-soundtrack { height: 11px; }
-.host.h-rimon, .host.h-csj { height: 24px; }
+.host.h-rimon { height: 24px; }
+.host.h-csj { height: 30px; }
 .show .host { height: 14px; }
 .show .host.h-soundtrack { height: 10px; }
-.show .host.h-rimon, .show .host.h-csj { height: 20px; }
+.show .host.h-rimon { height: 20px; }
+.show .host.h-csj { height: 24px; }
 .mv-meta .host { margin-inline-start: 8px; }
 /* artists list: the logo sits next to the name, so the strip grows wider instead of taller */
 .ar-item.has-host { display: inline-flex; align-items: center; gap: 12px; }
 .ar-item.has-host .ar-text { display: block; min-width: 0; }
 .ar-item .host { height: 20px; }
 .ar-item .host.h-soundtrack { height: 13px; }
-.ar-item .host.h-rimon, .ar-item .host.h-csj { height: 30px; }
+.ar-item .host.h-rimon { height: 30px; }
+.ar-item .host.h-csj { height: 40px; }
 
 /* ---------- DJ sets look clearly different from live shows ----------
    live = solid block in the stage colour; DJ = light block, dashed outline, stage-colour stripe and a record icon */

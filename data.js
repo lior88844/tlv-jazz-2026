@@ -77,7 +77,7 @@ window.SCHEDULE = [
   "start": 1350,
   "end": 1410,
   "kind": "head",
-  "he": "מרגיעה ואעלק ליי",
+  "he": "מרגיעה ואעלק לי",
   "en": "Margeeah & Alek Lee",
   "id": "thu-1350-רחבה"
  },
@@ -98,6 +98,7 @@ window.SCHEDULE = [
   "end": 1500,
   "kind": "live",
   "he": "Midnight Jam Session · בניהול האחים קדוש",
+  "late": true,
   "id": "thu-1440-קיסה"
  },
  {
@@ -107,8 +108,9 @@ window.SCHEDULE = [
   "start": 1450,
   "end": 1500,
   "kind": "dj",
-  "he": "Kidnappa Koko b2b Cence",
-  "label_en": "Kidnappa Koko b2b Cence",
+  "he": "AFTER PARTY: Kidnappa Koko b2b Cence",
+  "label_en": "AFTER PARTY: Kidnappa Koko b2b Cence",
+  "late": true,
   "id": "thu-1450-רפי"
  },
  {
@@ -493,6 +495,7 @@ window.SCHEDULE = [
   "end": 1500,
   "kind": "dj",
   "he": "Radio Trip & Neal Sugarman DJ Set",
+  "late": true,
   "id": "fri-1425-רפי"
  },
  {
@@ -503,6 +506,7 @@ window.SCHEDULE = [
   "end": 1500,
   "kind": "live",
   "he": "Midnight Jam Session · בניהול הלל סאלם",
+  "late": true,
   "id": "fri-1440-קיסה"
  },
  {
@@ -829,6 +833,7 @@ window.SCHEDULE = [
   "end": 1500,
   "kind": "live",
   "he": "Midnight Jam Session · בניהול ג׳וני אוניל",
+  "late": true,
   "id": "sat-1440-קיסה"
  }
 ];

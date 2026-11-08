@@ -10,7 +10,7 @@
   const L = (he, en) => (EN ? en : he);
   // "stop animations" from the accessibility menu counts the same as the device setting
   const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("a11y-reduce-motion");
-  const STAGE_EN = { "רחבה": "The Plaza", "רפי": "Rafi", "חואניטה": "Juanita", "קיסה": "Kisa", "מטמון": "Matmon", "רומנו": "Romano", "נואיבה": "Nuweiba", "פארק המסילה 1": "HaMesila Park 1", "פארק המסילה 2": "HaMesila Park 2" };
+  const STAGE_EN = { "רחבה": "Teder Yard", "רפי": "Rafi", "חואניטה": "Juanita", "קיסה": "Kisa", "מטמון": "Matmon", "רומנו": "Romano", "נואיבה": "Nuweiba", "פארק המסילה 1": "HaMesila Park 1", "פארק המסילה 2": "HaMesila Park 2" };
   const NOTE_EN = { "הג׳אז אינסטיטיוט של רימון": "Rimon Jazz Institute", "הקונסרבטוריון הישראלי למוזיקה": "Israel Conservatory of Music" };
   const stg = (st) => (EN ? STAGE_EN[st] || st : st);
   // show name for this page: Hebrew name on the Hebrew page, English (or its English label) on the English page
@@ -51,6 +51,7 @@
     return DAYS[saved] ? saved : "thu";
   }
   const hhmm = (m) => String(Math.floor(m / 60) % 24).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+  const endTxt = (s) => s.late ? L("מאוחר", "late") : hhmm(s.end); // shows that run until late have no set end
   const stageIdx = (s) => Math.max(0, STAGES.indexOf(s));
   const pxPerMin = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--px-min")) || 3.2;
   const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -175,12 +176,12 @@
       html += `<div class="row"><div class="stage">${esc(stg(st))}</div><div class="lane" style="width:${width + 16}px">`;
       for (const s of shows.filter((x) => x.stage === st)) {
         const w = (s.end - s.start) * px - 4;
-        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, s.end - s.start <= 30 ? "short" : "", favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
+        const cls = ["show", "s-" + stageIdx(s.stage), s.kind, s.end - s.start <= 30 ? "short" : "", s.late ? "late" : "", favs.has(s.id) ? "fav" : "", favPop === s.id ? "pop" : "", animate ? "enter" : ""].join(" ");
         const delay = Math.round(((s.start - d.start) / (DAY_END - d.start)) * 260 + stages.indexOf(st) * 45);
         html += `<div class="${cls}" data-id="${s.id}" style="inset-inline-start:${(s.start - d.start) * px + 2}px;width:${w}px;--d:${delay}ms" ` +
-          `aria-label="${esc(nm(s))}${s.kind === "dj" ? L(", תקלוט", ", DJ set") : ""}, ${hhmm(s.start)} ${L("עד", "to")} ${hhmm(s.end)}, ${esc(stg(s.stage))}">` +
+          `aria-label="${esc(nm(s))}${s.kind === "dj" ? L(", תקלוט", ", DJ set") : ""}, ${hhmm(s.start)} ${L("עד", "to")} ${endTxt(s)}, ${esc(stg(s.stage))}">` +
           `<span class="top">${starBtn(s)}<span class="nm">${esc(nm(s))}</span></span>` +
-          `<span class="bot"><span class="tm"><em>${hhmm(s.start)}</em>${s.host && s.end - s.start <= 30 ? "" : "–" + hhmm(s.end)}</span>${hostChip(s)}</span></div>`;
+          `<span class="bot"><span class="tm"><em>${hhmm(s.start)}</em>${s.host && s.end - s.start <= 30 && !s.late ? "" : "–" + (s.late ? "LATE" : hhmm(s.end))}</span>${hostChip(s)}</span></div>`;
       }
       html += `</div></div>`;
     }
