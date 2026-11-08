@@ -421,7 +421,7 @@
     $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
       const sh = showsFor(e)[0];
       const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh && SHOW_TIMES ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(stg(sh.stage))}` : "");
-      const tag = e.group === "dj" ? L("תקלוט · ", "DJ set · ") : e.group === "show" ? esc(note(e.note || "") || GROUP_LABEL.show) + " · " : "";
+      const tag = e.group === "dj" ? L("תקלוט · ", "DJ set · ") : e.group === "show" && e.note ? esc(note(e.note)) + " · " : "";
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
       const tg = "div"; // no artist texts yet, so nothing opens

@@ -1210,21 +1210,17 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 .schedule[hidden] { display: none !important; }
 
-/* ---------- language switch: a small tab fixed to the left edge of the screen ---------- */
-.lang-tab {
-  position: fixed; left: 0; top: 58%; z-index: 40;
-  writing-mode: vertical-rl; transform: rotate(180deg);
-  background: var(--yellow); color: var(--brown); text-decoration: none;
-  font-weight: 800; font-size: 13px; letter-spacing: .02em; line-height: 1;
-  padding: 12px 7px; border-radius: 10px 0 0 10px;   /* rounded on the screen side after the rotation */
-  box-shadow: 0 0 0 1.5px var(--brown);
-  transition: padding .2s var(--ease-out);
+/* ---------- language switch: round flag button under the accessibility button ---------- */
+.lang-fab {
+  position: fixed; z-index: 10001; bottom: 1rem; right: 1rem;
+  width: 48px; height: 48px; border-radius: 50%; overflow: hidden;
+  border: 2px solid var(--cream); background: var(--cream);
+  box-shadow: 0 6px 18px rgba(46, 23, 12, .35);
+  transition: transform .2s;
 }
-.lang-tab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
-@media (hover: hover) { .lang-tab:hover { padding-left: 11px; } }
-@media (min-width: 760px) { .lang-tab { font-size: 14px; padding: 14px 9px; } }
-/* English page: the stage names sit on the left, so the tab goes on the right edge */
-html[dir="ltr"] .lang-tab { left: auto; right: 0; transform: none; }
+.lang-fab svg { display: block; width: 100%; height: 100%; }
+.lang-fab:hover { transform: scale(1.05); }
+.lang-fab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
 
 /* ---------- English page (left to right) ---------- */
 html[dir="ltr"] .show.dj .tm::after { content: " · DJ set"; }
@@ -1249,7 +1245,7 @@ html[dir="ltr"] .a-sheet, html[dir="ltr"] .a-sheet > * { direction: ltr; }
 
 /* ---------- accessibility menu (button + panel), sizes as on indnegev.co.il, in the festival colours ---------- */
 .a11y-toggle {
-  position: fixed; z-index: 10001; bottom: 1rem; right: 1rem;
+  position: fixed; z-index: 10001; bottom: calc(1rem + 58px); right: 1rem;
   width: 48px; height: 48px; border-radius: 50%; padding: 0;
   background: var(--brown); color: var(--cream); border: 2px solid var(--cream);
   display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
@@ -1259,8 +1255,8 @@ html[dir="ltr"] .a-sheet, html[dir="ltr"] .a-sheet > * { direction: ltr; }
 .a11y-toggle:hover { transform: scale(1.05); background: var(--red); }
 .a11y-toggle:focus-visible, .a11y-panel button:focus-visible, .a11y-panel a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
 .a11y-panel {
-  position: fixed; z-index: 10001; bottom: 4.5rem; right: 1rem;
-  width: min(320px, 100vw - 2rem); max-height: calc(100vh - 6rem); overflow-y: auto;
+  position: fixed; z-index: 10001; bottom: calc(4.5rem + 58px); right: 1rem;
+  width: min(320px, 100vw - 2rem); max-height: calc(100vh - 6rem - 58px); overflow-y: auto;
   background: var(--cream); color: var(--brown); border-radius: 14px;
   box-shadow: 0 12px 36px rgba(46, 23, 12, .28);
   padding: 1rem 1.1rem 1.1rem; font-family: "Rubik", system-ui, sans-serif;
@@ -1297,7 +1293,7 @@ html[dir="ltr"] .a-sheet, html[dir="ltr"] .a-sheet > * { direction: ltr; }
 .a11y-link:hover { color: var(--brown); }
 
 /* what each setting does */
-html.a11y-zoomed body > :not(.a11y-toggle):not(.a11y-panel) { zoom: var(--a11y-zoom, 1); }
+html.a11y-zoomed body > :not(.a11y-toggle):not(.a11y-panel):not(.lang-fab) { zoom: var(--a11y-zoom, 1); }
 html.a11y-contrast { --brown: #000; --cream: #fff; --paper: #fff; --red: #c00; --cyan: #0050a0; }
 html.a11y-contrast body { background: #000; }
 html.a11y-contrast img { filter: contrast(1.2); }
