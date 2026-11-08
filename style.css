@@ -853,10 +853,9 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 @media (max-width: 759px) { .hl-trumpet { left: -2px; } }
 
-/* phones: smaller strips, at least two artists per row */
+/* phones: smaller strips; each strip takes the width its name needs */
 @media (max-width: 759px) {
   .ar-list { gap: 9px 6px; padding-inline: 6px; }
-  .ar-list li { max-width: calc(50% - 4px); }
   .ar-item { padding: 6px 9px 5px; }
   .ar-name { font-size: 12.5px !important; line-height: 1.12; }
   .ar-item.g-head .ar-name { font-size: 14px !important; }
@@ -1351,7 +1350,6 @@ html.a11y-reduce-motion *, html.a11y-reduce-motion ::before, html.a11y-reduce-mo
 }
 .lg-dj { background: var(--paper); border-style: dashed; border-inline-start: 5px solid var(--yellow); }
 html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the look + record icon say it; keep the time visible */
-@media (max-width: 759px) { .ar-list li:has(.ar-item.has-host) { max-width: 100%; } }   /* strips with a logo get a full row so the name stays on one line */
 
 /* desktop artists list: no strip is wider than half a row, so every row holds at least two artists (long names wrap) */
 @media (min-width: 760px) {
