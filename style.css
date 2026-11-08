@@ -1304,25 +1304,29 @@ html.a11y-reduce-motion *, html.a11y-reduce-motion ::before, html.a11y-reduce-mo
   transition-duration: .001ms !important; scroll-behavior: auto !important;
 }
 
-/* ---------- host logos: small brown badge (logos are light, made for the dark footer) ---------- */
+/* ---------- host logos: the logo itself in the text colour (brown on light blocks, cream on dark), transparent around it ---------- */
 .show .bot { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-width: 0; }
-.host { display: inline-flex; align-items: center; flex: none; background: var(--brown); border-radius: 5px; padding: 3px 5px; line-height: 0; }
-.host img { display: block; width: auto; height: 14px; }
-.host.h-soundtrack img { height: 10px; }
-.host.h-rimon img, .host.h-csj img { height: 20px; }
-.show .host { padding: 2px 4px; }
-.show .host img { height: 12px; }
-.show .host.h-soundtrack img { height: 9px; }
-.show .host.h-rimon img, .show .host.h-csj img { height: 17px; }
-.mv-meta .host { margin-inline-start: 8px; vertical-align: middle; }
+.host {
+  display: inline-block; flex: none; vertical-align: middle; background: currentColor;
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat;
+  height: 16px; aspect-ratio: var(--ar);
+}
+.h-imsf { --m: url("assets/hosts/imsf-mask.png?v=1"); --ar: 167 / 64; }
+.h-rimon { --m: url("assets/hosts/rimon-mask.png?v=1"); --ar: 66 / 64; }
+.h-csj { --m: url("assets/hosts/csj-mask.png?v=1"); --ar: 68 / 64; }
+.h-soundtrack { --m: url("assets/hosts/soundtrack-mask.png?v=1"); --ar: 290 / 48; }
+.host.h-soundtrack { height: 11px; }
+.host.h-rimon, .host.h-csj { height: 24px; }
+.show .host { height: 14px; }
+.show .host.h-soundtrack { height: 10px; }
+.show .host.h-rimon, .show .host.h-csj { height: 20px; }
+.mv-meta .host { margin-inline-start: 8px; }
 /* artists list: the logo sits next to the name, so the strip grows wider instead of taller */
 .ar-item.has-host { display: inline-flex; align-items: center; gap: 12px; }
 .ar-item.has-host .ar-text { display: block; min-width: 0; }
-.ar-item .host { padding: 4px 7px; border-radius: 6px; }
-.ar-item .host img { height: 18px; }
-.ar-item .host.h-soundtrack img { height: 12px; }
-.ar-item .host.h-rimon img, .ar-item .host.h-csj img { height: 26px; }
-html.a11y-contrast .host { background: #000; }
+.ar-item .host { height: 20px; }
+.ar-item .host.h-soundtrack { height: 13px; }
+.ar-item .host.h-rimon, .ar-item .host.h-csj { height: 30px; }
 
 /* ---------- DJ sets look clearly different from live shows ----------
    live = solid block in the stage colour; DJ = light block, dashed outline, stage-colour stripe and a record icon */

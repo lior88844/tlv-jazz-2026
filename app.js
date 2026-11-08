@@ -23,7 +23,7 @@
     soundtrack: { he: "פסטיבל סאונדטראק", en: "Soundtrack Festival" },
   };
   const hostChip = (s) => { const h = s && HOSTS[s.host]; if (!h) return "";
-    const t = L(h.he, h.en); return `<span class="host h-${s.host}" title="${esc(t)}"><img src="assets/hosts/${s.host}.png?v=2" alt="${esc(t)}"></span>`; };
+    const t = L(h.he, h.en); return `<span class="host h-${s.host}" role="img" aria-label="${esc(t)}" title="${esc(t)}"></span>`; };
   const note = (t) => (EN ? NOTE_EN[t] || t : t);
   const DAYS = {
     thu: { name: L("חמישי", "Thursday"), date: L("19.11", "Nov 19"), dd: "19", iso: "2026-11-19", start: 18 * 60 },
