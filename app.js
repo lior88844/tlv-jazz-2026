@@ -8,6 +8,8 @@
   // English page (en.html) sets <html lang="en">; everything else stays Hebrew
   const EN = document.documentElement.lang === "en";
   const L = (he, en) => (EN ? en : he);
+  // "stop animations" from the accessibility menu counts the same as the device setting
+  const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("a11y-reduce-motion");
   const STAGE_EN = { "רחבה": "The Plaza", "רפי": "Rafi", "חואניטה": "Juanita", "קיסה": "Kisa", "מטמון": "Matmon", "רומנו": "Romano", "נואיבה": "Nuweiba", "פארק המסילה 1": "HaMesila Park 1", "פארק המסילה 2": "HaMesila Park 2" };
   const NOTE_EN = { "הג׳אז אינסטיטיוט של רימון": "Rimon Jazz Institute", "הקונסרבטוריון הישראלי למוזיקה": "Israel Conservatory of Music" };
   const stg = (st) => (EN ? STAGE_EN[st] || st : st);
@@ -354,7 +356,7 @@
     if (!dlg.open || dlg.classList.contains("closing")) return;
     if (!fromHistory && history.state && history.state.artist) history.back();
     const sheet = dlg.querySelector(".a-sheet");
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !sheet.getAnimations) { dlg.close(); return; }
+    if (calm() || !sheet.getAnimations) { dlg.close(); return; }
     dlg.classList.add("closing");
     const done = () => { dlg.classList.remove("closing"); dlg.close(); };
     sheet.addEventListener("animationend", done, { once: true });
@@ -455,14 +457,14 @@
     if (scrollY <= top + 4) return run();
     let done = false; const go = () => { if (done) return; done = true; removeEventListener("scrollend", go); run(); };
     addEventListener("scrollend", go); setTimeout(go, 900);
-    scrollTo({ top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    scrollTo({ top, behavior: calm() ? "auto" : "smooth" });
   });
   function matches(day, group) { return arFilter === "all" ? true : arFilter === "dj" ? group === "dj" : day === arFilter; }
 
   /* filter without re-dropping everything: leavers fall away, the rest slide into the gaps, newcomers drop in */
   function applyFilter() {
     const lis = [...document.querySelectorAll("#ar-list > li")];
-    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isCalm = calm();
     const first = new Map();
     lis.forEach((li) => { if (!li.hidden) first.set(li, li.getBoundingClientRect()); });
     const leaving = [], entering = [];
@@ -472,7 +474,7 @@
       if (li.hidden && want) entering.push(li);
     });
     // leavers: a ghost copy falls off the pile while the real one leaves the layout
-    if (!calm) leaving.forEach((li, n) => {
+    if (!isCalm) leaving.forEach((li, n) => {
       const r = first.get(li), g = li.cloneNode(true);
       Object.assign(g.style, { position: "fixed", left: r.left + "px", top: r.top + "px", width: r.width + "px", margin: 0, zIndex: 30, pointerEvents: "none", listStyle: "none" });
       const src = li.firstElementChild, gb = g.firstElementChild, cs = getComputedStyle(src);
@@ -487,7 +489,7 @@
     });
     leaving.forEach((li) => { li.hidden = true; });
     entering.forEach((li) => { li.hidden = false; });
-    if (calm) { entering.forEach((li) => li.firstElementChild.classList.remove("wait")); return; }
+    if (isCalm) { entering.forEach((li) => li.firstElementChild.classList.remove("wait")); return; }
     // stayers: slide from where they were to where they are now, landing with a small bounce
     let k = 0;
     lis.forEach((li) => {
@@ -528,11 +530,11 @@
     sky.innerHTML = S.map(([x, y, s, k, r], n) =>
       `<img src="assets/stars/${k === "dots" ? "dots" : "star-" + k}.png" alt="" style="--x:${x}%;--y:${y}%;--s:${Math.round(s * (small ? .8 : 1.25))}px;--r:${r}deg;--d:${(.25 + n * .06).toFixed(2)}s;--t:${(2.6 + (n % 5) * .7).toFixed(1)}s">`).join("");
     // gentle parallax while scrolling
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    {
       let ticking = false;
       addEventListener("scroll", () => {
         if (ticking) return; ticking = true;
-        requestAnimationFrame(() => { if (scrollY < innerHeight * 1.5) sky.style.transform = `translateY(${scrollY * .18}px)`; ticking = false; });
+        requestAnimationFrame(() => { sky.style.transform = calm() ? "" : scrollY < innerHeight * 1.5 ? `translateY(${scrollY * .18}px)` : sky.style.transform; ticking = false; });
       }, { passive: true });
     }
   }
@@ -660,7 +662,7 @@
     const c = ev.target.closest(".day-card"); if (!c) return;
     if (mineOn) setMine(false);
     setDay(c.dataset.day);
-    $("#schedule").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    $("#schedule").scrollIntoView({ behavior: calm() ? "auto" : "smooth" });
   });
 
   /* ---------- stage ribbon: double the track for a seamless loop ---------- */
