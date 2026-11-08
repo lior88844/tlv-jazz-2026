@@ -23,7 +23,7 @@
     soundtrack: { he: "פסטיבל סאונדטראק", en: "Soundtrack Festival" },
   };
   const hostChip = (s) => { const h = s && HOSTS[s.host]; if (!h) return "";
-    const t = L(h.he, h.en); return `<span class="host h-${s.host}" title="${esc(t)}"><img src="assets/hosts/${s.host}.png?v=1" alt="${esc(t)}"></span>`; };
+    const t = L(h.he, h.en); return `<span class="host h-${s.host}" title="${esc(t)}"><img src="assets/hosts/${s.host}.png?v=2" alt="${esc(t)}"></span>`; };
   const note = (t) => (EN ? NOTE_EN[t] || t : t);
   const DAYS = {
     thu: { name: L("חמישי", "Thursday"), date: L("19.11", "Nov 19"), dd: "19", iso: "2026-11-19", start: 18 * 60 },
@@ -434,8 +434,9 @@
       const rnd = (k) => { const x = Math.sin((i + 1) * 9301 + k * 49297) * 233280; return x - Math.floor(x); };
       const r = ((rnd(1) - .5) * 2.4).toFixed(2), dx = 0;
       const tg = "div"; // no artist texts yet, so nothing opens
-      return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><${tg} class="ar-item g-${e.group} wait" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
-        `<span class="ar-name">${esc(EN || !sh || !sh.he ? e.en : sh.he)}</span><span class="ar-sub">${tag}${when}</span>${hostChip(sh)}</${tg}></li>`;
+      const chip = hostChip(sh);
+      return `<li data-day="${e.day}" data-group="${e.group}"${matches(e.day, e.group) ? "" : " hidden"}><${tg} class="ar-item g-${e.group} wait${chip ? " has-host" : ""}" style="--r:${r}deg;--dx:${dx}px" data-i="${i}">` +
+        `<span class="ar-text"><span class="ar-name">${esc(EN || !sh || !sh.he ? e.en : sh.he)}</span><span class="ar-sub">${tag}${when}</span></span>${chip}</${tg}></li>`;
     }).join("");
     dropObserve();
   }

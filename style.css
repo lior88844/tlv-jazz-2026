@@ -1315,7 +1315,13 @@ html.a11y-reduce-motion *, html.a11y-reduce-motion ::before, html.a11y-reduce-mo
 .show .host.h-soundtrack img { height: 9px; }
 .show .host.h-rimon img, .show .host.h-csj img { height: 17px; }
 .mv-meta .host { margin-inline-start: 8px; vertical-align: middle; }
-.ar-item .host { margin-top: 6px; }
+/* artists list: the logo sits next to the name, so the strip grows wider instead of taller */
+.ar-item.has-host { display: inline-flex; align-items: center; gap: 12px; }
+.ar-item.has-host .ar-text { display: block; min-width: 0; }
+.ar-item .host { padding: 4px 7px; border-radius: 6px; }
+.ar-item .host img { height: 18px; }
+.ar-item .host.h-soundtrack img { height: 12px; }
+.ar-item .host.h-rimon img, .ar-item .host.h-csj img { height: 26px; }
 html.a11y-contrast .host { background: #000; }
 
 /* ---------- DJ sets look clearly different from live shows ----------
@@ -1336,3 +1342,4 @@ html.a11y-contrast .host { background: #000; }
 }
 .lg-dj { background: var(--paper); border-style: dashed; border-inline-start: 5px solid var(--yellow); }
 html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the look + record icon say it; keep the time visible */
+@media (max-width: 759px) { .ar-list li:has(.ar-item.has-host) { max-width: 100%; } }   /* strips with a logo get a full row so the name stays on one line */
