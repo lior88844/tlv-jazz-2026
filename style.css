@@ -1356,3 +1356,6 @@ html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the
   .ar-list li { max-width: calc(50% - 6px); }
   .ar-list li .ar-item { max-width: 100%; }
 }
+/* DJ sets always start on a new row, never sharing one with live shows: an invisible full-width break sits between the two groups */
+.ar-list::before { content: ""; order: 1; flex-basis: 100%; height: 0; }
+.ar-list li[data-group="dj"] { order: 2; }
