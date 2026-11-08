@@ -171,7 +171,7 @@
 
   /* ---------- calendar ---------- */
   const PLACE = "בית רומנו, דרך יפו 9, תל אביב-יפו";
-  const SITE = "https://lior88844.github.io/tlv-jazz-2026/";
+  const SITE = "https://tlvjazzfest26.com/";
   // local festival time -> "YYYYMMDDTHHMMSS"; minutes past midnight roll over to the next date
   function calStamp(dayKey, min, utc) {
     const [y, mo, d] = DAYS[dayKey].iso.split("-").map(Number);
