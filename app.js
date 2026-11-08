@@ -428,7 +428,11 @@
     const HEAD_ORDER = ["Margeeah", "Johnny", "Blue Break", "Liraz", "Emma"];
     const ho = (e) => { const k = HEAD_ORDER.findIndex((h) => e.en.startsWith(h)); return k < 0 ? 9 : k; };
     list.sort((a, b) => (ORDER[a.e.group] - ORDER[b.e.group]) || (a.e.group === "head" ? ho(a.e) - ho(b.e) : 0) || (DAY_ORDER[a.e.day] - DAY_ORDER[b.e.day]) || a.e.en.localeCompare(b.e.en));
-    $("#ar-list").innerHTML = list.map(({ e, i }, n) => {
+    // two lineup entries can share one set and so one display name (Radio Trip & Neal Sugarman on the Hebrew page): show it once
+    const arName = (e) => { const sh = showsFor(e)[0]; return EN || !sh || !sh.he ? e.en : sh.he; };
+    const seen = new Set();
+    const shown = list.filter(({ e }) => { const k = arName(e); if (seen.has(k)) return false; seen.add(k); return true; });
+    $("#ar-list").innerHTML = shown.map(({ e, i }, n) => {
       const sh = showsFor(e)[0];
       const when = `${DAYS[e.day].name} ${DAYS[e.day].date}` + (sh && SHOW_TIMES ? ` · <span dir="ltr">${hhmm(sh.start)}</span> · ${esc(stg(sh.stage))}` : "");
       const tag = e.group === "dj" ? L("תקלוט · ", "DJ set · ") : e.group === "show" && e.note ? esc(note(e.note)) + " · " : "";
