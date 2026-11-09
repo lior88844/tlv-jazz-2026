@@ -1359,3 +1359,18 @@ html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the
 /* DJ sets always start on a new row, never sharing one with live shows: an invisible full-width break sits between the two groups */
 .ar-list::before { content: ""; order: 1; flex-basis: 100%; height: 0; }
 .ar-list li[data-group="dj"] { order: 2; }
+
+/* ---------- Tel Aviv-Yafo municipality band (top) and production line (bottom), as on the city's festival sites ---------- */
+.muni { --mh: 84px; --u: calc(var(--mh) / 128.4); position: relative; background: #fff; height: var(--mh); z-index: 30; overflow: visible; direction: ltr; }
+.muni-bar { position: absolute; top: calc(52.3 * var(--u)); height: calc(48.7 * var(--u)); left: calc(469 * var(--u)); right: 0; background: #02B0EE; }
+.muni-art { position: absolute; top: 0; left: 0; height: calc(159.02 * var(--u)); width: auto; display: block; pointer-events: none; z-index: 1; }
+.muni-link { position: absolute; top: calc(26 * var(--u)); left: calc(88 * var(--u)); width: calc(200 * var(--u)); height: calc(102 * var(--u)); z-index: 2; border-radius: 50%; }
+.muni-link:focus-visible { outline: 2px solid var(--brown); outline-offset: 2px; }
+.muni-foot { background: #fff; border-top: 2px solid #02B0EE; padding: 13px 24px 14px; text-align: center; }
+.mf-text { margin: 0 auto; max-width: 1080px; font-size: .9375rem; line-height: 1.35; color: #231F20; }
+@media (max-width: 640px) {
+  .muni { --mh: 58px; }
+  .muni-foot { padding: 11px 84px 12px 20px; }
+  .mf-text { font-size: .78rem; }
+}
+@media (max-height: 820px) and (min-width: 641px) { .muni { --mh: 64px; } }
