@@ -1377,3 +1377,5 @@ html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the
 /* footer: the Center for Jazz Studies logo is taller than wide, so it is sized by height */
 .collab .p-csj { width: auto; height: 84px; }
 @media (min-width: 760px) { .collab .p-csj { width: auto; height: 100px; } }
+/* the Center for Jazz Studies logo keeps its own colours (no brown/cream tint) */
+.host.h-csj { background: url("assets/hosts/csj-color.png?v=1") center / contain no-repeat; -webkit-mask: none; mask: none; }
