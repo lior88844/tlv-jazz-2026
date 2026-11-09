@@ -348,8 +348,8 @@ window.SCHEDULE = [
   "day": "fri",
   "stage": "מטמון",
   "name": "Tamar Shawki",
-  "start": 1155,
-  "end": 1185,
+  "start": 1380,
+  "end": 1410,
   "kind": "live",
   "he": "תמר שאוקי",
   "host": "imsf",
@@ -461,9 +461,10 @@ window.SCHEDULE = [
   "stage": "קיסה",
   "name": "Ariel Bart Trio",
   "start": 1350,
-  "end": 1410,
+  "end": 1380,
   "kind": "live",
   "he": "שלישיית אריאל ברט",
+  "host": "imsf",
   "id": "fri-1350-קיסה"
  },
  {
@@ -481,8 +482,8 @@ window.SCHEDULE = [
   "day": "fri",
   "stage": "מטמון",
   "name": "Sandia",
-  "start": 1410,
-  "end": 1440,
+  "start": 1455,
+  "end": 1485,
   "kind": "live",
   "host": "imsf",
   "id": "fri-1410-מטמון"
