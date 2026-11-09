@@ -1374,3 +1374,6 @@ html[dir] .show.dj.short .tm::after { content: none; }   /* short DJ blocks: the
   .mf-text { font-size: .78rem; }
 }
 @media (max-height: 820px) and (min-width: 641px) { .muni { --mh: 64px; } }
+/* footer: the Center for Jazz Studies logo is taller than wide, so it is sized by height */
+.collab .p-csj { width: auto; height: 84px; }
+@media (min-width: 760px) { .collab .p-csj { width: auto; height: 100px; } }
