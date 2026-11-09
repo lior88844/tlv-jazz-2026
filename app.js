@@ -270,9 +270,18 @@
     if (on) renderMine(true); else renderGrid(true);
   }
   let toastT, favPop = null;
+  // the toast exists on the page only while it shows: added for each message, removed once it has slid away
   function toast(msg) {
-    const t = $("#toast"); t.textContent = msg; t.classList.add("on");
-    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("on"), 1600);
+    let t = $("#toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.className = "toast"; t.id = "toast"; t.setAttribute("role", "status"); t.setAttribute("aria-live", "polite");
+      document.body.appendChild(t);
+      void t.offsetWidth; // start below the screen so it slides in
+    }
+    t.textContent = msg; t.classList.add("on");
+    clearTimeout(toastT);
+    toastT = setTimeout(() => { t.classList.remove("on"); toastT = setTimeout(() => t.remove(), 400); }, 1600);
   }
   function toggle(id) {
     const s = DATA.find((x) => x.id === id); if (!s) return;
