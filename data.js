@@ -347,13 +347,12 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "מטמון",
-  "name": "Tamar Shawki",
+  "name": "Sandia",
   "start": 1380,
   "end": 1410,
   "kind": "live",
-  "he": "תמר שאוקי",
   "host": "imsf",
-  "id": "fri-1155-מטמון"
+  "id": "fri-1410-מטמון"
  },
  {
   "day": "fri",
@@ -481,12 +480,13 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "מטמון",
-  "name": "Sandia",
+  "name": "Tamar Shawki",
   "start": 1455,
   "end": 1485,
   "kind": "live",
+  "he": "תמר שאוקי",
   "host": "imsf",
-  "id": "fri-1410-מטמון"
+  "id": "fri-1155-מטמון"
  },
  {
   "day": "fri",
