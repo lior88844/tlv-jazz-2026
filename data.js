@@ -810,11 +810,32 @@ window.SCHEDULE = [
   "stage": "קיסה",
   "name": "Honey Dew",
   "start": 1320,
-  "end": 1440,
+  "end": 1350,
   "kind": "dj",
   "he": "Honey Dew DJ Set",
   "label_en": "Honey Dew DJ Set",
   "id": "sat-1320-קיסה"
+ },
+ {
+  "day": "sat",
+  "stage": "קיסה",
+  "name": "Alon Tayar & Daniel Dor",
+  "start": 1350,
+  "end": 1410,
+  "kind": "live",
+  "he": "אלון תייר ודניאל דור",
+  "id": "sat-1350-קיסה"
+ },
+ {
+  "day": "sat",
+  "stage": "קיסה",
+  "name": "Honey Dew",
+  "start": 1410,
+  "end": 1440,
+  "kind": "dj",
+  "he": "Honey Dew DJ Set",
+  "label_en": "Honey Dew DJ Set",
+  "id": "sat-1410-קיסה"
  },
  {
   "day": "sat",
