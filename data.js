@@ -18,7 +18,8 @@ window.SCHEDULE = [
   "start": 1140,
   "end": 1200,
   "kind": "live",
-  "id": "thu-1140-רחבה"
+  "id": "thu-1140-רחבה",
+  "he": "רונן שמואלי ושגרירי הרימון ג׳אז אינסטיטיוט"
  },
  {
   "day": "thu",
@@ -46,7 +47,7 @@ window.SCHEDULE = [
   "start": 1245,
   "end": 1305,
   "kind": "head",
-  "he": "ג׳וני אוניל",
+  "he": "JOHNNY O'NEIL",
   "en": "Johnny O'Neal",
   "id": "thu-1245-רחבה"
  },
@@ -93,11 +94,11 @@ window.SCHEDULE = [
  {
   "day": "thu",
   "stage": "קיסה",
-  "name": "Midnight Jam Session · The Kadosh Brothers",
+  "name": "Midnight Jam Session · Ilay Kadosh",
   "start": 1440,
   "end": 1500,
   "kind": "live",
-  "he": "Midnight Jam Session · בניהול האחים קדוש",
+  "he": "ג׳אם חצות בניהול עיליי קדוש",
   "late": true,
   "id": "thu-1440-קיסה"
  },
@@ -134,15 +135,15 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "Nadav Lavie",
   "start": 750,
   "end": 810,
   "kind": "live",
-  "he": "נדב לביא פוגש את הרימון ג'אז אינסטיטיוט",
-  "label_en": "Nadav Lavie meets the Rimon Jazz Institute",
+  "he": "נדב לביא",
+  "label_en": "Nadav Lavie",
   "host": "rimon",
-  "id": "fri-750-פארק המסילה 1"
+  "id": "fri-750-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -156,13 +157,13 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Omri Porat Trio",
   "start": 810,
   "end": 870,
   "kind": "live",
   "he": "עומרי פורת טריו",
-  "id": "fri-810-פארק המסילה 2"
+  "id": "fri-810-פארק המסילה 1"
  },
  {
   "day": "fri",
@@ -184,13 +185,13 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "חואניטה",
+  "stage": "קיסה",
   "name": "Ofer Landsberg Trio",
   "start": 870,
   "end": 930,
   "kind": "live",
   "he": "שלישיית עופר לנדסברג",
-  "id": "fri-870-חואניטה"
+  "id": "fri-870-קיסה"
  },
  {
   "day": "fri",
@@ -204,15 +205,15 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "The Hard Bop Congress",
   "start": 900,
   "end": 960,
   "kind": "live",
-  "he": "Rimon Jazz Institute: The Hard Bop Congress",
-  "label_en": "Rimon Jazz Institute: The Hard Bop Congress",
+  "he": "The Hard Bop Congress",
+  "label_en": "The Hard Bop Congress",
   "host": "rimon",
-  "id": "fri-900-פארק המסילה 1"
+  "id": "fri-900-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -246,13 +247,13 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Ofri Haroz",
   "start": 990,
   "end": 1050,
   "kind": "live",
   "he": "עפרי הרעוז",
-  "id": "fri-990-פארק המסילה 2"
+  "id": "fri-990-פארק המסילה 1"
  },
  {
   "day": "fri",
@@ -266,12 +267,12 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "חואניטה",
+  "stage": "קיסה",
   "name": "Yonatan Rosen Plays the Blues",
   "start": 1020,
   "end": 1080,
   "kind": "live",
-  "id": "fri-1020-חואניטה"
+  "id": "fri-1020-קיסה"
  },
  {
   "day": "fri",
@@ -281,7 +282,9 @@ window.SCHEDULE = [
   "end": 1110,
   "kind": "live",
   "host": "imsf",
-  "id": "fri-1080-רחבה"
+  "id": "fri-1080-רחבה",
+  "he": "שי חזן",
+  "label_en": "Shay Hazan"
  },
  {
   "day": "fri",
@@ -295,13 +298,13 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Chucha",
   "start": 1080,
   "end": 1140,
   "kind": "live",
   "he": "צ׳וצ׳ה",
-  "id": "fri-1080-פארק המסילה 2"
+  "id": "fri-1080-פארק המסילה 1"
  },
  {
   "day": "fri",
@@ -326,33 +329,24 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "חואניטה",
-  "name": "Be'eri",
+  "name": "Yaara Haim",
   "start": 1140,
   "end": 1170,
   "kind": "dj",
-  "id": "fri-1140-חואניטה"
+  "id": "fri-1140-חואניטה",
+  "he": "יערה חיים"
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "Noa Blumer & Roy Kimelman",
   "start": 1140,
   "end": 1200,
   "kind": "live",
-  "he": "נעה בלומר ורועי קימלמן פוגשים את הרימון ג'אז אינסטיטיוט",
-  "label_en": "Noa Blumer & Roy Kimelman meet the Rimon Jazz Institute",
+  "he": "נעה בלומר ורועי קימלמן",
+  "label_en": "Noa Blumer & Roy Kimelman",
   "host": "rimon",
-  "id": "fri-1140-פארק המסילה 1"
- },
- {
-  "day": "fri",
-  "stage": "מטמון",
-  "name": "Sandia",
-  "start": 1380,
-  "end": 1410,
-  "kind": "live",
-  "host": "imsf",
-  "id": "fri-1410-מטמון"
+  "id": "fri-1140-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -396,13 +390,13 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Farha",
   "start": 1230,
   "end": 1290,
   "kind": "live",
   "he": "פארחה",
-  "id": "fri-1230-פארק המסילה 2"
+  "id": "fri-1230-פארק המסילה 1"
  },
  {
   "day": "fri",
@@ -425,15 +419,15 @@ window.SCHEDULE = [
  },
  {
   "day": "fri",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "Sounds of the Jungle",
   "start": 1290,
   "end": 1350,
   "kind": "live",
-  "he": "Rimon Jazz Institute: Sounds of the Jungle",
-  "label_en": "Rimon Jazz Institute: Sounds of the Jungle",
+  "he": "Sounds of the Jungle",
+  "label_en": "Sounds of the Jungle",
   "host": "rimon",
-  "id": "fri-1290-פארק המסילה 1"
+  "id": "fri-1290-פארק המסילה 2"
  },
  {
   "day": "fri",
@@ -480,13 +474,12 @@ window.SCHEDULE = [
  {
   "day": "fri",
   "stage": "מטמון",
-  "name": "Tamar Shawki",
-  "start": 1455,
-  "end": 1485,
+  "name": "Sandia",
+  "start": 1380,
+  "end": 1410,
   "kind": "live",
-  "he": "תמר שאוקי",
   "host": "imsf",
-  "id": "fri-1155-מטמון"
+  "id": "fri-1410-מטמון"
  },
  {
   "day": "fri",
@@ -506,9 +499,20 @@ window.SCHEDULE = [
   "start": 1440,
   "end": 1500,
   "kind": "live",
-  "he": "Midnight Jam Session · בניהול הלל סאלם",
+  "he": "ג׳אם חצות בניהול הלל סאלם",
   "late": true,
   "id": "fri-1440-קיסה"
+ },
+ {
+  "day": "fri",
+  "stage": "מטמון",
+  "name": "Tamar Shawki",
+  "start": 1455,
+  "end": 1485,
+  "kind": "live",
+  "he": "תמר שאוקי",
+  "host": "imsf",
+  "id": "fri-1155-מטמון"
  },
  {
   "day": "sat",
@@ -531,14 +535,14 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "Yehonatan Karmi Trio",
   "start": 720,
   "end": 780,
   "kind": "live",
   "he": "שלישיית יהונתן כרמי",
   "host": "csj",
-  "id": "sat-720-פארק המסילה 1"
+  "id": "sat-720-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -561,13 +565,13 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Yarden Erez - Ajab",
   "start": 810,
   "end": 870,
   "kind": "live",
   "he": "ירדן ארז - עג׳ב",
-  "id": "sat-810-פארק המסילה 2"
+  "id": "sat-810-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -595,18 +599,19 @@ window.SCHEDULE = [
   "start": 900,
   "end": 960,
   "kind": "live",
-  "id": "sat-900-חואניטה"
+  "id": "sat-900-חואניטה",
+  "he": "חמישיית ממלו גייטונופלוס"
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "Ori Lapid Quartet",
   "start": 900,
   "end": 960,
   "kind": "live",
   "he": "רביעיית אורי לפיד",
   "host": "csj",
-  "id": "sat-900-פארק המסילה 1"
+  "id": "sat-900-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -631,7 +636,7 @@ window.SCHEDULE = [
   "stage": "מטמון",
   "name": "Sonny Rollins: Saxophone Colossus · Screening",
   "start": 960,
-  "end": 1080,
+  "end": 1065,
   "kind": "live",
   "he": "הקרנה במסגרת פסטיבל סאונדטראק: סוני רולינס – סקסופון קולוסוס",
   "host": "soundtrack",
@@ -648,13 +653,13 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "David Dagmi",
   "start": 990,
   "end": 1050,
   "kind": "live",
   "he": "דוד דגמי",
-  "id": "sat-990-פארק המסילה 2"
+  "id": "sat-990-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -663,9 +668,21 @@ window.SCHEDULE = [
   "start": 1020,
   "end": 1080,
   "kind": "live",
-  "he": "Jonathan Levy – Farewell Metro Boy",
-  "label_en": "Jonathan Levy – Farewell Metro Boy",
+  "he": "יונתן לוי: Farewell Metro Boy",
+  "label_en": "Jonathan Levy: Farewell Metro Boy",
   "id": "sat-1020-חואניטה"
+ },
+ {
+  "day": "sat",
+  "stage": "מטמון",
+  "name": "Soundtrack Festival: video talk with director Robert Mugge",
+  "start": 1065,
+  "end": 1110,
+  "kind": "live",
+  "he": "פסטיבל סאונדטראק: שיחת וידאו עם במאי הסרט רוברט מאגי בהנחיית ישיב כהן",
+  "label_en": "Soundtrack Festival: video talk with director Robert Mugge, hosted by Yashiv Cohen",
+  "host": "soundtrack",
+  "id": "sat-1065-מטמון"
  },
  {
   "day": "sat",
@@ -688,13 +705,13 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Noa Blumer",
   "start": 1110,
   "end": 1170,
   "kind": "live",
   "he": "נעה בלומר",
-  "id": "sat-1110-פארק המסילה 2"
+  "id": "sat-1110-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -712,18 +729,19 @@ window.SCHEDULE = [
   "start": 1140,
   "end": 1200,
   "kind": "live",
-  "id": "sat-1140-חואניטה"
+  "id": "sat-1140-חואניטה",
+  "he": "רביעיית מארק מושייב"
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "David Hillel Damari Quartet",
   "start": 1140,
   "end": 1200,
   "kind": "live",
   "he": "רביעיית דוד הלל דמרי",
   "host": "csj",
-  "id": "sat-1140-פארק המסילה 1"
+  "id": "sat-1140-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -732,7 +750,7 @@ window.SCHEDULE = [
   "start": 1200,
   "end": 1260,
   "kind": "head",
-  "he": "אמה סמית׳ ויונתן ריקליס",
+  "he": "EMMA SMITH & YONATAN RIKLIS",
   "en": "Emma Smith & Yonatan Riklis",
   "id": "sat-1200-רחבה"
  },
@@ -747,12 +765,12 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 2",
+  "stage": "פארק המסילה 1",
   "name": "Duoizm",
   "start": 1230,
   "end": 1290,
   "kind": "live",
-  "id": "sat-1230-פארק המסילה 2"
+  "id": "sat-1230-פארק המסילה 1"
  },
  {
   "day": "sat",
@@ -785,14 +803,14 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "פארק המסילה 1",
+  "stage": "פארק המסילה 2",
   "name": "Dor Bar On Trio",
   "start": 1290,
   "end": 1350,
   "kind": "live",
   "he": "דור בר און",
   "host": "csj",
-  "id": "sat-1290-פארק המסילה 1"
+  "id": "sat-1290-פארק המסילה 2"
  },
  {
   "day": "sat",
@@ -828,17 +846,6 @@ window.SCHEDULE = [
  },
  {
   "day": "sat",
-  "stage": "קיסה",
-  "name": "Honey Dew",
-  "start": 1410,
-  "end": 1440,
-  "kind": "dj",
-  "he": "Honey Dew DJ Set",
-  "label_en": "Honey Dew DJ Set",
-  "id": "sat-1410-קיסה"
- },
- {
-  "day": "sat",
   "stage": "רפי",
   "name": "Marzipan · Closing Set",
   "start": 1380,
@@ -850,11 +857,22 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "קיסה",
+  "name": "Honey Dew",
+  "start": 1410,
+  "end": 1440,
+  "kind": "dj",
+  "he": "Honey Dew DJ Set",
+  "label_en": "Honey Dew DJ Set",
+  "id": "sat-1410-קיסה"
+ },
+ {
+  "day": "sat",
+  "stage": "קיסה",
   "name": "Midnight Jam Session · Johnny O'Neal",
   "start": 1440,
   "end": 1500,
   "kind": "live",
-  "he": "Midnight Jam Session · בניהול ג׳וני אוניל",
+  "he": "ג׳אם חצות בניהול JOHNNY O'NEIL",
   "late": true,
   "id": "sat-1440-קיסה"
  }

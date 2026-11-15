@@ -39,7 +39,6 @@ window.LINEUP = [
  { day: "fri", group: "show", en: "Noa Blumer & Roy Kimelman" },
  { day: "fri", group: "show", en: "Sounds of the Jungle" },
  { day: "fri", group: "dj", en: "Babi & Yuli" },
- { day: "fri", group: "dj", en: "Be'eri" },
  { day: "fri", group: "dj", en: "Elad Moshe" },
  { day: "fri", group: "dj", en: "Ido Sucho" },
  { day: "fri", group: "dj", en: "Itamar Shlomo Cohen" },
