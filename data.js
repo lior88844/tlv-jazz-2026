@@ -240,7 +240,7 @@ window.SCHEDULE = [
   "stage": "חואניטה",
   "name": "Yaara Haim",
   "start": 990,
-  "end": 1020,
+  "end": 1110,
   "kind": "dj",
   "he": "יערה חיים",
   "id": "fri-990-חואניטה"
@@ -285,16 +285,6 @@ window.SCHEDULE = [
   "id": "fri-1080-רחבה",
   "he": "שי חזן",
   "label_en": "Shay Hazan"
- },
- {
-  "day": "fri",
-  "stage": "חואניטה",
-  "name": "Yaara Haim",
-  "start": 1080,
-  "end": 1110,
-  "kind": "dj",
-  "he": "יערה חיים",
-  "id": "fri-1080-חואניטה"
  },
  {
   "day": "fri",
@@ -600,7 +590,7 @@ window.SCHEDULE = [
   "end": 960,
   "kind": "live",
   "id": "sat-900-חואניטה",
-  "he": "חמישיית ממלו גייטונופלוס"
+  "he": "חמישיית ממלו גייטנופולוס"
  },
  {
   "day": "sat",
@@ -830,8 +820,7 @@ window.SCHEDULE = [
   "start": 1320,
   "end": 1350,
   "kind": "dj",
-  "he": "Honey Dew DJ Set",
-  "label_en": "Honey Dew DJ Set",
+  "he": "Honey Dew",
   "id": "sat-1320-קיסה"
  },
  {
@@ -861,8 +850,7 @@ window.SCHEDULE = [
   "start": 1410,
   "end": 1440,
   "kind": "dj",
-  "he": "Honey Dew DJ Set",
-  "label_en": "Honey Dew DJ Set",
+  "he": "Honey Dew",
   "id": "sat-1410-קיסה"
  },
  {
