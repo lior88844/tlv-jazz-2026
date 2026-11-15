@@ -47,7 +47,7 @@ window.SCHEDULE = [
   "start": 1245,
   "end": 1305,
   "kind": "head",
-  "he": "JOHNNY O'NEIL",
+  "he": "JOHNNY O'NEAL",
   "en": "Johnny O'Neal",
   "id": "thu-1245-רחבה"
  },
@@ -860,7 +860,7 @@ window.SCHEDULE = [
   "start": 1440,
   "end": 1500,
   "kind": "live",
-  "he": "ג׳אם חצות בניהול JOHNNY O'NEIL",
+  "he": "ג׳אם חצות בניהול JOHNNY O'NEAL",
   "late": true,
   "id": "sat-1440-קיסה"
  }
