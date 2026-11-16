@@ -44,7 +44,7 @@ window.ARTIST_INFO = {
   "Hillel Salem Quintet - Tribute to Wayne Shorter": {
     he: "חמישיית הלל סאלם – מחווה ל־Wayne Shorter",
     bio: "חמישיית החצוצרן הלל סאלם במחווה למוזיקה של Wayne Shorter, שתנגן בעיקר מתוך האלבום Night Dreamer. בהרכב: הלל סאלם (חצוצרה ופלוגלהורן), אילן סאלם (חליל וחליל אלט), קטיה טובול (פסנתר), ארן הרדי (בס) ואביב בונה (תופים).",
-    bio_en: "Trumpeter Hillel Salem’s quintet in a tribute to the music of Wayne Shorter, playing mainly from the album Night Dreamer. The line-up: Hillel Salem (trumpet and flugelhorn), Ilan Salem (flute and alto flute), Katia Toubul (piano), Eran Hardy (bass) and Aviv Bone (drums).",
+    bio_en: "Trumpeter Hillel Salem’s quintet in a tribute to the music of Wayne Shorter, playing mainly from the album Night Dreamer. The line-up: Hillel Salem (trumpet and flugelhorn), Ilan Salem (flute and alto flute), Katia Toubul (piano), Oren Hardy (bass) and Aviv Boneh (drums).",
     photo: "assets/artists/hillel-salem.jpg",
     credit: "צילום: Jean-François Carreau"
   },
