@@ -353,6 +353,8 @@
     const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
     if (first) {
       dlg.showModal();
+      // the window takes focus itself (not the close button), so the browser never scrolls to a button that is still sliding up
+      dlg.focus({ preventScroll: true }); dlg.scrollTop = 0; dlg.querySelector(".a-sheet").scrollTop = 0;
       try { history.pushState({ artist: id }, ""); } catch (e) {}
     }
     $("#artist-body").scrollTop = 0; updateBar(); scroller.querySelectorAll("img").forEach((i) => i.addEventListener("load", () => updateBar(), { once: true })); setTimeout(() => updateBar(), 650);
@@ -429,7 +431,7 @@
       (e.note ? `<p class="a-note">${esc(note(e.note))}</p>` : "") +
       ((EN && meta.bio_en) || meta.bio ? paras((EN && meta.bio_en) || meta.bio) : "");
     const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
-    if (!dlg.open) { dlg.showModal(); try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
+    if (!dlg.open) { dlg.showModal(); dlg.focus({ preventScroll: true }); dlg.scrollTop = 0; dlg.querySelector(".a-sheet").scrollTop = 0; try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
     $("#artist-body").scrollTop = 0; updateBar(); scroller.querySelectorAll("img").forEach((i) => i.addEventListener("load", () => updateBar(), { once: true })); setTimeout(() => updateBar(), 650);
   }
 
