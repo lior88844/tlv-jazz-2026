@@ -76,7 +76,7 @@
       const [main, sub] = String(s.en || s.name).split(" · ");
       const en = String(s.en || "").toLowerCase();
       const pic = /margeeah/.test(en) ? "margeeah" : /johnny/.test(en) ? "johnny" : /liraz/.test(en) ? "liraz" : /blue break/.test(en) ? "bbb" : /emma/.test(en) ? "emma" : "";
-      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}">` +
+      return `<li class="hl-card reveal" style="--i:${i}" data-id="${s.id}" role="button" tabindex="0" aria-haspopup="dialog" aria-label="${esc(main + (sub ? " · " + sub : ""))} – ${L("לפרטים", "details")}">` +
         (pic ? `<img class="hl-photo" src="assets/headliners/${pic}.webp?v=3" alt="" loading="lazy">` : "") +
         `<div class="hl-strip ${pic === "liraz" ? "c-pink" : pic === "bbb" ? "c-blue" : COLORS[i % 5]}"><span class="en">${esc(main)}</span>` +
         (sub ? `<span class="en sub">${esc(sub)}</span>` : "") +
@@ -339,7 +339,7 @@
         `<div><dt>${L("שעה", "Time")}</dt><dd dir="ltr">${hhmm(s.start)}</dd></div>` +
         `<div><dt>${L("במה", "Stage")}</dt><dd>${esc(stg(s.stage))}</dd></div>` +
       `</dl>` +
-      (info ? `<p class="a-info">${esc(info)}</p>` : "") +
+      (info ? paras(info) : "") +
       `<div class="a-actions">` +
         `<button class="a-fav ${fav ? "on" : ""}" data-id="${s.id}"><span class="a-star">${STAR_SVG}</span>${fav ? L("בליינאפ שלי", "In my lineup") : L("הוספה לליינאפ שלי", "Add to my lineup")}</button>` +
         `<a class="a-cal" href="${calLink(s)}" target="_blank" rel="noopener">${L("הוספה ליומן", "Add to calendar")}</a>` +
@@ -389,6 +389,10 @@
     if (other) openArtist(other.dataset.id);
   });
   dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeArtist(); });
+  // headliner boxes open the same artist window, with the show's short text
+  const hlOpen = (e) => { const li = e.target.closest("#hl-list li[data-id]"); if (li) { e.preventDefault(); openArtist(li.dataset.id); } };
+  $("#hl-list").addEventListener("click", hlOpen);
+  $("#hl-list").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") hlOpen(e); });
   addEventListener("popstate", () => closeArtist(true));
 
 
@@ -402,6 +406,7 @@
     if (!v) return {};
     return typeof v === "string" ? { bio: v } : v;
   }
+  const paras = (t) => String(t).split(/\n\s*\n/).map((p) => `<p class="a-info">${esc(p.trim())}</p>`).join("");
   function photoHTML(meta) {
     return meta.photo ? `<figure class="a-photo"><img src="${esc(meta.photo)}" alt="">` +
       (meta.credit ? `<figcaption>${esc(meta.credit)}</figcaption>` : "") + `</figure>` : "";
@@ -422,7 +427,7 @@
       `<dl class="a-facts"><div><dt>${L("יום", "Day")}</dt><dd>${DAYS[e.day].name} ${DAYS[e.day].date}</dd></div>` +
         `<div><dt>${L("שעה", "Time")}</dt><dd>${L("בקרוב", "TBA")}</dd></div><div><dt>${L("מקום", "Venue")}</dt><dd>${L("בית רומנו", "Beit Romano")}</dd></div></dl>` +
       (e.note ? `<p class="a-note">${esc(note(e.note))}</p>` : "") +
-      (meta.bio ? `<p class="a-info">${esc(meta.bio)}</p>` : "");
+      (meta.bio ? paras(meta.bio) : "");
     const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
     if (!dlg.open) { dlg.showModal(); try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
     $("#artist-body").scrollTop = 0; updateBar(); scroller.querySelectorAll("img").forEach((i) => i.addEventListener("load", () => updateBar(), { once: true })); setTimeout(() => updateBar(), 650);

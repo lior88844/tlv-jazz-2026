@@ -735,6 +735,10 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 /* ---------- headliners with the reel's photos ---------- */
 .hl-list { gap: 26px; }
+/* headliner boxes open the artist window */
+.hl-list li.hl-card { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hl-list li.hl-card:focus-visible { outline: 3px solid var(--yellow, #F2C230); outline-offset: 4px; border-radius: 6px; }
+.a-info + .a-info { margin-top: .8em; }
 .hl-list li.hl-card {
   padding: 0; clip-path: none; background: none; position: relative;
   display: flex; flex-direction: column; align-items: flex-start; width: min(100%, 520px);
