@@ -394,6 +394,7 @@ div.ar-item, div.a-same-item { cursor: default; }
 /* my lineup list */
 .mv-item.enter, .mv-day.enter, .empty.enter { animation: rise .45s calc(var(--i, 0) * 45ms) var(--ease-out) both; }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes riseSoft { from { opacity: 0; transform: translateY(6px); } }
 .mv-item { transition: transform .15s var(--ease-out); }
 .mv-item:active { transform: scale(.98); }
 .empty.enter .big { display: inline-block; animation: popIn .6s .15s var(--ease-spring) both; }
@@ -402,7 +403,7 @@ div.ar-item, div.a-same-item { cursor: default; }
 .artist[open]::backdrop { animation: fadeIn .25s ease both; }
 @keyframes fadeIn { from { opacity: 0; } }
 .a-sheet { animation: up .38s var(--ease-out); }
-.fresh .a-head > *, .fresh .a-facts > div, .fresh .a-actions > *, .fresh .a-same { animation: rise .4s var(--ease-out) both; }
+.fresh .a-head > *, .fresh .a-facts > div, .fresh .a-actions > *, .fresh .a-same { animation: riseSoft .45s var(--ease-out) both; }
 .a-kind { animation-delay: .06s !important; } .a-name { animation-delay: .1s !important; } .a-en { animation-delay: .14s !important; }
 .a-facts > div:nth-child(1) { animation-delay: .16s; } .a-facts > div:nth-child(2) { animation-delay: .2s; } .a-facts > div:nth-child(3) { animation-delay: .24s; }
 .a-actions > :nth-child(1) { animation-delay: .26s; } .a-actions > :nth-child(2) { animation-delay: .3s; } .a-same { animation-delay: .34s; }
@@ -684,7 +685,7 @@ button.ar-item:active { transform: translateX(var(--dx, 0)) rotate(0) scale(.97)
 
 /* artist window photo eases in */
 .a-photo img { animation: photoIn .6s var(--ease-out) both; }
-@keyframes photoIn { from { opacity: 0; transform: scale(1.06); } }
+@keyframes photoIn { from { opacity: 0; transform: scale(1.02); } }
 
 /* filter chips: little press bounce */
 .ar-filters button[aria-selected="true"] { animation: popIn .35s var(--ease-spring); }
@@ -869,28 +870,23 @@ html { scrollbar-color: var(--yellow) var(--brown); }
 
 /* ---------- artist window: springy open / slide-away close (phones) ---------- */
 @media (max-width: 759px) {
-  .a-sheet { animation: sheetUp .62s cubic-bezier(.2, .9, .25, 1.12) both; transform-origin: 50% 100%; }
+  .a-sheet { animation: sheetUp .5s var(--ease-sheet) both; will-change: transform; }
   .a-sheet::before {
     content: ""; position: sticky; top: 8px; z-index: 3; display: block; width: 44px; height: 5px; margin: 8px auto -13px;
     border-radius: 999px; background: rgba(46, 23, 12, .35);
   }
-  .artist[open]::backdrop { animation: fadeIn .35s ease both; }
-  .a-photo img { animation: photoIn .7s .12s var(--ease-out) both; }
-  .fresh .a-head > * { animation-duration: .5s; }
-  .a-close { animation: popIn .45s .25s var(--ease-spring) both; }
+  .artist[open]::backdrop { animation: fadeIn .4s ease both; }
+  .a-photo img { animation: photoIn .7s .1s var(--ease-out) both; }
+  .a-close { animation: fadeIn .3s .2s ease both; }
 }
-@keyframes sheetUp {
-  0%   { transform: translateY(100%) scale(.98); }
-  65%  { transform: translateY(-2.5%) scale(1); }
-  100% { transform: translateY(0); }
-}
-.artist.closing .a-sheet { animation: sheetDown .3s cubic-bezier(.5, 0, .9, .5) forwards !important; }
-.artist.closing::backdrop { animation: fadeOut .3s ease forwards; }
+/* soft curves: quick start, long gentle settle, no bounce */
+:root { --ease-sheet: cubic-bezier(.32, .72, 0, 1); --ease-soft: cubic-bezier(.25, .8, .25, 1); --ease-soft-out: cubic-bezier(.45, 0, .55, 1); }
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.artist.closing .a-sheet { animation: sheetDown .34s cubic-bezier(.4, 0, .2, 1) forwards !important; }
+.artist.closing::backdrop { animation: fadeOut .38s ease forwards; }
 @keyframes sheetDown { to { transform: translateY(105%); } }
 @keyframes fadeOut { to { opacity: 0; } }
 @media (min-width: 760px) {
-  .artist.closing .a-sheet { animation: sheetFade .25s ease forwards !important; }
-  @keyframes sheetFade { to { opacity: 0; transform: translateY(24px) scale(.98); } }
 }
 
 @media (max-width: 759px) { .hl-trumpet { left: -34px; width: 100px; } }
@@ -953,39 +949,33 @@ html { scrollbar-color: var(--yellow) var(--brown); }
   .artist[open] { align-items: center; }
   .a-sheet {
     border-radius: 22px; max-height: 86vh;
-    animation: cardIn .6s cubic-bezier(.2, .9, .25, 1.15) both;
-    transform-origin: 50% 60%;
+    animation: cardIn .5s var(--ease-soft) both;
+    transform-origin: 50% 60%; will-change: transform, opacity;
     box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
   }
   .a-photo img { border-radius: 22px 22px 0 0; animation: photoIn .8s .1s var(--ease-out) both; }
-  .artist[open]::backdrop { animation: blurIn .4s ease both; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-  .a-close { animation: popIn .45s .3s var(--ease-spring) both; }
-  .fresh .a-head > * { animation-duration: .55s; }
+  .artist[open]::backdrop { animation: fadeIn .35s ease both; }
+  .a-close { animation: fadeIn .3s .15s ease both; }
 }
-@keyframes cardIn {
-  0%   { opacity: 0; transform: translateY(60px) rotate(-3deg) scale(.86); }
-  60%  { opacity: 1; transform: translateY(-6px) rotate(.6deg) scale(1.01); }
-  100% { transform: none; }
-}
-@keyframes blurIn { from { opacity: 0; backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); } }
+@keyframes cardIn { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
 @media (min-width: 760px) {
-  .artist.closing .a-sheet { animation: cardOut .28s cubic-bezier(.5, 0, .9, .5) forwards !important; }
-  @keyframes cardOut { to { opacity: 0; transform: translateY(40px) rotate(2deg) scale(.92); } }
+  .artist.closing .a-sheet { animation: cardOut .3s var(--ease-soft-out) forwards !important; }
+  @keyframes cardOut { to { opacity: 0; transform: translateY(10px) scale(.98); } }
 }
 
 /* ---------- phones: smooth sheet (one GPU transform, no competing animations) ---------- */
 @media (max-width: 759px) {
   .a-sheet {
-    animation: sheetSlide .46s cubic-bezier(.32, .72, 0, 1) both !important;
+    animation: sheetSlide .55s var(--ease-soft) both !important;
     will-change: transform; contain: layout paint; backface-visibility: hidden;
   }
   @keyframes sheetSlide { from { transform: translate3d(0, 100%, 0); } to { transform: translate3d(0, 0, 0); } }
-  .artist.closing .a-sheet { animation: sheetSlideOut .26s cubic-bezier(.4, 0, 1, 1) forwards !important; }
+  .artist.closing .a-sheet { animation: sheetSlideOut .38s var(--ease-soft-out) forwards !important; }
   @keyframes sheetSlideOut { to { transform: translate3d(0, 100%, 0); } }
   /* the content arrives with the sheet instead of animating separately */
   .fresh .a-head > *, .fresh .a-facts > div, .fresh .a-actions > *, .fresh .a-same,
   .a-photo img, .a-close { animation: none !important; }
-  .artist[open]::backdrop { animation: fadeIn .3s ease both; }
+  .artist[open]::backdrop { animation: fadeIn .45s ease both; }
 }
 
 /* artist window: keep the scrollbar inside the rounded corners */

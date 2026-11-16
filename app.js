@@ -408,7 +408,7 @@
   }
   const paras = (t) => String(t).split(/\n\s*\n/).map((p) => `<p class="a-info">${esc(p.trim())}</p>`).join("");
   function photoHTML(meta) {
-    return meta.photo ? `<figure class="a-photo"><img src="${esc(meta.photo)}" alt="">` +
+    return meta.photo ? `<figure class="a-photo"><img src="${esc(meta.photo)}" alt="" decoding="async">` +
       (meta.credit ? `<figcaption>${esc(meta.credit)}</figcaption>` : "") + `</figure>` : "";
   }
   function showsFor(e) { const n = e.show || e.en; return DATA.filter((s) => s.day === e.day && s.name === n).sort((a, b) => a.start - b.start); }
