@@ -326,7 +326,7 @@
     const fav = favs.has(s.id);
     const entry = lineupFor(s);
     const meta = infoFor(entry, s.name);
-    const info = meta.bio;
+    const info = (EN && meta.bio_en) || meta.bio;
     const same = DATA.filter((o) => o.day === s.day && o.id !== s.id && o.start < s.end && s.start < o.end);
     $("#artist-body").innerHTML = photoHTML(meta) +
       `<div class="a-head s-${stageIdx(s.stage)} ${s.kind}">` +
@@ -427,7 +427,7 @@
       `<dl class="a-facts"><div><dt>${L("יום", "Day")}</dt><dd>${DAYS[e.day].name} ${DAYS[e.day].date}</dd></div>` +
         `<div><dt>${L("שעה", "Time")}</dt><dd>${L("בקרוב", "TBA")}</dd></div><div><dt>${L("מקום", "Venue")}</dt><dd>${L("בית רומנו", "Beit Romano")}</dd></div></dl>` +
       (e.note ? `<p class="a-note">${esc(note(e.note))}</p>` : "") +
-      (meta.bio ? paras(meta.bio) : "");
+      ((EN && meta.bio_en) || meta.bio ? paras((EN && meta.bio_en) || meta.bio) : "");
     const body = $("#artist-body"); body.classList.remove("fresh"); void body.offsetWidth; body.classList.add("fresh");
     if (!dlg.open) { dlg.showModal(); try { history.pushState({ artist: "lineup-" + i }, ""); } catch (err) {} }
     $("#artist-body").scrollTop = 0; updateBar(); scroller.querySelectorAll("img").forEach((i) => i.addEventListener("load", () => updateBar(), { once: true })); setTimeout(() => updateBar(), 650);
