@@ -36,75 +36,89 @@ window.ARTIST_INFO = {
   },
   "Cinema Royal": {
     he: "סינמה רויאל",
-    bio: "Cinema Royal של Rejoicer וניתאי הרשקוביץ היא מסיבה שסוחפת את הגוף והחושים. שנים של שיתוף פעולה בין השניים יצרו מוזיקה סביב נגינת פסנתר שהוקלטה בטייק יחיד, עם שכבות של אפרוביט, היי־לייף ופולק ים־תיכוני. בפסטיבל – בהרכב מורחב של 8 נגנים."
+    bio: "Cinema Royal של Rejoicer וניתאי הרשקוביץ היא מסיבה שסוחפת את הגוף והחושים. שנים של שיתוף פעולה בין השניים יצרו מוזיקה סביב נגינת פסנתר שהוקלטה בטייק יחיד, עם שכבות של אפרוביט, היי־לייף ופולק ים־תיכוני. בפסטיבל – בהרכב מורחב של 8 נגנים.",
+    bio_en: "Cinema Royal, by Rejoicer and Nitai Hershkovits, is a party that sweeps up body and senses alike. Years of collaboration between the two have produced music built around piano playing recorded in a single take, layered with Afrobeat, highlife and Mediterranean folk. At the festival they appear as an expanded 8-piece band."
   },
   "Hillel Salem Quintet - Tribute to Wayne Shorter": {
     he: "חמישיית הלל סאלם – מחווה ל־Wayne Shorter",
     bio: "חמישיית החצוצרן הלל סאלם במחווה למוזיקה של Wayne Shorter, שתנגן בעיקר מתוך האלבום Night Dreamer. בהרכב: הלל סאלם (חצוצרה ופלוגלהורן), אילן סאלם (חליל וחליל אלט), קטיה טובול (פסנתר), ארן הרדי (בס) ואביב בונה (תופים).",
+    bio_en: "Trumpeter Hillel Salem’s quintet in a tribute to the music of Wayne Shorter, playing mainly from the album Night Dreamer. The line-up: Hillel Salem (trumpet and flugelhorn), Ilan Salem (flute and alto flute), Katia Toubul (piano), Eran Hardy (bass) and Aviv Bone (drums).",
     photo: "assets/artists/hillel-salem.jpg",
     credit: "צילום: Jean-François Carreau"
   },
   "Asaf Yuria Quartet": {
     he: "אסף יוריה",
     bio: "מופע חגיגת צאת האלבום החדש של אסף יוריה, In Light of a New Moon, שהוקלט עבור חברת התקליטים Jojo Records ומנגנים בו ג׳ורג׳ קייבלס, בילי הארט ועומר אביטל. באלבום סטנדרטים ידועים לצד שירים של קייבלס ושל יוריה. בהופעה בארץ מצטרפים אליו קטיה טובול, יונתן לוי ודניאל דור.",
+    bio_en: "A release celebration for Asaf Yuria’s new album, In Light of a New Moon, recorded for Jojo Records with George Cables, Billy Hart and Omer Avital. The album features well-known standards alongside songs by Cables and by Yuria. For the show in Israel he is joined by Katia Toubul, Jonathan Levy and Daniel Dor.",
     photo: "assets/artists/asaf-yuria.jpg",
     credit: "צילום: דן בלילתי"
   },
   "The Kadosh Brothers": {
     he: "האחים קדוש",
     bio: "שלישיית האחים און יוסף קדוש (עוד), עילאי קדוש (קונטרבס) ואלאמר קדוש (תופים) מנגנת יצירות מקוריות שכתב און במיוחד להרכב. המוזיקה שלהם משלבת ג׳אז מודרני, מוזיקה ערבית קלאסית ורוק פרוגרסיבי, ומחברת בין מסורות עתיקות לשפה עכשווית. ההרכב נמצא לקראת הוצאת אלבום הבכורה שלו.",
+    bio_en: "The trio of brothers On Yosef Kadosh (oud), Ilai Kadosh (double bass) and Alamar Kadosh (drums) plays original pieces On wrote especially for the band. Their music blends modern jazz, classical Arabic music and progressive rock, connecting ancient traditions with a contemporary language. The band is about to release its debut album.",
     photo: "assets/artists/kadosh-brothers.jpg",
     credit: "צילום: יוסי צבקר"
   },
   "Mamelo Gaitanopoulos Quintet": {
     he: "חמישיית ממלו גיטנופולוס",
     bio: "החמישייה של ממלו גיטנופולוס תנגן קטעים מקוריים שהלחין לאורך השנים, לצד סטנדרטים בעיבודים יצירתיים.",
+    bio_en: "Mamelo Gaitanopoulos’s quintet plays original pieces he has composed over the years, alongside standards in creative arrangements.",
     photo: "assets/artists/mamelo-gaitanopoulos.jpg",
     credit: "צילום: אלי טלאל"
   },
   "Spice'n'Space - The Granola Incident": {
     bio: "הרכב פאנק השואב השראה מהג׳אז והפאנק של תחילת שנות ה־70, עם לחנים קליטים, חוש הומור חד והופעות מלאות אנרגיה. הלהקה הוקמה ב־2021 על ידי החלילן מתן קליין והמתופף אוריה מדר, הוציאה את אלבום הבכורה The Funk Thing (2023) והופיעה ברחבי אירופה ואסיה. ה־EP החדש, The Granola Incident, הוקלט וצולם בחלל אחד.",
+    bio_en: "A funk band inspired by the jazz and funk of the early 1970s, with catchy tunes, a sharp sense of humour and high-energy shows. Founded in 2021 by flautist Matan Klein and drummer Uria Madar, the band released its debut album The Funk Thing (2023) and has toured Europe and Asia. Their new EP, The Granola Incident, was recorded and filmed in a single room.",
     photo: "assets/artists/spice-n-space.jpg",
     credit: "צילום: The Sunday Shooting"
   },
   "Jonathan Levy": {
     he: "יונתן לוי",
-    bio: "מפיק, בסיסט, גיטריסט ומלחין עטור פרסים, חבר מרכזי בלהקת איזבו וממייסדי Duo Brothers, שהפיק אלבומים לאמנים כמו הבנות נחמה, יעל דקלבאום ודויד ברוזה. אחרי שנים מאחורי הקלעים הוא עולה לקדמת הבמה עם הרכב חדש ואלבום חדש – גרוב, ג׳אז, אלקטרוניקה וסאונד עכשווי, בין קומפוזיציות מורכבות לאלתור חופשי."
+    bio: "מפיק, בסיסט, גיטריסט ומלחין עטור פרסים, חבר מרכזי בלהקת איזבו וממייסדי Duo Brothers, שהפיק אלבומים לאמנים כמו הבנות נחמה, יעל דקלבאום ודויד ברוזה. אחרי שנים מאחורי הקלעים הוא עולה לקדמת הבמה עם הרכב חדש ואלבום חדש – גרוב, ג׳אז, אלקטרוניקה וסאונד עכשווי, בין קומפוזיציות מורכבות לאלתור חופשי.",
+    bio_en: "An award-winning producer, bassist, guitarist and composer, a core member of Izabo and co-founder of Duo Brothers, who has produced albums for artists such as HaBanot Nechama, Yael Deckelbaum and David Broza. After years behind the scenes he steps into the spotlight with a new band and a new album – groove, jazz, electronics and a contemporary sound, moving between intricate compositions and free improvisation."
   },
   "Alon Tayar & Daniel Dor": {
     he: "אלון תייר ודניאל דור",
     bio: "מופע דואו של פסנתר ותופים: אלון תייר (פסנתר וקלידים) ודניאל דור (תופים), שמנגנים יחד לאורך השנים בפרויקטים אינסטרומנטליים ובלהקה של תייר. במופע חד־פעמי לפסטיבל, משוחררים לרגע מכוח הכבידה של הקונטרבס, הם יבחנו את פורמט הדואו – ואולי גם את פורמט הסולו.",
+    bio_en: "A piano and drums duo: Alon Tayar (piano and keys) and Daniel Dor (drums), who have played together for years in instrumental projects and in Tayar’s band. In a one-off show for the festival, freed for a moment from the gravity of the double bass, they will explore the duo format – and perhaps the solo format too.",
     photo: "assets/artists/alon-tayar-daniel-dor.jpg",
     credit: "צילום: נדב גל (אלון תייר), ירדן רוקח (דניאל דור)"
   },
   "Shlomi Alon & The Retro Kings": {
     he: "שלומי אלון & The Retro Kings",
     bio: "שלומי אלון, חבר הלהקות הדג נחש ופאנקנשטיין, מגיע עם מופע המבוסס על אלבום הסולו הראשון שלו, Retro Kings. אלון וההרכב נעים בין פאנק, סול, ג׳אז והיפ־הופ, עם גרוב עמוק, מלודיות עשירות ואנרגיה של להקה חיה. על הבמה: רון אבידן, עידן אנגל, שאול עשת וגיא סטריער.",
+    bio_en: "Shlomi Alon, a member of Hadag Nahash and Funkenstein, presents a show based on his first solo album, Retro Kings. Alon and the band move between funk, soul, jazz and hip-hop, with deep grooves, rich melodies and the energy of a live band. On stage: Ron Avidan, Idan Engel, Shaul Eshet and Guy Strier.",
     photo: "assets/artists/shlomi-alon.jpg",
     credit: "צילום: חיים יפים ברבלט"
   },
   "Milton Michaeli Sextet": {
     he: "שישיית מילטון מיכאלי",
     bio: "שישיית ג׳אז בהנהגת הפסנתרן והמלחין מילטון מיכאלי, המנגנת מוזיקה מקורית שלו בעיבודים שמשאירים מרחב גדול לאלתור. המוזיקה נעה בין ג׳אז, מוזיקה לטינית, מוזיקה קלאסית ואלתור חופשי. בהרכב: אורי דגן (טרומבון), איתי רייטן (סקסופונים), ברהמי מיכאלי (חצוצרה), אסף שחורי (קונטרבס) וניצן בירנבאום (תופים).",
+    bio_en: "A jazz sextet led by pianist and composer Milton Michaeli, playing his original music in arrangements that leave plenty of room for improvisation. The music moves between jazz, Latin music, classical music and free improvisation. The line-up: Uri Dagan (trombone), Itay Raiten (saxophones), Brahmi Michaeli (trumpet), Assaf Shahori (double bass) and Nitzan Birnbaum (drums).",
     photo: "assets/artists/milton-michaeli.jpg",
     credit: "צילום: קרן בויקו"
   },
   "Mark Moshayev Quartet": {
     he: "מארק מושייב – BLESS",
-    bio: "BLESS הוא פרויקט בהובלת המתופף והיוצר מארק מושייב, שחוזר אל שני היסודות העתיקים של המוזיקה – מנגינה וקצב. המנגינה צומחת מעולם הראגה ההודית ומועשרת בהרמוניה מערבית, והקצב שואב השראה מהטאלה ההודית ומקבל צורות חדשות במבנים מערביים. מתוך המפגש נוצר רפרטואר מקורי שבו קומפוזיציה ואלתור מתפתחים זה לצד זה."
+    bio: "BLESS הוא פרויקט בהובלת המתופף והיוצר מארק מושייב, שחוזר אל שני היסודות העתיקים של המוזיקה – מנגינה וקצב. המנגינה צומחת מעולם הראגה ההודית ומועשרת בהרמוניה מערבית, והקצב שואב השראה מהטאלה ההודית ומקבל צורות חדשות במבנים מערביים. מתוך המפגש נוצר רפרטואר מקורי שבו קומפוזיציה ואלתור מתפתחים זה לצד זה.",
+    bio_en: "BLESS is a project led by drummer and composer Mark Moshayev that returns to the two oldest elements of music – melody and rhythm. The melody grows out of the world of Indian raga and is enriched with Western harmony, while the rhythm draws on Indian tala and takes new shapes within Western structures. From this meeting comes an original repertoire in which composition and improvisation develop side by side."
   },
   "Dina Kitrossky: Microtonal Jazz": {
     bio: "דינה קיטרוסקי היא פסנתרנית ומלחינה המשלבת ג׳אז עם מקאמים מזרח־תיכוניים, על פסנתר המכוון ברבעי טונים. אלבום הבכורה שלה, WAVES, יצא בדצמבר 2023. אלבומה הבא עם הטריו – בר גבע (בס) ויניב לובן (תופים), בהשתתפות איתמר בורוכוב (חצוצרה) – מוקדש למקאם, לרבעי טונים ולאלתור ג׳אז.",
+    bio_en: "Dina Kitrossky is a pianist and composer who combines jazz with Middle Eastern maqams, on a piano tuned in quarter tones. Her debut album, WAVES, came out in December 2023. Her next album with her trio – Bar Geva (bass) and Yaniv Luban (drums), featuring Itamar Borochov (trumpet) – is devoted to maqam, quarter tones and jazz improvisation.",
     photo: "assets/artists/dina-kitrossky.jpg",
     credit: "צילום: Rony Alfandari"
   },
   "Sarel Hacohen": {
     he: "שראל הכהן",
-    bio: "נגן הקאנון והיוצר שראל הכהן לוקח את אחד הכלים המזוהים עם מסורת המזרח אל עולם של גרוב עכשווי, ג׳אז ופאנק. דרך צלילי המקאם ומקצבים סוחפים נוצר סאונד עשיר ומפתיע, שנע בין רגעים מהפנטים לחוויה בועטת."
+    bio: "נגן הקאנון והיוצר שראל הכהן לוקח את אחד הכלים המזוהים עם מסורת המזרח אל עולם של גרוב עכשווי, ג׳אז ופאנק. דרך צלילי המקאם ומקצבים סוחפים נוצר סאונד עשיר ומפתיע, שנע בין רגעים מהפנטים לחוויה בועטת.",
+    bio_en: "Qanun player and composer Sarel Hacohen takes one of the instruments most associated with Eastern tradition into a world of contemporary groove, jazz and funk. Through the sounds of the maqam and driving rhythms comes a rich, surprising sound that moves between hypnotic moments and a hard-hitting experience."
   },
   "Ronen Shmueli & The Rimon Jazz Institute Ambassadors: The Research": {
     he: "רונן שמואלי ובוגרי הג׳אז אינסטיטיוט של רימון",
     bio: "רונן שמואלי ובוגרי הג׳אז אינסטיטיוט של רימון, המגיעים מכל רחבי העולם, נפגשים לערב מחווה לסצנה העלומה של הרכבי הקולג׳ים בארה״ב בשנות ה־70. הפקה מיוחדת לפסטיבל, במפגש בין אבסטרקט לגרוב, עם קטעים שנשלפו מהארכיונים ונצבעים מחדש. אורחות: נעה בלומר ומאיה דוידוביץ (שירה).",
+    bio_en: "Ronen Shmueli and graduates of the Rimon Jazz Institute, who come from all over the world, meet for an evening paying tribute to the little-known scene of US college bands in the 1970s. A special production for the festival, where abstraction meets groove, with pieces pulled from the archives and given new colour. Guest singers: Noa Blumer and Maya Davidovich.",
     photo: "assets/artists/ronen-shmueli-rimon.jpg"
   }
 };
