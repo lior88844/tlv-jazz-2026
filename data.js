@@ -846,16 +846,6 @@ window.SCHEDULE = [
  {
   "day": "sat",
   "stage": "קיסה",
-  "name": "Honey Dew",
-  "start": 1410,
-  "end": 1440,
-  "kind": "dj",
-  "he": "Honey Dew",
-  "id": "sat-1410-קיסה"
- },
- {
-  "day": "sat",
-  "stage": "קיסה",
   "name": "Midnight Jam Session · Johnny O'Neal",
   "start": 1440,
   "end": 1500,
