@@ -655,7 +655,7 @@
   }
   let placeT = null;
   const schedulePlace = (ms) => { clearTimeout(placeT); placeT = setTimeout(placeStars, ms); };
-  addEventListener("load", () => schedulePlace(1400));
+  document.readyState === "complete" ? schedulePlace(1400) : addEventListener("load", () => schedulePlace(1400));
   addEventListener("resize", () => schedulePlace(300));
   /* ---------- day cards ---------- */
   function renderDays() {

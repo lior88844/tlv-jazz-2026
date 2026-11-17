@@ -58,7 +58,13 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20261116g">
+<link rel="stylesheet" href="style.css?v=20261117a" onerror="var n=+(this.dataset.r||0);if(n<4){this.dataset.r=n+1;var h=this.href.split('&r=')[0],l=this;setTimeout(function(){l.href=h+'&r='+(n+1)+'-'+Date.now()},500*(n+1))}">
+<link rel="preload" as="script" href="data.js?v=20261117a">
+<link rel="preload" as="script" href="names.js?v=20261117a">
+<link rel="preload" as="script" href="lineup.js?v=20261117a">
+<link rel="preload" as="script" href="artists-info.js?v=20261117a">
+<link rel="preload" as="script" href="app.js?v=20261117a">
+<link rel="preload" as="script" href="a11y.js?v=20261117a">
 </head>
 <body>
 
@@ -211,11 +217,21 @@
 </dialog>
 
 
-<script src="data.js?v=20261116g"></script>
-<script src="names.js?v=20261116g"></script>
-<script src="lineup.js?v=20261116g"></script>
-<script src="artists-info.js?v=20261116g" onerror="void 0"></script>
-<script src="app.js?v=20261116g"></script>
-<script src="a11y.js?v=20261116g"></script>
+<script>
+// Loads the scripts in order; a file that fails (e.g. a brief 503 from the host) is retried up to 4 times.
+(function () {
+  var q = "?v=20261117a", files = ["data.js", "names.js", "lineup.js", "artists-info.js", "app.js", "a11y.js"], i = 0;
+  function go(n) {
+    if (i >= files.length) return;
+    var s = document.createElement("script");
+    s.src = files[i] + q + (n ? "&r=" + n + "-" + Date.now() : "");
+    s.async = false;
+    s.onload = function () { i++; go(0); };
+    s.onerror = function () { s.remove(); if (n < 4) setTimeout(function () { go(n + 1); }, 500 * (n + 1)); else { i++; go(0); } };
+    document.body.appendChild(s);
+  }
+  go(0);
+})();
+</script>
 </body>
 </html>
